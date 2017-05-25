@@ -1,6 +1,9 @@
 $( document ).ready(function() {
     console.log( "haas jquery" );
 
+    //cache DOM
+    let B = $('body');
+
     let catName = "";  //how do I get this from userdata.. need an include or something?
 
     let mouseCount = 0;
@@ -55,7 +58,7 @@ $( document ).ready(function() {
       {
       "id": 7,
       "name": "bedroom",
-      "image": "/images/7-bedroom.gif"
+      "image": "/images/7-bedroom.gif",
       "status": "YOU WIN!"
       }
     ]
@@ -76,8 +79,9 @@ $( document ).ready(function() {
     </div>
     <div class="status"><h3>"playing"</h3></div>
     */
-    let GameUnit = $('#game-unit');
 
+    let GameUnit = $('#game-unit');
+      console.log(GameUnit+"debug");
     let M = $('<div class="message">');
     //if/else to handle currentRoom = 0
     let message = `You are in the ${rooms[currentRoom]["name"]}`;
@@ -88,8 +92,18 @@ $( document ).ready(function() {
     let OPT = $('<form class="options">');
     ////need to plan out the options form with multiple buttons, scaling depending on the number of buttons
     let status = `${rooms[currentRoom]["status"]}`;
-    let STAT = $('<div class="status">');
+    let STAT = $('<div class="'+status+'">');
     STAT.text = status;
+
+    // B.addchild(M);
+    // B.addchild(IMG);
+    // B.addchild(OPT);
+    // B.addchild(STAT);
+
+    GameUnit.append(M);
+    GameUnit.append(IMG);
+    GameUnit.append(OPT);
+    GameUnit.append(STAT);
 
     //still need to addchild to dom and append to GameUnit.
     //then start debugging
@@ -104,4 +118,4 @@ $( document ).ready(function() {
     //animation of mouse hunts
     //refine graphics and UX
 
-});
+});  //doc ready func
