@@ -88,7 +88,8 @@ $( document ).ready(function() {
     let BUTTS = [];
 
     optionsArr.forEach(function(option){  //option will return string with name of room or #?
-      let BUTT = $('<button class="opt">');
+      let BUTT = $(`<button class="opt">${option}</button>`);
+
       BUTT.attr({});
       OPTS.append(BUTT);
     })
