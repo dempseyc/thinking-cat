@@ -17,7 +17,7 @@ $( document ).ready(function() {
       },
       {
       "name": "utility",
-      "image": "/images/2-utility.gif",
+      "image": "/images/2-boiler.gif",
       "status": "hunting"
       },
       {
