@@ -1,0 +1,77 @@
+<!doctype html>
+<html>
+  <head>
+    <link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="/css/style.css" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Rye' rel='stylesheet' type='text/css'>
+  </head>
+  <body>
+    <div class="main-container">
+      <div class="border-container">
+        <h1>"Thinking Cat"</h1>
+        <br>
+
+
+        <!-- logged in -->
+        <!-- in here i should have all the cards-images... and links should trigger script to log user behavior -->
+
+        {{#logged_in}}
+        <div class="col-lg-6 center-block">
+          <div class="alert alert-dismissible alert-warning">
+            <!-- where is it getting email from? replace with 'catname' -->
+            <!-- email is in the auth db..  need catname from the catusers db -->
+            <h4>{{catname}}!</h4>
+            <!-- in css, header here should be stuck to top.. only display and choices should be 'moved' as in a 1-page site..    -->
+            <p>YOU ARE IN THE BASEMENT</p>
+            <div class="display">
+            basement
+            <h1>[]</h1>
+            </div>
+            <!-- user choice should be logged in db as data and a story string of text should be built in the front end -->
+            <div class="options">
+            options
+            <h2>{}{}{}</h2>
+            </div>
+            <!-- upon win/lose state a message and return to root should be displayed -->
+            <div class="message"><h3>"playing"</h3></div>
+          </div>
+          <a href="/logout">Logout!</a>
+        </div>
+        {{/logged_in}}
+
+        <!-- not logged in -->
+        <!-- this is the 'login page' you see -->
+
+        {{^logged_in}}
+        <div class="col-lg-6 center-block">
+          <div class="well bs-component">
+            <form class="form-horizontal" action="/login" method="post">
+              <fieldset>
+                <legend>Login</legend>
+                <div class="form-group">
+                  <label for="inputEmail" class="col-lg-2 control-label">Email</label>
+                  <div class="col-lg-10">
+                    <input name="email" type="text" class="form-control" id="inputEmail" placeholder="Email">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="inputPassword" class="col-lg-2 control-label">Password</label>
+                  <div class="col-lg-10">
+                    <input name="password" type="password" class="form-control" id="inputPassword" placeholder="Password">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="col-lg-10 col-lg-offset-2">
+                    <button type="submit" class="btn btn-primary">Login</button>
+                  </div>
+                </div>
+              </fieldset>
+            </form>
+          </div>
+          <p>Not a member? <a href="/signup">Sign Up!</a></p>
+        </div>
+        {{/logged_in}}
+      </div>
+    </div>
+  </body>
+</html>
