@@ -81,17 +81,22 @@ $( document ).ready(function() {
     let IMG = $('<img>'); //works
     IMG.attr({src:imageSource});  //add altlater //works
 
-    //build out buttons and append to OPT
+    //build out buttons and append to OPTS
     //
-    let OPT = $('<form class="options">');
+    let OPTS = $('<form class="options" action="${quirk}" method="post">');
+    let optionsArr = rooms[currentRoom]["options"];
     let BUTTS = [];
+
+    optionsArr.forEach(function(option){  //option will return string with name of room or #?
+      let BUTT = $('<button class="opt">');
+      BUTT.attr({});
+      OPTS.append(BUTT);
+    })
 
     //swich case scenario, depending upon the currentRoom #;
 
-
     //stuff like
 
-    let optionsArr = `${rooms[currentRoom]["options"]}`
 
 
     ////need to plan out the options form with multiple buttons appended, scaling depending on the number of buttons and options according to game-play scenario
@@ -103,7 +108,7 @@ $( document ).ready(function() {
     //DOM is painted
     GameUnit.append(M);
     GameUnit.append(IMG);
-    GameUnit.append(OPT);
+    GameUnit.append(OPTS);
     GameUnit.append(STAT);
 
     //some functions for updating the currentRoom, game-unit remove and append, mouseCount, catStory, and catData
