@@ -1,8 +1,6 @@
 $( document ).ready(function() {
-    console.log( "haas jquery" );
+    console.log( "haas jquery!!" );
 
-    //cache DOM
-    let B = $('body');
 
     let catName = "";  //how do I get this from userdata.. need an include or something?
 
@@ -81,24 +79,24 @@ $( document ).ready(function() {
     */
 
     let GameUnit = $('#game-unit');
-      console.log(GameUnit+"debug");
-    let M = $('<div class="message">');
+
+    let M = $('<div class="message">'); //works
     //if/else to handle currentRoom = 0
-    let message = `You are in the ${rooms[currentRoom]["name"]}`;
-    M.text = message;
-    let imageSource = `${rooms[currentRoom]["image"]}`;
-    let IMG = $('<img>');
-    IMG.attr({src:imageSource});  //add altlater
+    let message = `You are in the ${rooms[currentRoom]["name"]}`; //works
+    M.text(message); //works
+    let imageSource = `${rooms[currentRoom]["image"]}`; //works
+    let IMG = $('<img>'); //works
+    IMG.attr({src:imageSource});  //add altlater //works
+
+
+
+    //build out buttons and append to OPT
+    //
     let OPT = $('<form class="options">');
-    ////need to plan out the options form with multiple buttons, scaling depending on the number of buttons
+    ////need to plan out the options form with multiple buttons, scaling depending on the number of buttons and options according to game-play
     let status = `${rooms[currentRoom]["status"]}`;
     let STAT = $('<div class="'+status+'">');
-    STAT.text = status;
-
-    // B.addchild(M);
-    // B.addchild(IMG);
-    // B.addchild(OPT);
-    // B.addchild(STAT);
+    STAT.text(status);
 
     GameUnit.append(M);
     GameUnit.append(IMG);
