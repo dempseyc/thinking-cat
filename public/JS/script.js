@@ -87,20 +87,18 @@ $( document ).ready(function() {
     let optionsArr = rooms[currentRoom]["options"];
     let BUTTS = [];
 
+    //this creates buttons for options
+    //what will carry out the functions called by the user interaction
     optionsArr.forEach(function(option){  //option will return string with name of room or #?
       let BUTT = $(`<button class="opt">${option}</button>`);
-
       BUTT.attr({});
       OPTS.append(BUTT);
     })
 
+    //function that changes game-state according to user interaction... updating
     //swich case scenario, depending upon the currentRoom #;
-
-    //stuff like
-
-
-
-    ////need to plan out the options form with multiple buttons appended, scaling depending on the number of buttons and options according to game-play scenario
+    //some functions for updating the currentRoom, game-unit remove and append, mouseCount, catStory, and catData
+    //functions for posting catStory and catData obj to db. i.e. buttons hit post routes on server
 
     let status = `${rooms[currentRoom]["status"]}`;
     let STAT = $('<div class="'+status+'">');
@@ -111,9 +109,6 @@ $( document ).ready(function() {
     GameUnit.append(IMG);
     GameUnit.append(OPTS);
     GameUnit.append(STAT);
-
-    //some functions for updating the currentRoom, game-unit remove and append, mouseCount, catStory, and catData
-    //functions for posting catStory and catData obj to db. i.e. buttons hit post routes on server
 
     // M V P
 
