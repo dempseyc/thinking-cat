@@ -1,7 +1,7 @@
-$( document ).ready(function() {
+$(document).ready(function() {
     // console.log( "haas jquery!!" );
 
-    let catName = "";  //how do I get this from userdata.. need an include or something?
+    let catName = "";  //how do I get this from userdata?
 
     let mouseCount = 0;
 
@@ -88,6 +88,7 @@ $( document ).ready(function() {
     IMG.attr({src:imageSource});
 
     let changeState = function(room,choice) {
+      // game logic lives here
       switch (room) {
         case 0:
           console.log("case 0");
@@ -118,7 +119,7 @@ $( document ).ready(function() {
       };
       //posting catStory and catData obj to db. i.e. buttons hit post routes on server
       console.log("change of state " + room + " " + choice);
-      render();
+      // render();  this breaks change of state continuously
       //updating the game-unit, currentRoom, mouseCount, catStory, and catData
     }
 
@@ -158,7 +159,10 @@ $( document ).ready(function() {
     }
 
     render();
+    // where shall render be called when changeState is ongoing?
+
     //BE update should be routed so in app.js upon win or lose state e.g. rooms 6 and 7
+    //catData and catStory are stored to db
 
     // M V P
 
