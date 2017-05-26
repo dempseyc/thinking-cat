@@ -97,12 +97,13 @@ $(document).ready(function() {
       IMG.attr({src:imageSource});
 
       //action refers to route, method refers to verb
-      let OPTS = $('<form class="options">');
+      let OPTS = $('<form class="options" action="/" method="put">');
+      let CATDAT = $('<input type="hidden" name="cat-data">');
 
       let optionsArr = rooms[currentRoom]["options"];
 
       optionsArr.forEach(function(option){
-        let BUTT = $(`<button class="opt">${option}</button>`);
+        let BUTT = $(`<button type="submit" class="opt">${option}</button>`);
         BUTT.click({room: currentRoom, option: option}, userChoice);
         OPTS.append(BUTT);
       });

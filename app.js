@@ -78,6 +78,17 @@ app.post('/signup', function(req, res){
   });
 });
 
+app.put('/', function(req,res){
+  db
+    .one("UPDATE cats SET story = $1 WHERE email = $2",
+      [req.body.story, req.session.user.email]
+    ).catch(function(){
+      res.send('Failed to update cat story.');
+    }).then(function(){
+      res.send('Cat story updated');
+    });
+})
+
 app.put('/user', function(req, res){
   db
     .none("UPDATE cats SET email = $1 WHERE email = $2",
