@@ -154,15 +154,44 @@ $(document).ready(function() {
           break;
         case 3: //storage (up ladder)
           console.log("case 3");
-          //choice 0 = hallway // choice 1 = back (basement)
+          if (choice=="back"){
+            currentRoom=1;
+            createState();
+          };
+          if (choice=="door"){
+            currentRoom=4;
+            createState();
+          };
           break;
         case 4: //hallway
           console.log("case 4");
-          //choice 0 = door1(kitchen) // choice 1 = door2(bedroom) // choice 3 = window (outside)
+          if (choice=="door1"){
+            currentRoom=5;
+            createState();
+          };
+          if (choice=="door2"){
+            currentRoom=7;
+            createState();
+          };
+          if (choice=="window"){
+            currentRoom=6;
+            createState();
+          };
+          if (choice=="back"){
+            currentRoom=3;
+            createState();
+          };
           break;
         case 5: //kitchen (door1)
           console.log("case 5");
-          //choice 0 = door22(bedroom) // choice 1 = back (hallway)
+          if (choice=="door22"){
+            currentRoom=7;
+            createState();
+          };
+          if (choice=="back"){
+            currentRoom=4;
+            createState();
+          };
           break;
         case 6: //outside
           console.log("case 6");
