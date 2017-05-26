@@ -72,20 +72,69 @@ $(document).ready(function() {
 
     let initState = function(room) {
       console.log("initial state " + room);
-    }
+    };
 
     initState(currentRoom);
 
-    //merely builds the thing to render
+    let userChoice = function(e) {
+      e.preventDefault();
+      let choice = e.data.option;
+      let room = e.data.room;
+      changeState(room,choice);
+    };
+
     let GameUnit = $('#game-unit');
 
-    let M = $('<div class="message">');
-    //if/else to handle currentRoom = 0
-    let message = `You are in the ${rooms[currentRoom]["name"]}`;
-    M.text(message);
-    let imageSource = `${rooms[currentRoom]["image"]}`;
-    let IMG = $('<img>');
-    IMG.attr({src:imageSource});
+    let createState = function () {
+      console.log("createState called");
+
+      let M = $('<div class="message">');
+      //if/else to handle currentRoom = 0
+      let message = `You are in the ${rooms[currentRoom]["name"]}`;
+      M.text(message);
+      let imageSource = `${rooms[currentRoom]["image"]}`;
+      let IMG = $('<img>');
+      IMG.attr({src:imageSource});
+
+      //action refers to route, method refers to verb
+      let OPTS = $('<form class="options">');
+
+      let optionsArr = rooms[currentRoom]["options"];
+
+      optionsArr.forEach(function(option){
+        let BUTT = $(`<button class="opt">${option}</button>`);
+        BUTT.click({room: currentRoom, option: option}, userChoice);
+        OPTS.append(BUTT);
+      });
+
+      let status = `${rooms[currentRoom]["status"]}`;
+      let STAT = $('<div class="'+status+'">');
+      STAT.text(status);
+
+      GameUnit.empty();
+      //remove all children from GameUnit
+
+      //DOM is painted
+      GameUnit.append(M);
+      GameUnit.append(IMG);
+      GameUnit.append(OPTS);
+      GameUnit.append(STAT);
+
+    };
+    //merely builds the thing to render
+    createState();
+
+
+    // where shall render be called when changeState is ongoing?
+
+    //BE update should be routed so in app.js upon win or lose state e.g. rooms 6 and 7
+    //catData and catStory are stored to db
+
+    // M V P
+
+    //special game-units for title page and story return to UI
+    //animation of mouse hunts
+    //refine graphics and UX
 
     let changeState = function(room,choice) {
       // game logic lives here
@@ -119,55 +168,15 @@ $(document).ready(function() {
       };
       //posting catStory and catData obj to db. i.e. buttons hit post routes on server
       console.log("change of state " + room + " " + choice);
-      // render();  this breaks change of state continuously
       //updating the game-unit, currentRoom, mouseCount, catStory, and catData
-    }
-
-    let userChoice = function(e) {
-      let choice = e.data.option;
-      let room = e.data.room;
-      changeState(room,choice);
     };
 
-    //action refers to route, method refers to verb
-    let OPTS = $('<form class="options">');
-    // ERROR cannot post comes in here
+    // function render () {
+    //   //shall be called upon changeState
 
-    let optionsArr = rooms[currentRoom]["options"];
+    //   //also variables like mouseCount, catStory, and catData should be constructed when the user makes 'decisions'
+    // };
+    // render();  // this breaks change of state continuously
 
-    optionsArr.forEach(function(option){
-      let BUTT = $(`<button class="opt">${option}</button>`);
-      BUTT.click({room: currentRoom, option: option}, userChoice);
-      OPTS.append(BUTT);
-    })
-
-    let status = `${rooms[currentRoom]["status"]}`;
-    let STAT = $('<div class="'+status+'">');
-    STAT.text(status);
-
-    function render () {
-      //shall be called upon changeState
-      GameUnit.empty();
-      //remove all children from GameUnit
-
-      //DOM is painted
-      GameUnit.append(M);
-      GameUnit.append(IMG);
-      GameUnit.append(OPTS);
-      GameUnit.append(STAT);
-      //also variables like mouseCount, catStory, and catData should be constructed when the user makes 'decisions'
-    }
-
-    render();
-    // where shall render be called when changeState is ongoing?
-
-    //BE update should be routed so in app.js upon win or lose state e.g. rooms 6 and 7
-    //catData and catStory are stored to db
-
-    // M V P
-
-    //special game-units for title page and story return to UI
-    //animation of mouse hunts
-    //refine graphics and UX
 
 });  //doc ready func
