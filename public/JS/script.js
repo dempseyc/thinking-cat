@@ -42,7 +42,7 @@ $(document).ready(function() {
       "id": 4,
       "name": "hallway",
       "image": "/images/4-hallway.gif",
-      "options": ["door1","door2","window"],
+      "options": ["door1","door2","window","back"],
       "status": "thinking"
       },
       {
@@ -136,20 +136,29 @@ $(document).ready(function() {
           //CLICK!!
           break;
         case 1: //basement
-          console.log("case 1");
-          //choice 0 = ladder // choice 1 = hole
+          if (choice=="hole"){
+            currentRoom=2;
+            createState();
+          };
+          if (choice=="ladder"){
+            currentRoom=3;
+            createState();
+          };
           break;
         case 2: //boiler
           console.log("case 2");
-          //choice 0 = back
+          if (choice=="back"){
+            currentRoom=1;
+            createState();
+          };
           break;
         case 3: //storage (up ladder)
           console.log("case 3");
-          //choice 0 = through // choice 1 = back (basement)
+          //choice 0 = hallway // choice 1 = back (basement)
           break;
         case 4: //hallway
           console.log("case 4");
-          //choice 0 = door1(kitchen) // choice 1 = door2(bedroom) // choice 3 = window
+          //choice 0 = door1(kitchen) // choice 1 = door2(bedroom) // choice 3 = window (outside)
           break;
         case 5: //kitchen (door1)
           console.log("case 5");
@@ -164,7 +173,7 @@ $(document).ready(function() {
           //WIN!!
           break;
         default:
-          console.log("shit ain't working");
+          console.log("ain't working");
       };
       console.log("change of state " + room + " " + choice);
       createState();
