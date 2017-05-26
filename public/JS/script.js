@@ -127,48 +127,57 @@ $(document).ready(function() {
     //BE update should be routed so in app.js upon win or lose state e.g. rooms 6 and 7
     //catData and catStory are stored to db
 
-    // M V P
-
-    //special game-units for title page and story return to UI
-    //animation of mouse hunts
-    //refine graphics and UX
 
     let changeState = function(room,choice) {
       console.log("changeState called");
       switch (room) {
-        case 0:
+        case 0: //title
           console.log("case 0");
+          //CLICK!!
           break;
-        case 1:
+        case 1: //basement
           console.log("case 1");
+          //choice 0 = ladder // choice 1 = hole
           break;
-        case 2:
+        case 2: //boiler
           console.log("case 2");
+          //choice 0 = back
           break;
-        case 3:
+        case 3: //storage (up ladder)
           console.log("case 3");
+          //choice 0 = through // choice 1 = back (basement)
           break;
-        case 4:
+        case 4: //hallway
           console.log("case 4");
+          //choice 0 = door1(kitchen) // choice 1 = door2(bedroom) // choice 3 = window
           break;
-        case 5:
+        case 5: //kitchen (door1)
           console.log("case 5");
+          //choice 0 = door22(bedroom) // choice 1 = back (hallway)
           break;
-        case 6:
+        case 6: //outside
           console.log("case 6");
+          //LOSE!!
           break;
-        case 7:
+        case 7: //bedroom
           console.log("case 7");
+          //WIN!!
           break;
         default:
           console.log("shit ain't working");
       };
-      //posting catStory and catData obj to db. i.e. buttons hit post routes on server
       console.log("change of state " + room + " " + choice);
       createState();
-      //updating the game-unit, currentRoom, mouseCount, catStory, and catData
+      //updating the game-unit, currentRoom, and mouseCount
     };
 
-    //   //also variables like mouseCount, catStory, and catData should be constructed when the user makes 'decisions'
+    // M V P
+
+    //special game-units for title page and story returned to UI
+    //animation/domgame of mouse hunts
+    //refine graphics and UX
+
+    //also variables like catStory, and catData should be constructed when the user makes 'decisions'
+    //posting catStory and catData obj to db. i.e. buttons hit post routes on server
 
 });  //doc ready func
