@@ -10,7 +10,7 @@ $( document ).ready(function() {
 
     let catData = {};
 
-    let rooms = [
+    const rooms = [
       {
       "id": 0,
       "name": "title",
@@ -83,15 +83,22 @@ $( document ).ready(function() {
 
     //build out buttons and append to OPTS
     //
-    let OPTS = $('<form class="options" action="${quirk}" method="post">');
+
+    let userChoice = function() {
+      console.log("choice made");
+    }
+
+    //action refers to route, method refers to verb
+    let OPTS = $('<form class="options" action="#" method="get">');
+    // ERROR cannot post comes in here
+
     let optionsArr = rooms[currentRoom]["options"];
     let BUTTS = [];
-
     //this creates buttons for options
     //what will carry out the functions called by the user interaction
     optionsArr.forEach(function(option){  //option will return string with name of room or #?
       let BUTT = $(`<button class="opt">${option}</button>`);
-      BUTT.attr({});
+      BUTT.on('click', userChoice);
       OPTS.append(BUTT);
     })
 
@@ -104,11 +111,14 @@ $( document ).ready(function() {
     let STAT = $('<div class="'+status+'">');
     STAT.text(status);
 
+
+    //these GameUnit.append methods should be called by changes in game-state initiated by user
     //DOM is painted
     GameUnit.append(M);
     GameUnit.append(IMG);
     GameUnit.append(OPTS);
     GameUnit.append(STAT);
+    //also variables like mouseCount, catStory, and catData should be constructed when the user makes 'decisions'
 
     // M V P
 
