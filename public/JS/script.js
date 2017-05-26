@@ -1,6 +1,5 @@
 $( document ).ready(function() {
-    console.log( "haas jquery!!" );
-
+    // console.log( "haas jquery!!" );
 
     let catName = "";  //how do I get this from userdata.. need an include or something?
 
@@ -67,32 +66,60 @@ $( document ).ready(function() {
       "options": [],
       "status": "YOU WIN!"
       }
-    ]
+    ];
+
     let currentRoom = 1;
 
+    let initState = function(room) {
+      console.log("initial state " + room);
+    }
 
-
+    initState(currentRoom);
 
     //merely builds the thing to render
     let GameUnit = $('#game-unit');
 
-    let M = $('<div class="message">'); //works
+    let M = $('<div class="message">');
     //if/else to handle currentRoom = 0
-    let message = `You are in the ${rooms[currentRoom]["name"]}`; //works
-    M.text(message); //works
-    let imageSource = `${rooms[currentRoom]["image"]}`; //works
-    let IMG = $('<img>'); //works
-    IMG.attr({src:imageSource});  //add altlater //works
-
-
-    //do i need a render function?
-    //function that changes game-state according to user interaction... updating
-    //swich case scenario, depending upon the currentRoom #;
-    //some functions for updating the currentRoom, game-unit remove and append, mouseCount, catStory, and catData
-    //functions for posting catStory and catData obj to db. i.e. buttons hit post routes on server
+    let message = `You are in the ${rooms[currentRoom]["name"]}`;
+    M.text(message);
+    let imageSource = `${rooms[currentRoom]["image"]}`;
+    let IMG = $('<img>');
+    IMG.attr({src:imageSource});
 
     let changeState = function(room,choice) {
+      switch (room) {
+        case 0:
+          console.log("case 0");
+          break;
+        case 1:
+          console.log("case 1");
+          break;
+        case 2:
+          console.log("case 2");
+          break;
+        case 3:
+          console.log("case 3");
+          break;
+        case 4:
+          console.log("case 4");
+          break;
+        case 5:
+          console.log("case 5");
+          break;
+        case 6:
+          console.log("case 6");
+          break;
+        case 7:
+          console.log("case 7");
+          break;
+        default:
+          console.log("shit ain't working");
+      };
+      //posting catStory and catData obj to db. i.e. buttons hit post routes on server
       console.log("change of state " + room + " " + choice);
+      render();
+      //updating the game-unit, currentRoom, mouseCount, catStory, and catData
     }
 
     let userChoice = function(e) {
@@ -106,10 +133,8 @@ $( document ).ready(function() {
     // ERROR cannot post comes in here
 
     let optionsArr = rooms[currentRoom]["options"];
-    // let BUTTS = [];
-    //this creates buttons for options
-    //what will carry out the functions called by the user interaction
-    optionsArr.forEach(function(option){  //option will return string with name of room or #?
+
+    optionsArr.forEach(function(option){
       let BUTT = $(`<button class="opt">${option}</button>`);
       BUTT.click({room: currentRoom, option: option}, userChoice);
       OPTS.append(BUTT);
@@ -119,9 +144,9 @@ $( document ).ready(function() {
     let STAT = $('<div class="'+status+'">');
     STAT.text(status);
 
-    //these GameUnit.append methods should be called by changes in game-state initiated by user
-
-    let render = function () {
+    function render () {
+      //shall be called upon changeState
+      GameUnit.empty();
       //remove all children from GameUnit
 
       //DOM is painted
@@ -129,10 +154,12 @@ $( document ).ready(function() {
       GameUnit.append(IMG);
       GameUnit.append(OPTS);
       GameUnit.append(STAT);
-      //also variables like mouseCount, catStory, and catData should be constructed when the user makes 'decisions'  routed so in app.js
+      //also variables like mouseCount, catStory, and catData should be constructed when the user makes 'decisions'
     }
 
     render();
+    //BE update should be routed so in app.js upon win or lose state e.g. rooms 6 and 7
+
     // M V P
 
     //special game-units for title page and story return to UI
