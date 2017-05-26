@@ -42,7 +42,7 @@ $(document).ready(function() {
       "id": 4,
       "name": "hallway",
       "image": "/images/4-hallway.gif",
-      "options": ["door1","door2","window"],
+      "options": ["door1","door2","window","back"],
       "status": "thinking"
       },
       {
@@ -72,81 +72,45 @@ $(document).ready(function() {
 
     let initState = function(room) {
       console.log("initial state " + room);
-    }
+    };
 
     initState(currentRoom);
 
-    //merely builds the thing to render
-    let GameUnit = $('#game-unit');
-
-    let M = $('<div class="message">');
-    //if/else to handle currentRoom = 0
-    let message = `You are in the ${rooms[currentRoom]["name"]}`;
-    M.text(message);
-    let imageSource = `${rooms[currentRoom]["image"]}`;
-    let IMG = $('<img>');
-    IMG.attr({src:imageSource});
-
-    let changeState = function(room,choice) {
-      // game logic lives here
-      switch (room) {
-        case 0:
-          console.log("case 0");
-          break;
-        case 1:
-          console.log("case 1");
-          break;
-        case 2:
-          console.log("case 2");
-          break;
-        case 3:
-          console.log("case 3");
-          break;
-        case 4:
-          console.log("case 4");
-          break;
-        case 5:
-          console.log("case 5");
-          break;
-        case 6:
-          console.log("case 6");
-          break;
-        case 7:
-          console.log("case 7");
-          break;
-        default:
-          console.log("shit ain't working");
-      };
-      //posting catStory and catData obj to db. i.e. buttons hit post routes on server
-      console.log("change of state " + room + " " + choice);
-      // render();  this breaks change of state continuously
-      //updating the game-unit, currentRoom, mouseCount, catStory, and catData
-    }
-
     let userChoice = function(e) {
+      e.preventDefault();
       let choice = e.data.option;
       let room = e.data.room;
       changeState(room,choice);
     };
 
-    //action refers to route, method refers to verb
-    let OPTS = $('<form class="options">');
-    // ERROR cannot post comes in here
+    let GameUnit = $('#game-unit');
 
-    let optionsArr = rooms[currentRoom]["options"];
+    let createState = function () {
+      console.log("createState called");
 
-    optionsArr.forEach(function(option){
-      let BUTT = $(`<button class="opt">${option}</button>`);
-      BUTT.click({room: currentRoom, option: option}, userChoice);
-      OPTS.append(BUTT);
-    })
+      let M = $('<div class="message">');
+      //if/else to handle currentRoom = 0
+      let message = `You are in the ${rooms[currentRoom]["name"]}`;
+      M.text(message);
+      let imageSource = `${rooms[currentRoom]["image"]}`;
+      let IMG = $('<img>');
+      IMG.attr({src:imageSource});
 
-    let status = `${rooms[currentRoom]["status"]}`;
-    let STAT = $('<div class="'+status+'">');
-    STAT.text(status);
+      //action refers to route, method refers to verb
+      let OPTS = $('<form class="options">');
 
-    function render () {
-      //shall be called upon changeState
+      let optionsArr = rooms[currentRoom]["options"];
+
+      optionsArr.forEach(function(option){
+        let BUTT = $(`<button class="opt">${option}</button>`);
+        BUTT.click({room: currentRoom, option: option}, userChoice);
+        OPTS.append(BUTT);
+      });
+
+      let status = `${rooms[currentRoom]["status"]}`;
+      let STAT = $('<div class="'+status+'">');
+      STAT.text(status);
+
       GameUnit.empty();
       //remove all children from GameUnit
 
@@ -155,19 +119,103 @@ $(document).ready(function() {
       GameUnit.append(IMG);
       GameUnit.append(OPTS);
       GameUnit.append(STAT);
-      //also variables like mouseCount, catStory, and catData should be constructed when the user makes 'decisions'
-    }
 
-    render();
-    // where shall render be called when changeState is ongoing?
+    };
+    //merely builds the thing to render
+    createState();
 
     //BE update should be routed so in app.js upon win or lose state e.g. rooms 6 and 7
     //catData and catStory are stored to db
 
+
+    let changeState = function(room,choice) {
+      console.log("changeState called");
+      switch (room) {
+        case 0: //title
+          console.log("case 0");
+          //CLICK!!
+          break;
+        case 1: //basement
+          if (choice=="hole"){
+            currentRoom=2;
+            createState();
+          };
+          if (choice=="ladder"){
+            currentRoom=3;
+            createState();
+          };
+          break;
+        case 2: //boiler
+          console.log("case 2");
+          if (choice=="back"){
+            currentRoom=1;
+            createState();
+          };
+          break;
+        case 3: //storage (up ladder)
+          console.log("case 3");
+          if (choice=="back"){
+            currentRoom=1;
+            createState();
+          };
+          if (choice=="door"){
+            currentRoom=4;
+            createState();
+          };
+          break;
+        case 4: //hallway
+          console.log("case 4");
+          if (choice=="door1"){
+            currentRoom=5;
+            createState();
+          };
+          if (choice=="door2"){
+            currentRoom=7;
+            createState();
+          };
+          if (choice=="window"){
+            currentRoom=6;
+            createState();
+          };
+          if (choice=="back"){
+            currentRoom=3;
+            createState();
+          };
+          break;
+        case 5: //kitchen (door1)
+          console.log("case 5");
+          if (choice=="door22"){
+            currentRoom=7;
+            createState();
+          };
+          if (choice=="back"){
+            currentRoom=4;
+            createState();
+          };
+          break;
+        case 6: //outside
+          console.log("case 6");
+          //LOSE!!
+          break;
+        case 7: //bedroom
+          console.log("case 7");
+          //WIN!!
+          break;
+        default:
+          console.log("ain't working");
+      };
+      console.log("change of state " + room + " " + choice);
+      createState();
+      //updating the game-unit, currentRoom, and mouseCount
+    };
+
     // M V P
 
-    //special game-units for title page and story return to UI
-    //animation of mouse hunts
+    //special game-units for title page and story returned to UI
+    //animation/domgame of mouse hunts
     //refine graphics and UX
+
+    //also variables like catStory, and catData should be constructed when the user makes 'decisions'
+    //posting catStory and catData obj to db. i.e. buttons hit post routes on server
 
 });  //doc ready func
