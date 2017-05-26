@@ -68,9 +68,12 @@ $( document ).ready(function() {
       "status": "YOU WIN!"
       }
     ]
-
     let currentRoom = 1;
 
+
+
+
+    //merely builds the thing to render
     let GameUnit = $('#game-unit');
 
     let M = $('<div class="message">'); //works
@@ -81,23 +84,29 @@ $( document ).ready(function() {
     let IMG = $('<img>'); //works
     IMG.attr({src:imageSource});  //add altlater //works
 
+
+    //do i need a render function?
     //function that changes game-state according to user interaction... updating
     //swich case scenario, depending upon the currentRoom #;
     //some functions for updating the currentRoom, game-unit remove and append, mouseCount, catStory, and catData
     //functions for posting catStory and catData obj to db. i.e. buttons hit post routes on server
+
+    let changeState = function(room,choice) {
+      console.log("change of state " + room + " " + choice);
+    }
+
     let userChoice = function(e) {
       let choice = e.data.option;
       let room = e.data.room;
-
-      console.log("choice made " + room + " " + choice);
-    }
+      changeState(room,choice);
+    };
 
     //action refers to route, method refers to verb
-    let OPTS = $('<form class="options" action="#" method="get">');
+    let OPTS = $('<form class="options">');
     // ERROR cannot post comes in here
 
     let optionsArr = rooms[currentRoom]["options"];
-    let BUTTS = [];
+    // let BUTTS = [];
     //this creates buttons for options
     //what will carry out the functions called by the user interaction
     optionsArr.forEach(function(option){  //option will return string with name of room or #?
@@ -112,17 +121,19 @@ $( document ).ready(function() {
 
     //these GameUnit.append methods should be called by changes in game-state initiated by user
 
-    //DOM is painted
-    GameUnit.append(M);
-    GameUnit.append(IMG);
-    GameUnit.append(OPTS);
-    GameUnit.append(STAT);
-    //also variables like mouseCount, catStory, and catData should be constructed when the user makes 'decisions'  routed so in app.js
+    let render = function () {
+      //remove all children from GameUnit
 
+      //DOM is painted
+      GameUnit.append(M);
+      GameUnit.append(IMG);
+      GameUnit.append(OPTS);
+      GameUnit.append(STAT);
+      //also variables like mouseCount, catStory, and catData should be constructed when the user makes 'decisions'  routed so in app.js
+    }
 
+    render();
     // M V P
-
-
 
     //special game-units for title page and story return to UI
     //animation of mouse hunts
