@@ -1,14 +1,12 @@
 <!doctype html>
 <html>
   <head>
-    <link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <link href="/css/style.css" rel="stylesheet" type="text/css">
     <link href='https://fonts.googleapis.com/css?family=Rye' rel='stylesheet' type='text/css'>
     <script src="/js/jquery.js"></script>
   </head>
   <body>
     <div class="main-container">
-      <div class="border-container">
         <h1>"Thinking Cat"</h1>
         <br>
 
@@ -17,70 +15,44 @@
         <!-- in here i should have all the cards-images... and links should trigger script to log user behavior -->
 
         {{#logged_in}}
-        <div class="col-lg-6 center-block">
-          <div class="alert alert-dismissible alert-warning">
-            <!-- where is it getting email from? replace with 'catname' -->
-            <!-- email is in the auth db..  need catname from the catusers db -->
-            <h4>{{catname}}!</h4>
-            <!-- in css, header here should be stuck to top.. only display and choices should be 'moved' as in a 1-page site..    -->
-            <div id="game-unit">
+          <div class="main-container">
+              <!-- where is it getting email from? replace with 'catname' -->
+              <!-- email is in the auth db..  need catname from the catusers db -->
+              <h4>{{catname}}!</h4>
+              <!-- in css, header here should be stuck to top.. only display and choices should be 'moved' as in a 1-page site..    -->
+              <div id="game-unit">
 
-              <!--
-              <div class="message">
-              <p>YOU ARE IN THE BASEMENT</p>
-              </div>
-              <div class="image">
-              <h1>[]</h1>
-              </div>
-              <div class="options">
-              options
-              <h2>{}{}{}</h2>
-              </div>
-              <div class="message"><h3>"playing"</h3></div>
-              -->
+                <!-- jquery dynamic elements live here -->
 
-            </div> <!-- game-unit -->
-            <!-- user choice should be logged in db as data and a story string of text should be built in the front end -->
-            <!-- upon win/lose state a message and return to root should be displayed -->
-          </div>
-          <a href="/logout">Logout!</a>
-        </div>
+              </div> <!-- game-unit -->
+              <!-- user choice should be logged in db as data and a story string of text should be built in the front end -->
+              <!-- upon win/lose state a message and return to root should be displayed -->
+            <a href="/logout">Logout!</a>
+          </div> <!-- main container -->
         {{/logged_in}}
 
         <!-- not logged in -->
         <!-- this is the 'login page' you see -->
 
         {{^logged_in}}
-        <div class="col-lg-6 center-block">
-          <div class="well bs-component">
-            <form class="form-horizontal" action="/login" method="post">
-              <fieldset>
+          <div class="main-container">
+            <h1>Do you think like a smart cat?</h1>
+
+            <div class="form-area">
+              <form class="form" action="/login" method="post">
                 <legend>Login</legend>
-                <div class="form-group">
-                  <label for="inputEmail" class="col-lg-2 control-label">Email</label>
-                  <div class="col-lg-10">
-                    <input name="email" type="text" class="form-control" id="inputEmail" placeholder="Email">
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label for="inputPassword" class="col-lg-2 control-label">Password</label>
-                  <div class="col-lg-10">
+                  <label for="inputEmail" class="emailInput">Email</label>
+                    <input name="email" type="text" class="form-control" id="inputEmail" placeholder="Email" />
+                  <label for="inputPassword" class="passInput">Password</label>
                     <input name="password" type="password" class="form-control" id="inputPassword" placeholder="Password">
-                  </div>
-                </div>
-                <div class="form-group">
-                  <div class="col-lg-10 col-lg-offset-2">
-                    <button type="submit" class="btn btn-primary">Login</button>
-                  </div>
-                </div>
-              </fieldset>
-            </form>
-          </div>
-          <p>Not a member? <a href="/signup">Sign Up!</a></p>
-        </div>
+                  <button type="submit" class="btn btn-primary">Login!</button>
+              </form>
+              <p>Not a member? <a href="/signup">Sign Up!</a></p>
+            </div> <!-- form-area -->
+
+          </div> <!-- main container -->
         {{/logged_in}}
-      </div>
-    </div>
+
     <script src="/js/script.js"></script>
   </body>
 </html>
