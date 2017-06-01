@@ -14,14 +14,14 @@ $(document).ready(function() {
       "id": 0,
       "name": "title",
       "image": "/images/0-title.gif",
-      "status": "click to start",
+      "status": "<click to start>",
       "options": ["click"]
       },
       {
       "id": 1,
       "name": "basement",
       "image": "/images/1-basement.gif",
-      "status": "hunting",
+      "status": "<hunting>",
       "options": ["ladder","hole"]
       },
       {
@@ -29,42 +29,42 @@ $(document).ready(function() {
       "name": "utility",
       "image": "/images/2-boiler.gif",
       "options": ["back"],
-      "status": "hunting"
+      "status": "<hunting>"
       },
       {
       "id": 3,
       "name": "storage",
       "image": "/images/3-storage.gif",
       "options": ["back","door"],
-      "status": "hunting"
+      "status": "<hunting>"
       },
       {
       "id": 4,
       "name": "hallway",
       "image": "/images/4-hallway.gif",
       "options": ["door1","door2","window","back"],
-      "status": "thinking"
+      "status": "<thinking>"
       },
       {
       "id": 5,
       "name": "kitchen",
       "image": "/images/5-kitchen.gif",
       "options": ["back","door22"],
-      "status": "eating"
+      "status": "<eating>"
       },
       {
       "id": 6,
       "name": "outside",
       "image": "/images/6-outside.gif",
       "options": [],
-      "status": "YOU LOSE!"
+      "status": "You lose!"
       },
       {
       "id": 7,
       "name": "bedroom",
       "image": "/images/7-bedroom.gif",
       "options": [],
-      "status": "YOU WIN!"
+      "status": "You win!"
       }
     ];
 
@@ -103,7 +103,7 @@ $(document).ready(function() {
       let optionsArr = rooms[currentRoom]["options"];
 
       optionsArr.forEach(function(option){
-        let BUTT = $(`<button type="submit" class="opt">${option}</button>`);
+        let BUTT = $(`<button type="submit" class="opt">${option}</button> <br />`);
         BUTT.click({room: currentRoom, option: option}, userChoice);
         OPTS.append(BUTT);
       });

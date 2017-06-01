@@ -1,13 +1,37 @@
-.main-container {
-  width: 980px;
-  margin: 0 auto;
+body {
+  /* font-family: 'Dawning of a New Day', cursive; */
+  font-family: 'La Belle Aurore', cursive;
+  font-size: 1.5em;
+  background-color: #FFE;
 }
 
 h1 {
-  text-align: center;
+  font-size: 2em;
 }
 
-.center-block { float: none }
+.main-container {
+  display: grid;
+  grid-template-columns: 1fr 75% 1fr;
+  grid-template-rows: 25% 75%;
+  width: 100%;
+  height: 100vh;
+  margin: 0 auto;
+}
+
+
+header {
+  grid-row-start: 1;
+  grid-column-start: 2;
+  align-self: center;
+  text-align: center;
+  letter-spacing: 0.2em;
+}
+
+#form-area {
+  grid-row-start: 2;
+  grid-column-start: 2;
+  align-self: start;
+}
 
 #game-unit {
   width: 75%;
@@ -19,7 +43,29 @@ h1 {
   height: 100%;
 }
 
-button {
+/* make button look the same as the link */
+
+button, a {
+     background:none;
+     border:none;
+     padding:0;
+     font: inherit;
+     /*border-bottom:2px solid #444;*/
+     cursor: pointer;
+}
+
+/*.form-button {
   color: #F3F;
+}*/
+
+span {
+  color: #F3F;
+  text-decoration: underline;
+  justify-content: center;
+}
+
+#poem {
+  grid-row-start: 3;
+  grid-column-start: 2;
 }
 

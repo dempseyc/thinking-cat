@@ -2,22 +2,16 @@
 <html>
   <head>
     <link href="/css/style.css" rel="stylesheet" type="text/css">
-    <link href='https://fonts.googleapis.com/css?family=Rye' rel='stylesheet' type='text/css'>
+    <link href="https://fonts.googleapis.com/css?family=Cedarville+Cursive|Dawning+of+a+New+Day|La+Belle+Aurore" rel="stylesheet">
     <script src="/js/jquery.js"></script>
+    <title>Thinking Cat</title>
   </head>
   <body>
-    <div class="main-container">
-        <h1>"Thinking Cat"</h1>
-        <br>
 
-
-        <!-- logged in -->
-        <!-- in here i should have all the cards-images... and links should trigger script to log user behavior -->
+  <!-- two different body elems through moustaching -->
 
         {{#logged_in}}
           <div class="main-container">
-              <!-- where is it getting email from? replace with 'catname' -->
-              <!-- email is in the auth db..  need catname from the catusers db -->
               <h4>{{catname}}!</h4>
               <!-- in css, header here should be stuck to top.. only display and choices should be 'moved' as in a 1-page site..    -->
               <div id="game-unit">
@@ -27,7 +21,7 @@
               </div> <!-- game-unit -->
               <!-- user choice should be logged in db as data and a story string of text should be built in the front end -->
               <!-- upon win/lose state a message and return to root should be displayed -->
-            <a href="/logout">Logout!</a>
+            <a href="/logout">Logout</a>
           </div> <!-- main container -->
         {{/logged_in}}
 
@@ -36,18 +30,18 @@
 
         {{^logged_in}}
           <div class="main-container">
-            <h1>Do you think like a smart cat?</h1>
-
-            <div class="form-area">
+            <header>
+              <h1>Log-in to play "Thinking Cat."</h1>
+            </header>
+            <div id="form-area">
               <form class="form" action="/login" method="post">
-                <legend>Login</legend>
-                  <label for="inputEmail" class="emailInput">Email</label>
-                    <input name="email" type="text" class="form-control" id="inputEmail" placeholder="Email" />
-                  <label for="inputPassword" class="passInput">Password</label>
-                    <input name="password" type="password" class="form-control" id="inputPassword" placeholder="Password">
-                  <button type="submit" class="btn btn-primary">Login!</button>
+                <label for="inputEmail" class="emailInput">Email</label>
+                  <input name="email" type="text" class="form-input" id="inputEmail" placeholder="Email" />
+                <label for="inputPassword" class="passInput">Password</label>
+                  <input name="password" type="password" class="form-input" id="inputPassword" placeholder="Password">
+                <button type="submit" class="form-button"><span>Login</span></button>
               </form>
-              <p>Not a member? <a href="/signup">Sign Up!</a></p>
+              <p>Not a member?<a href="/signup"><span>Sign Up</span></a></p>
             </div> <!-- form-area -->
 
           </div> <!-- main container -->
