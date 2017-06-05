@@ -12,16 +12,17 @@
 
         {{#logged_in}}
           <div class="main-container">
-              <h4>{{catname}}!</h4>
+              <header><h4>{{catname}}!</h4></header>
               <!-- in css, header here should be stuck to top.. only display and choices should be 'moved' as in a 1-page site..    -->
               <div id="game-unit">
+
 
                 <!-- jquery dynamic elements live here -->
 
               </div> <!-- game-unit -->
               <!-- user choice should be logged in db as data and a story string of text should be built in the front end -->
               <!-- upon win/lose state a message and return to root should be displayed -->
-            <a href="/logout">Logout</a>
+              <logout><a href="/logout">Logout</a></logout>
           </div> <!-- main container -->
         {{/logged_in}}
 

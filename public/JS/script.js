@@ -21,36 +21,36 @@ $(document).ready(function() {
       "id": 1,
       "name": "basement",
       "image": "/images/1-basement.gif",
-      "status": "<hunting>",
-      "options": ["ladder","hole"]
+      "status": "...hunting...",
+      "options": ["ladder","door"]
       },
       {
       "id": 2,
       "name": "utility",
       "image": "/images/2-boiler.gif",
       "options": ["back"],
-      "status": "<hunting>"
+      "status": "...hunting..."
       },
       {
       "id": 3,
       "name": "storage",
       "image": "/images/3-storage.gif",
       "options": ["back","door"],
-      "status": "<hunting>"
+      "status": "...hunting..."
       },
       {
       "id": 4,
       "name": "hallway",
       "image": "/images/4-hallway.gif",
       "options": ["door1","door2","window","back"],
-      "status": "<thinking>"
+      "status": "...thinking..."
       },
       {
       "id": 5,
       "name": "kitchen",
       "image": "/images/5-kitchen.gif",
       "options": ["back","door22"],
-      "status": "<eating>"
+      "status": "...eating..."
       },
       {
       "id": 6,
@@ -93,8 +93,10 @@ $(document).ready(function() {
       let message = `You are in the ${rooms[currentRoom]["name"]}`;
       M.text(message);
       let imageSource = `${rooms[currentRoom]["image"]}`;
-      let IMG = $('<img>');
-      IMG.attr({src:imageSource});
+      let IMGdiv = $('<div class="room-image">');
+      let BRDdiv = $('<div class="border-div">');
+      IMGdiv.css("background-image", "url("+imageSource+")");
+      BRDdiv.append(IMGdiv);
 
       //action refers to route, method refers to verb
       let OPTS = $('<form class="options" action="/" method="put">');
@@ -117,7 +119,7 @@ $(document).ready(function() {
 
       //DOM is painted
       GameUnit.append(M);
-      GameUnit.append(IMG);
+      GameUnit.append(BRDdiv);
       GameUnit.append(OPTS);
       GameUnit.append(STAT);
 
@@ -137,7 +139,7 @@ $(document).ready(function() {
           //CLICK!!
           break;
         case 1: //basement
-          if (choice=="hole"){
+          if (choice=="door"){
             currentRoom=2;
             createState();
           };
