@@ -7,7 +7,7 @@ $(document).ready(function() {
 
     let catStory = "";
 
-    let catData = {};
+    let catData = [];
 
     const rooms = [
       {
@@ -22,34 +22,34 @@ $(document).ready(function() {
       "name": "basement",
       "image": "/images/1-basement.gif",
       "status": "...hunting...",
-      "options": ["ladder","door"]
+      "options": ["ladder -->","door -->"]
       },
       {
       "id": 2,
       "name": "utility",
       "image": "/images/2-boiler.gif",
-      "options": ["back"],
+      "options": ["back <--"],
       "status": "...hunting..."
       },
       {
       "id": 3,
       "name": "storage",
       "image": "/images/3-storage.gif",
-      "options": ["back","door"],
+      "options": ["back <--","door -->"],
       "status": "...hunting..."
       },
       {
       "id": 4,
       "name": "hallway",
       "image": "/images/4-hallway.gif",
-      "options": ["door1","door2","window","back"],
+      "options": ["door1 -->","door2 -->","window -->","back <--"],
       "status": "...thinking..."
       },
       {
       "id": 5,
       "name": "kitchen",
       "image": "/images/5-kitchen.gif",
-      "options": ["back","door22"],
+      "options": ["back <--","door22 -->"],
       "status": "...eating..."
       },
       {
@@ -139,69 +139,65 @@ $(document).ready(function() {
           //CLICK!!
           break;
         case 1: //basement
-          if (choice=="door"){
+          if (choice=="door -->"){
             currentRoom=2;
-            createState();
+            // createState();
           };
-          if (choice=="ladder"){
+          if (choice=="ladder -->"){
             currentRoom=3;
-            createState();
+            // createState();
           };
           break;
         case 2: //boiler
           console.log("case 2");
-          if (choice=="back"){
+          if (choice=="back <--"){
             currentRoom=1;
-            createState();
+            // createState();
           };
           break;
         case 3: //storage (up ladder)
           console.log("case 3");
-          if (choice=="back"){
+          if (choice=="back <--"){
             currentRoom=1;
-            createState();
+            // createState();
           };
-          if (choice=="door"){
+          if (choice=="door -->"){
             currentRoom=4;
-            createState();
+            // createState();
           };
           break;
         case 4: //hallway
-          console.log("case 4");
-          if (choice=="door1"){
+          if (choice=="door1 -->"){
             currentRoom=5;
-            createState();
+            // createState();
           };
-          if (choice=="door2"){
+          if (choice=="door2 -->"){
             currentRoom=7;
-            createState();
+            // createState();
           };
-          if (choice=="window"){
+          if (choice=="window -->"){
             currentRoom=6;
-            createState();
+            // createState();
           };
-          if (choice=="back"){
+          if (choice=="back <--"){
             currentRoom=3;
-            createState();
+            // createState();
           };
           break;
         case 5: //kitchen (door1)
-          console.log("case 5");
-          if (choice=="door22"){
+          if (choice=="door22 -->"){
             currentRoom=7;
-            createState();
+            // createState();
           };
-          if (choice=="back"){
+          if (choice=="back <--"){
             currentRoom=4;
-            createState();
+            // createState();
           };
           break;
         case 6: //outside
-          console.log("case 6");
           //LOSE!!
           break;
         case 7: //bedroom
-          console.log("case 7");
           //WIN!!
           break;
         default:

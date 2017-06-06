@@ -12,7 +12,7 @@
 
         {{#logged_in}}
           <div class="main-container">
-              <header><h4>{{catname}}!</h4></header>
+              <header><h4>{{catname}},</h4></header>
               <!-- in css, header here should be stuck to top.. only display and choices should be 'moved' as in a 1-page site..    -->
               <div id="game-unit">
 
@@ -32,7 +32,7 @@
         {{^logged_in}}
           <div class="main-container">
             <header>
-              <h1>Log-in to play "Thinking Cat."</h1>
+              <h1>Log-in to play "Thinking Cat."</h1><br />
             </header>
             <div id="form-area">
               <form class="form" action="/login" method="post">
