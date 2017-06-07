@@ -20,49 +20,49 @@ $(document).ready(function() {
       {
       "id": 1,
       "name": "basement",
-      "image": "/images/1-basement.gif",
+      "image": "/images/1-basement.png",
       "status": "...hunting...",
       "options": ["ladder -->","door -->"]
       },
       {
       "id": 2,
       "name": "utility",
-      "image": "/images/2-boiler.gif",
+      "image": "/images/2-boiler.png",
       "options": ["back <--"],
       "status": "...hunting..."
       },
       {
       "id": 3,
       "name": "storage",
-      "image": "/images/3-storage.gif",
+      "image": "/images/3-storage.png",
       "options": ["back <--","door -->"],
       "status": "...hunting..."
       },
       {
       "id": 4,
       "name": "hallway",
-      "image": "/images/4-hallway.gif",
+      "image": "/images/4-hallway.png",
       "options": ["door1 -->","door2 -->","window -->","back <--"],
       "status": "...thinking..."
       },
       {
       "id": 5,
       "name": "kitchen",
-      "image": "/images/5-kitchen.gif",
+      "image": "/images/5-kitchen.png",
       "options": ["back <--","door22 -->"],
       "status": "...eating..."
       },
       {
       "id": 6,
-      "name": "outside",
-      "image": "/images/6-outside.gif",
+      "name": "outdoors",
+      "image": "/images/6-outside.png",
       "options": [],
       "status": "You lose!"
       },
       {
       "id": 7,
       "name": "bedroom",
-      "image": "/images/7-bedroom.gif",
+      "image": "/images/7-bedroom.png",
       "options": [],
       "status": "You win!"
       }
