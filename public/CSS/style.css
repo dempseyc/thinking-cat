@@ -100,14 +100,14 @@ header {
   grid-row-start: 2;
   grid-column-start: 2;
   justify-self: center;
+  width: 80%;
 }
 
 .border-div {
   position: relative;
-  width: 90%;
   height: 0;
   border: 12px solid #000;
-  padding-top: 58%;
+  padding-top: 56%;
   margin: 5%;
 }
 
@@ -126,12 +126,14 @@ header {
 /* make button look the same as the link */
 
 button, a {
-     background:none;
-     border:none;
-     padding:0;
-     font: inherit;
-     /*border-bottom:2px solid #444;*/
-     cursor: pointer;
+  background:none;
+  border:none;
+  padding:0;
+  font: inherit;
+  color: #F3F;
+  text-decoration: underline;
+  /*border-bottom:2px solid #444;*/
+  cursor: pointer;
 }
 
 /*.form-button {
@@ -145,8 +147,8 @@ span {
 }
 
 input {
-    text-decoration:underline;
-    display:inline-block;
+  text-decoration: underline;
+  display:inline-block;
 }
 
 #poem {
@@ -157,7 +159,7 @@ input {
 logout {
   grid-row-start: 5;
   grid-column-start: 2;
-  align-content: start;
+  align-content: center;
   text-align: center;
 }
 

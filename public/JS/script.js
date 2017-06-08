@@ -100,7 +100,9 @@ $(document).ready(function() {
 
       //action refers to route, method refers to verb
       let OPTS = $('<form class="options" action="/" method="put">');
-      let CATDAT = $('<input type="hidden" name="cat-data">');
+      catData.push(currentRoom);
+      let CATDAT = $('<input type="hidden" name="catdata" value="'+catData+'">');
+      OPTS.append(CATDAT);
 
       let optionsArr = rooms[currentRoom]["options"];
 
@@ -111,11 +113,11 @@ $(document).ready(function() {
       });
 
       let status = `${rooms[currentRoom]["status"]}`;
-      let STAT = $('<div class="'+status+'">');
+      let STAT = $('<div class="status">');
       STAT.text(status);
 
-      GameUnit.empty();
       //remove all children from GameUnit
+      GameUnit.empty();
 
       //DOM is painted
       GameUnit.append(M);
@@ -124,11 +126,8 @@ $(document).ready(function() {
       GameUnit.append(STAT);
 
     };
-    //merely builds the thing to render
+    //builds the thing to render and adds data to catData, with db put on the butt click
     createState();
-
-    //BE update should be routed so in app.js upon win or lose state e.g. rooms 6 and 7
-    //catData and catStory are stored to db
 
 
     let changeState = function(room,choice) {
@@ -159,39 +158,31 @@ $(document).ready(function() {
           console.log("case 3");
           if (choice=="back <--"){
             currentRoom=1;
-            // createState();
           };
           if (choice=="door -->"){
             currentRoom=4;
-            // createState();
           };
           break;
         case 4: //hallway
           if (choice=="door1 -->"){
             currentRoom=5;
-            // createState();
           };
           if (choice=="door2 -->"){
             currentRoom=7;
-            // createState();
           };
           if (choice=="window -->"){
             currentRoom=6;
-            // createState();
           };
           if (choice=="back <--"){
             currentRoom=3;
-            // createState();
           };
           break;
         case 5: //kitchen (door1)
           if (choice=="door22 -->"){
             currentRoom=7;
-            // createState();
           };
           if (choice=="back <--"){
             currentRoom=4;
-            // createState();
           };
           break;
         case 6: //outside
