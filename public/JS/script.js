@@ -129,7 +129,6 @@ $(document).ready(function() {
     //builds the thing to render and adds data to catData, with db put on the butt click
     createState();
 
-
     let changeState = function(room,choice) {
       console.log("changeState called");
       switch (room) {
