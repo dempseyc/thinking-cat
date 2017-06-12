@@ -4,6 +4,7 @@ const pgp = require('pg-promise')();
 const mustacheExpress = require('mustache-express');
 const bodyParser = require("body-parser");
 const session = require('express-session');
+const methodOverride = require('method-override');
 
 /* BCrypt stuff here */
 const bcrypt = require('bcrypt');
@@ -15,6 +16,7 @@ app.set('views', __dirname + '/views');
 app.use("/", express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(methodOverride('_method'));
 
 app.use(session({
   secret: 'THINKINGCAT',
@@ -32,7 +34,6 @@ app.get('/', function(req, res){
       "email": req.session.user.email,
       "catname": req.session.user.catname
     };
-
     res.render('index', data);
   } else {
     res.render('index');
@@ -78,22 +79,29 @@ app.post('/signup', function(req, res){
   });
 });
 
-app.put('/', function(req,res){
+app.get('/results', function(req,res){
+   res.render('results/index');
+});
+
+app.put('/results', function(req,res){
+  let data = {
+    "results": req.body.catdata.toString()
+  };
   db
-    .one("UPDATE cats SET data = $1 WHERE email = $2",
-      [req.body.catdata, req.session.user.email]
+    .none(
+      "UPDATE cats SET data = $1 WHERE email = $2",
+      [data["results"], req.session.user.email]
     ).catch(function(){
-      console.log('Failed to update cat data.');
-      res.redirect('/');
+      res.send('Failed to update cat data.');
     }).then(function(){
-      console.log('Cat data updated');
-      res.redirect('/');
+      res.render('results/index', data);
     });
-})
+});
 
 app.put('/user', function(req, res){
   db
-    .none("UPDATE cats SET email = $1 WHERE email = $2",
+    .none(
+      "UPDATE cats SET email = $1 WHERE email = $2",
       [req.body.email, req.session.user.email]
     ).catch(function(){
       res.send('Failed to update user.');

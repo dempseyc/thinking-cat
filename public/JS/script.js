@@ -78,15 +78,13 @@ $(document).ready(function() {
 
     let userChoice = function(e) {
       e.preventDefault();
-      let choice = e.data.option;
-      let room = e.data.room;
-      changeState(room,choice);
+      changeState(e.data.room, e.data.option);
     };
 
     let GameUnit = $('#game-unit');
 
-    let createState = function () {
-      console.log("createState called");
+    let updateDOM = function () {
+      console.log("updateDOM called");
 
       let M = $('<div class="message">');
       //if/else to handle currentRoom = 0
@@ -98,9 +96,12 @@ $(document).ready(function() {
       IMGdiv.css("background-image", "url("+imageSource+")");
       BRDdiv.append(IMGdiv);
 
-      //action refers to route, method refers to verb
-      let OPTS = $('<form class="options" action="/" method="put">');
+      // still trying to get catdata updated in db
+
+      let OPTS = $('<form class="options">');
       catData.push(currentRoom);
+      console.log(catData);
+      //working up to this point
       let CATDAT = $('<input type="hidden" name="catdata" value="'+catData+'">');
       OPTS.append(CATDAT);
 
@@ -127,7 +128,7 @@ $(document).ready(function() {
 
     };
     //builds the thing to render and adds data to catData, with db put on the butt click
-    createState();
+    updateDOM();
 
     let changeState = function(room,choice) {
       console.log("changeState called");
@@ -139,18 +140,15 @@ $(document).ready(function() {
         case 1: //basement
           if (choice=="door -->"){
             currentRoom=2;
-            // createState();
           };
           if (choice=="ladder -->"){
             currentRoom=3;
-            // createState();
           };
           break;
         case 2: //boiler
           console.log("case 2");
           if (choice=="back <--"){
             currentRoom=1;
-            // createState();
           };
           break;
         case 3: //storage (up ladder)
@@ -194,7 +192,7 @@ $(document).ready(function() {
           console.log("ain't working");
       };
       console.log("change of state " + room + " " + choice);
-      createState();
+      updateDOM();
       //updating the game-unit, currentRoom, and mouseCount
     };
 

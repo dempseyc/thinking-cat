@@ -55,6 +55,7 @@ table {
 /*  end reset.css */
 /*  end reset.css */
 
+
 body {
   /* font-family: 'Dawning of a New Day', cursive; */
   font-family: 'La Belle Aurore', cursive;
@@ -64,17 +65,18 @@ body {
 
 h1 {
   font-size: 0.6em;
-  line-height: 2em;
+  line-height: 3em;
   letter-spacing: 1em;
 }
 
 .main-container {
+  overflow: hidden;
   display: grid;
-  grid-template-columns: 1vw 80vw 10vw;
-  grid-template-rows: 20vh 70vh 15vh 5vh;
-  width: 300vw;
-  height: 300vh;
-  margin: 2%;
+  grid-template-columns: 10% 80% 90%;
+  grid-template-rows: 15% 5% 80% 95% 110%;
+  width: 70%;
+  height: 70%;
+  padding: 5%;
 }
 
 
@@ -84,11 +86,12 @@ header {
   align-self: start;
   text-align: center;
   letter-spacing: 0.4em;
+  text-decoration-style: bold;
   margin: 10%;
 }
 
 #form-area {
-  grid-row-start: 2;
+  grid-row-start: 3;
   grid-column-start: 2;
   align-self: center;
   justify-self: center;
@@ -96,18 +99,27 @@ header {
   line-height: 1.4em;
 }
 
+form label {
+  text-align: center;
+}
+
+.form-input {
+  display: block;
+  font-size: 0.8em;
+}
+
 #game-unit {
-  grid-row-start: 2;
+  grid-row-start: 3;
   grid-column-start: 2;
   justify-self: center;
-  width: 80%;
+  width: 70%;
 }
 
 .border-div {
   position: relative;
   height: 0;
   border: 12px solid #000;
-  padding-top: 56%;
+  padding-top: 55%;
   margin: 5%;
 }
 
@@ -125,20 +137,19 @@ header {
 
 /* make button look the same as the link */
 
+.opt {
+  margin: 2% 0 2% 0;
+}
+
 button, a {
   background:none;
   border:none;
-  padding:0;
+  padding: 0;
   font: inherit;
   color: #F3F;
   text-decoration: underline;
-  /*border-bottom:2px solid #444;*/
   cursor: pointer;
 }
-
-/*.form-button {
-  color: #F3F;
-}*/
 
 span {
   color: #F3F;
@@ -152,18 +163,15 @@ input {
 }
 
 #poem {
-  grid-row-start: 3;
+  grid-row-start: 4;
   grid-column-start: 2;
+  margin-top: 15%;
 }
 
-logout {
+#result {
   grid-row-start: 5;
   grid-column-start: 2;
   align-content: center;
   text-align: center;
-}
-
-.form-input {
-
 }
 

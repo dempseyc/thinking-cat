@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+  <head>
+    <link href="/css/style.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Cedarville+Cursive|Dawning+of+a+New+Day|La+Belle+Aurore" rel="stylesheet">
+    <script src="/js/jquery.js"></script>
+    <title>Thinking Cat</title>
+  </head>
+  <body>
+
+    <div class="main-container">
+      <header>
+        <h1>You are logged out.</h1><br />
+        <h1>Log-in to play "Thinking Cat."</h1><br />
+      </header>
+      <div id="form-area">
+        <form class="form" action="/login" method="post">
+          <label for="inputEmail" class="emailInput">Email</label>
+            <input name="email" type="text" class="form-input" id="inputEmail" placeholder="Email" />
+          <label for="inputPassword" class="passInput">Password</label>
+            <input name="password" type="password" class="form-input" id="inputPassword" placeholder="Password">
+          <button type="submit" class="form-button"><span>Login</span></button>
+        </form>
+        <p>Not a member?<a href="/signup"><span>Sign Up</span></a></p>
+      </div> <!-- form-area -->
+
+    </div> <!-- main container -->
+
+    <script src="/js/script.js"></script>
+  </body>
+</html>
