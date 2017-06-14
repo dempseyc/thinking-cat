@@ -6,6 +6,11 @@ const bodyParser = require("body-parser");
 const session = require('express-session');
 const methodOverride = require('method-override');
 
+
+// body parsers allows us to use request.body to grab data from the frontend
+
+///perhaps needs cookie parser and store user data in express session?  but what about session.email...
+
 /* BCrypt stuff here */
 const bcrypt = require('bcrypt');
 const salt = bcrypt.genSalt(10);
@@ -14,6 +19,7 @@ app.engine('html', mustacheExpress());
 app.set('view engine', 'html');
 app.set('views', __dirname + '/views');
 app.use("/", express.static(__dirname + '/public'));
+
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(methodOverride('_method'));
@@ -22,8 +28,17 @@ app.use(session({
   secret: 'THINKINGCAT',
   resave: false,
   saveUninitialized: true,
-  cookie: { secure: false }
-}))
+  cookie: {
+    secure: false,
+    store: true
+    }
+    // maxAge: 365 * 24 * 60 * 60 * 1000,
+    // httpOnly: false,
+    // domain: '127.0.0.1:3000'}
+  //
+}));
+
+// res.header("Access-Control-Allow-Origin", "http://127.0.0.1:3000");
 
 let db = pgp('postgres://macbook@localhost:5432/catusers');
 
@@ -32,7 +47,8 @@ app.get('/', function(req, res){
     let data = {
       "logged_in": true,
       "email": req.session.user.email,
-      "catname": req.session.user.catname
+      "catname": req.session.user.catname,
+      "catdata": ""
     };
     res.render('index', data);
   } else {
@@ -79,23 +95,33 @@ app.post('/signup', function(req, res){
   });
 });
 
-app.get('/results', function(req,res){
-   res.render('results/index');
-});
-
 app.put('/results', function(req,res){
-  let data = {
-    "results": req.body.catdata.toString()
-  };
-  db
-    .none(
-      "UPDATE cats SET data = $1 WHERE email = $2",
-      [data["results"], req.session.user.email]
-    ).catch(function(){
-      res.send('Failed to update cat data.');
-    }).then(function(){
-      res.render('results/index', data);
-    });
+  console.log("put call to results");
+  if(req.session.user){
+    let data = {
+      "logged_in": true,
+      "email": req.body.email,
+      "catname": req.session.user.catname,
+      "results": req.body.catdata
+    };
+    db
+      .none(
+        "UPDATE cats SET data = $1 WHERE email = $2",
+        [data["results"], data["email"]]
+      ).catch(function(){
+        res.send('Failed to update cat data.');
+      }).then(function(){
+        res.render('index', data);
+      });
+    } else {
+      res.send('no req session user');  //why is there no req.session.user.. do alt
+    }
+  });
+
+app.get('/results', function(req,res){
+  console.log("get call to results");
+   res.render('index');
+   // button hits results route without put and session seemingly
 });
 
 app.put('/user', function(req, res){

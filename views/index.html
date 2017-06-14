@@ -13,14 +13,19 @@
         {{#logged_in}}
           <div class="main-container">
               <header><h4>{{catname}},</h4></header>
-              <div id="game-unit">
+              <div id="display-unit">
 
                 <!-- jquery dynamic elements live here -->
 
               </div> <!-- game-unit -->
               <!-- user choice should be logged in db as data and a story string of text should be built in the front end -->
               <div id="result">
-                <form action="/results" method="put"><button name="results" type="submit">Results</button></form>
+                <div id="email" name="email">{{email}}</div>
+                <form action="/results" method="put">
+                <input type="hidden" name="catdata" value="" />
+                <!-- in script.js, always update value of catdata every turn -->
+                  <button type="submit">Results</button>
+                </form>
               </div> <!-- result -->
 
           </div> <!-- main container -->

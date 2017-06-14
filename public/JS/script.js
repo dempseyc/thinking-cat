@@ -81,7 +81,7 @@ $(document).ready(function() {
       changeState(e.data.room, e.data.option);
     };
 
-    let GameUnit = $('#game-unit');
+    let DisplayUnit = $('#display-unit');
 
     let updateDOM = function () {
       console.log("updateDOM called");
@@ -101,6 +101,7 @@ $(document).ready(function() {
       let OPTS = $('<form class="options">');
       catData.push(currentRoom);
       console.log(catData);
+
       //working up to this point
       let CATDAT = $('<input type="hidden" name="catdata" value="'+catData+'">');
       OPTS.append(CATDAT);
@@ -117,17 +118,17 @@ $(document).ready(function() {
       let STAT = $('<div class="status">');
       STAT.text(status);
 
-      //remove all children from GameUnit
-      GameUnit.empty();
+      //remove all children from DisplayUnit
+      DisplayUnit.empty();
 
       //DOM is painted
-      GameUnit.append(M);
-      GameUnit.append(BRDdiv);
-      GameUnit.append(OPTS);
-      GameUnit.append(STAT);
+      DisplayUnit.append(M);
+      DisplayUnit.append(BRDdiv);
+      DisplayUnit.append(OPTS);
+      DisplayUnit.append(STAT);
 
     };
-    //builds the thing to render and adds data to catData, with db put on the butt click
+    //builds the thing to render and adds data to catData
     updateDOM();
 
     let changeState = function(room,choice) {
@@ -193,12 +194,12 @@ $(document).ready(function() {
       };
       console.log("change of state " + room + " " + choice);
       updateDOM();
-      //updating the game-unit, currentRoom, and mouseCount
+      //updating the display-unit, currentRoom, and mouseCount
     };
 
     // M V P
 
-    //special game-units for title page and story returned to UI
+    //special display-unit for title page and story returned to UI
     //animation/domgame of mouse hunts
     //refine graphics and UX
 

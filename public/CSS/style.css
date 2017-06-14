@@ -108,11 +108,15 @@ form label {
   font-size: 0.8em;
 }
 
-#game-unit {
+#display-unit {
   grid-row-start: 3;
   grid-column-start: 2;
   justify-self: center;
   width: 70%;
+}
+
+#email {
+  display: none;
 }
 
 .border-div {
