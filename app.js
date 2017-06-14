@@ -2,10 +2,9 @@ const express = require('express');
 const app = express();
 const pgp = require('pg-promise')();
 const mustacheExpress = require('mustache-express');
-const bodyParser = require("body-parser");
+const bodyParser = require('body-parser');
 const session = require('express-session');
 const methodOverride = require('method-override');
-
 
 // body parsers allows us to use request.body to grab data from the frontend
 
@@ -24,21 +23,14 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(methodOverride('_method'));
 
+// i don't know what any of these thing mean  express.session methods? passing what obj lit?
+
 app.use(session({
+  key: 'thinking-cat',
   secret: 'THINKINGCAT',
   resave: false,
-  saveUninitialized: true,
-  cookie: {
-    secure: false,
-    store: true
-    }
-    // maxAge: 365 * 24 * 60 * 60 * 1000,
-    // httpOnly: false,
-    // domain: '127.0.0.1:3000'}
-  //
+  saveUninitialized: false
 }));
-
-// res.header("Access-Control-Allow-Origin", "http://127.0.0.1:3000");
 
 let db = pgp('postgres://macbook@localhost:5432/catusers');
 
@@ -95,13 +87,16 @@ app.post('/signup', function(req, res){
   });
 });
 
+
+//
+// can i req body this stuff?????????????????????????????????????/
 app.put('/results', function(req,res){
   console.log("put call to results");
-  if(req.session.user){
+  // if(req.session.user){
     let data = {
       "logged_in": true,
       "email": req.body.email,
-      "catname": req.session.user.catname,
+      "catname": req.body.catname,
       "results": req.body.catdata
     };
     db
@@ -113,9 +108,9 @@ app.put('/results', function(req,res){
       }).then(function(){
         res.render('index', data);
       });
-    } else {
-      res.send('no req session user');  //why is there no req.session.user.. do alt
-    }
+    // } else {
+    //   res.send('no req session user');  //why is there no req.session.user?.. do alt
+    // }
   });
 
 app.get('/results', function(req,res){

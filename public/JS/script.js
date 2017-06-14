@@ -1,7 +1,7 @@
 $(document).ready(function() {
     // console.log( "haas jquery!!" );
 
-    let catName = "";  //how do I get this from userdata?
+    let catName = "";
 
     let mouseCount = 0;
 
@@ -200,7 +200,7 @@ $(document).ready(function() {
     // M V P
 
     //special display-unit for title page and story returned to UI
-    //animation/domgame of mouse hunts
+    //animation/dom-game of mouse hunts
     //refine graphics and UX
 
     //also variables like catStory, and catData should be constructed when the user makes 'decisions'
