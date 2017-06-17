@@ -4,15 +4,11 @@ const pgp = require('pg-promise')();
 const mustacheExpress = require('mustache-express');
 const bodyParser = require('body-parser');
 const session = require('express-session');
-const methodOverride = require('method-override');
+const clientSessions = require("client-sessions");
 
 // body parsers allows us to use request.body to grab data from the frontend
 
 ///perhaps needs cookie parser and store user data in express session?  but what about session.email...
-
-/* BCrypt stuff here */
-const bcrypt = require('bcrypt');
-const salt = bcrypt.genSalt(10);
 
 app.engine('html', mustacheExpress());
 app.set('view engine', 'html');
@@ -21,15 +17,12 @@ app.use("/", express.static(__dirname + '/public'));
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use(methodOverride('_method'));
 
 // i don't know what any of these thing mean  express.session methods? passing what obj lit?
 
-app.use(session({
-  key: 'thinking-cat',
-  secret: 'THINKINGCAT',
-  resave: false,
-  saveUninitialized: false
+app.use(clientSessions({
+  secret: 'supersecretsecretstring',
+  duration: 120 * 60 * 1000 //2-minute session
 }));
 
 let db = pgp('postgres://macbook@localhost:5432/catusers');
