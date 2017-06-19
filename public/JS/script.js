@@ -96,15 +96,13 @@ $(document).ready(function() {
       IMGdiv.css("background-image", "url("+imageSource+")");
       BRDdiv.append(IMGdiv);
 
-      // still trying to get catdata updated in db
-
       let OPTS = $('<form class="options">');
       catData.push(currentRoom);
-      console.log(catData);
+      let cdStr = catData.toString();
+      console.log(cdStr);
 
-      //working up to this point
-      let CATDAT = $('<input type="hidden" name="catdata" value="'+catData+'">');
-      OPTS.append(CATDAT);
+      let CATDAT = $('#cat-data');
+      CATDAT.val(cdStr);
 
       let optionsArr = rooms[currentRoom]["options"];
 
