@@ -12,63 +12,164 @@ $(document).ready(function() {
     const rooms = [
       {
       "id": 0,
-      "name": "title",
-      "image": "/images/0-title.gif",
-      "status": "<click to start>",
-      "options": ["click"]
+      "name": "welcome!",
+      "image": "./public/images/0-title.png",
+      "options": ["click to start"],
+      "clickables": [
+      {
+        "id": 0,
+        "link": 1,
+        "top": 0,
+        "left": 0,
+        "width": "100%"
+      },
+      {
+        "id": 1
+      }
+      ],
+      "status": ""  //change script to something considering edge case 0
       },
       {
       "id": 1,
       "name": "basement",
-      "image": "/images/1-basement.png",
-      "status": "...hunting...",
-      "options": ["ladder -->","door -->"]
+      "image": "./public/images/1-basement.png",
+      "options": ["door -->","ladder -->"],
+      "clickables": [
+      {
+        "id": 0,
+        "link": 1,
+        "top": 0,
+        "left": 0,
+        "width": "20%"
+      },
+      {
+        "id": 1
+      }
+      ],
+      "status": "...thinking..."
       },
       {
       "id": 2,
       "name": "utility",
-      "image": "/images/2-boiler.png",
+      "image": "./public/images/2-boiler.png",
       "options": ["back <--"],
+      "clickables": [
+      {
+        "id": 0,
+        "link": 1,
+        "top": 0,
+        "left": 0,
+        "width": "20%"
+      },
+      {
+        "id": 1
+      }
+      ],
       "status": "...hunting..."
       },
       {
       "id": 3,
       "name": "storage",
-      "image": "/images/3-storage.png",
-      "options": ["back <--","door -->"],
+      "image": "./public/images/3-storage.png",
+      "options": ["door -->","back <--"],
+      "clickables": [
+      {
+        "id": 0,
+        "link": 1,
+        "top": 0,
+        "left": 0,
+        "width": "20%"
+      },
+      {
+        "id": 1
+      }
+      ],
       "status": "...hunting..."
       },
       {
       "id": 4,
       "name": "hallway",
-      "image": "/images/4-hallway.png",
-      "options": ["door1 -->","door2 -->","window -->","back <--"],
+      "image": "./public/images/4-hallway.png",
+      "options": ["window -->","door1 -->","door2 -->","back <--"],
+      "clickables": [
+      {
+        "id": 0,
+        "link": 1,
+        "top": 0,
+        "left": 0,
+        "width": "20%"
+      },
+      {
+        "id": 1
+      }
+      ],
       "status": "...thinking..."
       },
       {
       "id": 5,
       "name": "kitchen",
-      "image": "/images/5-kitchen.png",
+      "image": "./public/images/5-kitchen.png",
       "options": ["back <--","door22 -->"],
+      "clickables": [
+      {
+        "id": 0,
+        "link": 1,
+        "top": 0,
+        "left": 0,
+        "width": "20%"
+      },
+      {
+        "id": 1
+      }
+      ],
       "status": "...eating..."
       },
       {
       "id": 6,
       "name": "outdoors",
-      "image": "/images/6-outside.png",
+      "image": "./public/images/6-outside.png",
       "options": [],
+      "clickables": [
+      {
+        "id": 0,
+        "link": 1,
+        "top": 0,
+        "left": 0,
+        "width": "20%"
+      },
+      {
+        "id": 1
+      }
+      ],
       "status": "You lose!"
       },
       {
       "id": 7,
       "name": "bedroom",
-      "image": "/images/7-bedroom.png",
+      "image": "./public/images/7-bedroom.png",
       "options": [],
+      "clickables": [
+      {
+        "id": 0,
+        "link": 1,
+        "top": 0,
+        "left": 0,
+        "width": "20%"
+      },
+      {
+        "id": 1
+      }
+      ],
       "status": "You win!"
       }
     ];
 
-    let currentRoom = 1;
+    //data
+    //data
+    //data
+    //data
+
+    let currentRoom = 0;
 
     let initState = function(room) {
       console.log("initial state " + room);
@@ -87,16 +188,20 @@ $(document).ready(function() {
       console.log("updateDOM called");
 
       let M = $('<div class="message">');
-      //if/else to handle currentRoom = 0
-      let message = `You are in the ${rooms[currentRoom]["name"]}`;
-      M.text(message);
+      if (currentRoom == 0) {
+        let message = `${rooms[currentRoom]["name"]}`;
+        M.text(message);
+      } else {
+        let message = `You are in the ${rooms[currentRoom]["name"]}.`;
+        M.text(message);
+      }
       let imageSource = `${rooms[currentRoom]["image"]}`;
       let IMGdiv = $('<div class="room-image">');
-      let BRDdiv = $('<div class="border-div">');
+      // let BRDdiv = $('<div class="border-div">');
       IMGdiv.css("background-image", "url("+imageSource+")");
-      BRDdiv.append(IMGdiv);
 
-      let OPTS = $('<form class="options">');
+
+      let OPTS = $('<form class="opts">');
       catData.push(currentRoom);
       let cdStr = catData.toString();
       console.log(cdStr);
@@ -121,7 +226,7 @@ $(document).ready(function() {
 
       //DOM is painted
       DisplayUnit.append(M);
-      DisplayUnit.append(BRDdiv);
+      DisplayUnit.append(IMGdiv);
       DisplayUnit.append(OPTS);
       DisplayUnit.append(STAT);
 
@@ -134,6 +239,7 @@ $(document).ready(function() {
       switch (room) {
         case 0: //title
           console.log("case 0");
+          currentRoom=1;  //added to this  f e version
           //CLICK!!
           break;
         case 1: //basement
@@ -194,14 +300,5 @@ $(document).ready(function() {
       updateDOM();
       //updating the display-unit, currentRoom, and mouseCount
     };
-
-    // M V P
-
-    //special display-unit for title page and story returned to UI
-    //animation/dom-game of mouse hunts
-    //refine graphics and UX
-
-    //also variables like catStory, and catData should be constructed when the user makes 'decisions'
-    //posting catStory and catData obj to db. i.e. buttons hit post routes on server
 
 });  //doc ready func
