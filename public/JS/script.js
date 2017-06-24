@@ -1,3 +1,19 @@
+//from S.O. an interesting jquery solution to making child size same as parent
+// $(function() {
+//     function unifyHeights() {
+//         var maxHeight = 0;
+//         $('#container').children('#navigation, #content').each(function() {
+//             var height = $(this).outerHeight();
+//             // alert(height);
+//             if ( height > maxHeight ) {
+//                 maxHeight = height;
+//             }
+//         });
+//         $('#navigation, #content').css('height', maxHeight);
+//     }
+//     unifyHeights();
+// });
+
 $(document).ready(function() {
     // console.log( "haas jquery!!" );
 
@@ -14,7 +30,7 @@ $(document).ready(function() {
       "id": 0,
       "name": "welcome!",
       "image": "./public/images/0-title.png",
-      "options": ["click to start"],
+      "options": ["__click to start"],
       "clickables": [
       {
         "id": 0,
@@ -27,13 +43,13 @@ $(document).ready(function() {
         "id": 1
       }
       ],
-      "status": ""  //change script to something considering edge case 0
+      "status": "" //change script to something considering edge case 0
       },
       {
       "id": 1,
       "name": "basement",
       "image": "./public/images/1-basement.png",
-      "options": ["door -->","ladder -->"],
+      "options": ["__door -->","__ladder -->"],
       "clickables": [
       {
         "id": 0,
@@ -52,7 +68,7 @@ $(document).ready(function() {
       "id": 2,
       "name": "utility",
       "image": "./public/images/2-boiler.png",
-      "options": ["back <--"],
+      "options": ["__back <--"],
       "clickables": [
       {
         "id": 0,
@@ -71,7 +87,7 @@ $(document).ready(function() {
       "id": 3,
       "name": "storage",
       "image": "./public/images/3-storage.png",
-      "options": ["door -->","back <--"],
+      "options": ["__door -->","__back <--"],
       "clickables": [
       {
         "id": 0,
@@ -90,7 +106,7 @@ $(document).ready(function() {
       "id": 4,
       "name": "hallway",
       "image": "./public/images/4-hallway.png",
-      "options": ["window -->","door1 -->","door2 -->","back <--"],
+      "options": ["__window -->","__door1 -->","__door2 -->","__back <--"],
       "clickables": [
       {
         "id": 0,
@@ -109,7 +125,7 @@ $(document).ready(function() {
       "id": 5,
       "name": "kitchen",
       "image": "./public/images/5-kitchen.png",
-      "options": ["back <--","door22 -->"],
+      "options": ["__back <--","__door22 -->"],
       "clickables": [
       {
         "id": 0,
@@ -200,19 +216,42 @@ $(document).ready(function() {
       // let BRDdiv = $('<div class="border-div">');
       IMGdiv.css("background-image", "url("+imageSource+")");
 
+      // this builds the jquery div array
+      let CLICKABLES = rooms[currentRoom].clickables.map(function (clickable){
+        // in this code clickable is an obj full of css shit
+        // CLICKABLES is an array of divs to be appended to IMGdiv
+        let clickArea = $('<div class="clickable">');
+        return clickArea;
+      });
 
+      ////
+      ////
+      // running into trouble here with the order of events i think
+      // this appends the divs to IMGdiv
+      CLICKABLES.forEach(function (el){
+        el.css({
+          "top": el.top,
+          "left": el.left,
+          "width": el.width,
+          "link": el.link
+        });
+        IMGdiv.append(el);
+      });
+
+      // this builds an alternative way to interact and also with cdStr updates tracker
+      // we have to make this work the same way with clickable divs
       let OPTS = $('<form class="opts">');
       catData.push(currentRoom);
       let cdStr = catData.toString();
-      console.log(cdStr);
-
+      console.log("interactions " + cdStr);
       let CATDAT = $('#cat-data');
       CATDAT.val(cdStr);
-
       let optionsArr = rooms[currentRoom]["options"];
-
       optionsArr.forEach(function(option){
-        let BUTT = $(`<button type="submit" class="opt">${option}</button> <br />`);
+        // let BUTT = $(`<button type="submit" class="opt">${option}</button> <br />`);
+        let BUTT = $(`<button type="submit" class="opt">${option}</button>`);
+        // englishing this line............
+        // we pass args room and option into userChoice function as props of 'e'
         BUTT.click({room: currentRoom, option: option}, userChoice);
         OPTS.append(BUTT);
       });
@@ -243,47 +282,47 @@ $(document).ready(function() {
           //CLICK!!
           break;
         case 1: //basement
-          if (choice=="door -->"){
+          if (choice=="__door -->"){
             currentRoom=2;
           };
-          if (choice=="ladder -->"){
+          if (choice=="__ladder -->"){
             currentRoom=3;
           };
           break;
         case 2: //boiler
           console.log("case 2");
-          if (choice=="back <--"){
+          if (choice=="__back <--"){
             currentRoom=1;
           };
           break;
         case 3: //storage (up ladder)
           console.log("case 3");
-          if (choice=="back <--"){
+          if (choice=="__back <--"){
             currentRoom=1;
           };
-          if (choice=="door -->"){
+          if (choice=="__door -->"){
             currentRoom=4;
           };
           break;
         case 4: //hallway
-          if (choice=="door1 -->"){
+          if (choice=="__door1 -->"){
             currentRoom=5;
           };
-          if (choice=="door2 -->"){
+          if (choice=="__door2 -->"){
             currentRoom=7;
           };
-          if (choice=="window -->"){
+          if (choice=="__window -->"){
             currentRoom=6;
           };
-          if (choice=="back <--"){
+          if (choice=="__back <--"){
             currentRoom=3;
           };
           break;
         case 5: //kitchen (door1)
-          if (choice=="door22 -->"){
+          if (choice=="__door22 -->"){
             currentRoom=7;
           };
-          if (choice=="back <--"){
+          if (choice=="__back <--"){
             currentRoom=4;
           };
           break;
