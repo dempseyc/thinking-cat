@@ -51,9 +51,11 @@ table {
 /*  end reset.css */
 /*  end reset.css */
 /*  end reset.css */
+
 /*html,body {
   height:100%;
 }*/
+
 /*  end reset.css */
 /*  end reset.css */
 /*  end reset.css */
@@ -62,8 +64,21 @@ table {
 body {
   /* font-family: 'Dawning of a New Day', cursive; */
   font-family: 'La Belle Aurore', cursive;
-  font-size: 2em;
+  font-size: 3em;
   background-color: #FFE;
+}
+
+.main-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 5% 10% 5% 10%;
+}
+
+header {
+  text-decoration-style: bold;
+  margin: 5% 5% 2% 5%;
 }
 
 h1 {
@@ -72,25 +87,20 @@ h1 {
   letter-spacing: 1em;
 }
 
-.main-container {
-  overflow: hidden;
-  display: flex;
-  width: 70%;
-  height: 70%;
-  padding: 0 5% 5% 5%;
+.message{
+  display: block;
+  margin: 0 0 4% 0;
 }
 
-header {
-
-  text-align: center;
-  letter-spacing: 0.4em;
-  text-decoration-style: bold;
-  margin: 5% 5% 2% 5%;
-}
-
-#form-area {
+#form-unit {
   font-size: 0.7em;
   line-height: 1.4em;
+}
+
+#display-unit {
+}
+
+#results-unit {
 }
 
 form label {
@@ -102,13 +112,64 @@ form label {
   font-size: 0.8em;
 }
 
-#display-unit {
-  width: 100%;
+.room-image {
+  position: relative;
+  background-size: cover;
 }
 
-#results-unit {
-  width: 100%;
-  margin-top: 5%;
+.room-image img{
+}
+
+.clickable {
+  position: absolute;
+  border: 2px solid pink;
+  background-color: rgba(155,0,0,0.5);
+}
+
+.opts {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: space-between;
+  font-size: 0.8em;
+  /*margin: 2% 0 2% 0;*/
+}
+
+.opt {
+}
+
+.status {
+  padding: 2% 0 2% 0;
+  font-size: 0.7em;
+}
+
+#result {
+  color: #F3F;
+  text-decoration: underline;
+  justify-content: center;
+}
+
+input {
+  text-decoration: underline;
+  /*display:inline-block; */
+}
+
+button, a {
+  background: none;
+  border: none;
+  color: #F3F;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+/* make button look the same as the link */
+span {
+  color: #F3F;
+  text-decoration: underline;
+  justify-content: left;
+}
+
+#last-link {
 }
 
 #email {
@@ -119,90 +180,8 @@ form label {
   display: none;
 }
 
-.message{
-  margin: 0 0 4% 0;
-}
-
-/*.border-div {
-  position: relative;
-  border: 12px solid #000;
-  width: 80%;
-  height: 0 auto;
-  padding-top: 65%;
-}*/
-
-.room-image {
-  display: flex;
-  position: relative;
-  outline: 12px solid #000;
-  width: 80%;
-  height: 0 auto;
-  padding-top: 53%;
-  background-size: cover;
-  overflow: auto
-  margin-bottom: 4%;
-}
-
-/* make button look the same as the link */
-
-.clickable {
-  align-items: stretch;
-  position: absolute;
-  border: 2px solid pink;
-  background-color: rgba(155,0,0,0.5);
-}
-
-/*from title to basement*/
-/*from basement to boiler*/
-/*from basement to hall*/
-
-
-.opts {
-  font-size: 0.8em;
-  margin: 2% 0 2% 0;
-}
-
-.opt {
-  margin: 1% 0 2% 0;
-  vertical-align: 90%;
-}
-
-.status {
-  padding: 2% 0 2% 0;
-  font-size: 0.7em;
-}
-
-button, a {
-  background: none;
-  border: none;
-  /*padding: 0;*/
-  font: inherit;
-  color: #F3F;
-  text-decoration: underline;
-  cursor: pointer;
-}
-
-span {
-  color: #F3F;
-  text-decoration: underline;
-  justify-content: center;
-}
-
-input {
-  text-decoration: underline;
-  display:inline-block;
-}
-
 #poem {
-  grid-row-start: 4;
-  grid-column-start: 2;
   margin-top: 15%;
 }
 
-#result {
-  grid-row-start: 5;
-  grid-column-start: 2;
-  align-content: center;
-  text-align: center;
-}
 

@@ -1,19 +1,3 @@
-//from S.O. an interesting jquery solution to making child size same as parent
-// $(function() {
-//     function unifyHeights() {
-//         var maxHeight = 0;
-//         $('#container').children('#navigation, #content').each(function() {
-//             var height = $(this).outerHeight();
-//             // alert(height);
-//             if ( height > maxHeight ) {
-//                 maxHeight = height;
-//             }
-//         });
-//         $('#navigation, #content').css('height', maxHeight);
-//     }
-//     unifyHeights();
-// });
-
 $(document).ready(function() {
     // console.log( "haas jquery!!" );
 
@@ -25,41 +9,47 @@ $(document).ready(function() {
 
     let catData = [];
 
+    let cardSizerUrl = "./public/images/x-size.png";
+
     const rooms = [
       {
       "id": 0,
       "name": "welcome!",
       "image": "./public/images/0-title.png",
-      "options": ["__click to start"],
+      "options": ["- click to start"],
       "clickables": [
       {
         "id": 0,
         "link": 1,
-        "top": 0,
-        "left": 0,
-        "width": "100%"
-      },
-      {
-        "id": 1
+        "top": "0",
+        "left": "0",
+        "width": "50%",
+        "height": "100%"
       }
       ],
-      "status": "" //change script to something considering edge case 0
+      "status": " " //change script to something considering edge case 0
       },
       {
       "id": 1,
       "name": "basement",
       "image": "./public/images/1-basement.png",
-      "options": ["__door -->","__ladder -->"],
+      "options": ["- door -->","- ladder -->"],
       "clickables": [
       {
         "id": 0,
         "link": 1,
-        "top": 0,
-        "left": 0,
-        "width": "20%"
+        "top": "0",
+        "left": "0",
+        "width": "30%",
+        "height": "100%"
       },
       {
-        "id": 1
+        "id": 1,
+        "link": 2,
+        "top": "0",
+        "left": "80%",
+        "width": "30%",
+        "height": "100%"
       }
       ],
       "status": "...thinking..."
@@ -68,7 +58,7 @@ $(document).ready(function() {
       "id": 2,
       "name": "utility",
       "image": "./public/images/2-boiler.png",
-      "options": ["__back <--"],
+      "options": ["- back <--"],
       "clickables": [
       {
         "id": 0,
@@ -87,7 +77,7 @@ $(document).ready(function() {
       "id": 3,
       "name": "storage",
       "image": "./public/images/3-storage.png",
-      "options": ["__door -->","__back <--"],
+      "options": ["- door -->","- back <--"],
       "clickables": [
       {
         "id": 0,
@@ -106,7 +96,7 @@ $(document).ready(function() {
       "id": 4,
       "name": "hallway",
       "image": "./public/images/4-hallway.png",
-      "options": ["__window -->","__door1 -->","__door2 -->","__back <--"],
+      "options": ["- window -->","- door1 -->","- door2 -->","- back <--"],
       "clickables": [
       {
         "id": 0,
@@ -125,7 +115,7 @@ $(document).ready(function() {
       "id": 5,
       "name": "kitchen",
       "image": "./public/images/5-kitchen.png",
-      "options": ["__back <--","__door22 -->"],
+      "options": ["- back <--","- door22 -->"],
       "clickables": [
       {
         "id": 0,
@@ -200,7 +190,12 @@ $(document).ready(function() {
 
     let DisplayUnit = $('#display-unit');
 
+      // what would be a reasonable set of function to do this
+      // we build the display item last
+      // first we construct some jquery elements
+      // they get classes and css attrs and all gets appended to displayUnit at the end
     let updateDOM = function () {
+
       console.log("updateDOM called");
 
       let M = $('<div class="message">');
@@ -211,30 +206,30 @@ $(document).ready(function() {
         let message = `You are in the ${rooms[currentRoom]["name"]}.`;
         M.text(message);
       }
-      let imageSource = `${rooms[currentRoom]["image"]}`;
+      let BGimageSource = `${rooms[currentRoom]["image"]}`;
       let IMGdiv = $('<div class="room-image">');
+      let transparent = $(`<img src=${cardSizerUrl}>`);
+      IMGdiv.append(transparent);
       // let BRDdiv = $('<div class="border-div">');
-      IMGdiv.css("background-image", "url("+imageSource+")");
+      IMGdiv.css("background-image", "url("+BGimageSource+")");
 
       // this builds the jquery div array
-      let CLICKABLES = rooms[currentRoom].clickables.map(function (clickable){
+      let clickAreas = rooms[currentRoom].clickables.map(function (clickable){
         // in this code clickable is an obj full of css shit
-        // CLICKABLES is an array of divs to be appended to IMGdiv
         let clickArea = $('<div class="clickable">');
+        clickArea.attr({
+          "top": clickable.top,
+          "left": clickable.left,
+          "width": clickable.width,
+          "height": clickable.height
+        });
+        clickArea.html(`<a href="${clickable.link}"></a>`)
         return clickArea;
       });
 
-      ////
-      ////
-      // running into trouble here with the order of events i think
       // this appends the divs to IMGdiv
-      CLICKABLES.forEach(function (el){
-        el.css({
-          "top": el.top,
-          "left": el.left,
-          "width": el.width,
-          "link": el.link
-        });
+      clickAreas.forEach(function (el){
+        console.log(el+" there is no el like an old el");
         IMGdiv.append(el);
       });
 
@@ -265,7 +260,7 @@ $(document).ready(function() {
 
       //DOM is painted
       DisplayUnit.append(M);
-      DisplayUnit.append(IMGdiv);
+      DisplayUnit.append(IMGdiv);  // will this actually include the clickable areas?
       DisplayUnit.append(OPTS);
       DisplayUnit.append(STAT);
 
@@ -282,47 +277,47 @@ $(document).ready(function() {
           //CLICK!!
           break;
         case 1: //basement
-          if (choice=="__door -->"){
+          if (choice=="- door -->"){
             currentRoom=2;
           };
-          if (choice=="__ladder -->"){
+          if (choice=="- ladder -->"){
             currentRoom=3;
           };
           break;
         case 2: //boiler
           console.log("case 2");
-          if (choice=="__back <--"){
+          if (choice=="- back <--"){
             currentRoom=1;
           };
           break;
         case 3: //storage (up ladder)
           console.log("case 3");
-          if (choice=="__back <--"){
+          if (choice=="- back <--"){
             currentRoom=1;
           };
-          if (choice=="__door -->"){
+          if (choice=="- door -->"){
             currentRoom=4;
           };
           break;
         case 4: //hallway
-          if (choice=="__door1 -->"){
+          if (choice=="- door1 -->"){
             currentRoom=5;
           };
-          if (choice=="__door2 -->"){
+          if (choice=="- door2 -->"){
             currentRoom=7;
           };
-          if (choice=="__window -->"){
+          if (choice=="- window -->"){
             currentRoom=6;
           };
-          if (choice=="__back <--"){
+          if (choice=="- back <--"){
             currentRoom=3;
           };
           break;
         case 5: //kitchen (door1)
-          if (choice=="__door22 -->"){
+          if (choice=="- door22 -->"){
             currentRoom=7;
           };
-          if (choice=="__back <--"){
+          if (choice=="- back <--"){
             currentRoom=4;
           };
           break;
