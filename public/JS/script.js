@@ -17,16 +17,7 @@ $(document).ready(function() {
       "name": "welcome!",
       "image": "./public/images/0-title.png",
       "options": ["- click to start"],
-      "clickables": [
-      {
-        "id": 0,
-        "link": 1,
-        "top": "0",
-        "left": "0",
-        "width": "50%",
-        "height": "100%"
-      }
-      ],
+      "clickables": [],
       "status": " " //change script to something considering edge case 0
       },
       {
@@ -34,24 +25,7 @@ $(document).ready(function() {
       "name": "basement",
       "image": "./public/images/1-basement.png",
       "options": ["- door -->","- ladder -->"],
-      "clickables": [
-      {
-        "id": 0,
-        "link": 1,
-        "top": "0",
-        "left": "0",
-        "width": "30%",
-        "height": "100%"
-      },
-      {
-        "id": 1,
-        "link": 2,
-        "top": "0",
-        "left": "80%",
-        "width": "30%",
-        "height": "100%"
-      }
-      ],
+      "clickables": [],
       "status": "...thinking..."
       },
       {
@@ -59,18 +33,7 @@ $(document).ready(function() {
       "name": "utility",
       "image": "./public/images/2-boiler.png",
       "options": ["- back <--"],
-      "clickables": [
-      {
-        "id": 0,
-        "link": 1,
-        "top": 0,
-        "left": 0,
-        "width": "20%"
-      },
-      {
-        "id": 1
-      }
-      ],
+      "clickables": [],
       "status": "...hunting..."
       },
       {
@@ -78,18 +41,7 @@ $(document).ready(function() {
       "name": "storage",
       "image": "./public/images/3-storage.png",
       "options": ["- door -->","- back <--"],
-      "clickables": [
-      {
-        "id": 0,
-        "link": 1,
-        "top": 0,
-        "left": 0,
-        "width": "20%"
-      },
-      {
-        "id": 1
-      }
-      ],
+      "clickables": [],
       "status": "...hunting..."
       },
       {
@@ -97,18 +49,7 @@ $(document).ready(function() {
       "name": "hallway",
       "image": "./public/images/4-hallway.png",
       "options": ["- window -->","- door1 -->","- door2 -->","- back <--"],
-      "clickables": [
-      {
-        "id": 0,
-        "link": 1,
-        "top": 0,
-        "left": 0,
-        "width": "20%"
-      },
-      {
-        "id": 1
-      }
-      ],
+      "clickables": [],
       "status": "...thinking..."
       },
       {
@@ -116,18 +57,7 @@ $(document).ready(function() {
       "name": "kitchen",
       "image": "./public/images/5-kitchen.png",
       "options": ["- back <--","- door22 -->"],
-      "clickables": [
-      {
-        "id": 0,
-        "link": 1,
-        "top": 0,
-        "left": 0,
-        "width": "20%"
-      },
-      {
-        "id": 1
-      }
-      ],
+      "clickables": [],
       "status": "...eating..."
       },
       {
@@ -135,18 +65,7 @@ $(document).ready(function() {
       "name": "outdoors",
       "image": "./public/images/6-outside.png",
       "options": [],
-      "clickables": [
-      {
-        "id": 0,
-        "link": 1,
-        "top": 0,
-        "left": 0,
-        "width": "20%"
-      },
-      {
-        "id": 1
-      }
-      ],
+      "clickables": [],
       "status": "You lose!"
       },
       {
@@ -154,18 +73,7 @@ $(document).ready(function() {
       "name": "bedroom",
       "image": "./public/images/7-bedroom.png",
       "options": [],
-      "clickables": [
-      {
-        "id": 0,
-        "link": 1,
-        "top": 0,
-        "left": 0,
-        "width": "20%"
-      },
-      {
-        "id": 1
-      }
-      ],
+      "clickables": [],
       "status": "You win!"
       }
     ];
@@ -177,28 +85,26 @@ $(document).ready(function() {
 
     let currentRoom = 0;
 
-    let initState = function(room) {
-      console.log("initial state " + room);
-    };
-
-    initState(currentRoom);
-
     let userChoice = function(e) {
-      e.preventDefault();
       changeState(e.data.room, e.data.option);
     };
 
+    $(".id1").on("click", function(e){
+      e.preventDefault();
+      /*
+         your code here
+      */
+    });
+
     let DisplayUnit = $('#display-unit');
 
-      // what would be a reasonable set of function to do this
-      // we build the display item last
-      // first we construct some jquery elements
-      // they get classes and css attrs and all gets appended to displayUnit at the end
     let updateDOM = function () {
 
-      console.log("updateDOM called");
+      console.log("updateDOM called currentRoom "+currentRoom);
 
-      let M = $('<div class="message">');
+      let M = $('.message');
+      let IMGdiv = $('.room-image');
+
       if (currentRoom == 0) {
         let message = `${rooms[currentRoom]["name"]}`;
         M.text(message);
@@ -206,45 +112,25 @@ $(document).ready(function() {
         let message = `You are in the ${rooms[currentRoom]["name"]}.`;
         M.text(message);
       }
+
       let BGimageSource = `${rooms[currentRoom]["image"]}`;
-      let IMGdiv = $('<div class="room-image">');
-      let transparent = $(`<img src=${cardSizerUrl}>`);
-      IMGdiv.append(transparent);
-      // let BRDdiv = $('<div class="border-div">');
       IMGdiv.css("background-image", "url("+BGimageSource+")");
-
-      // this builds the jquery div array
-      let clickAreas = rooms[currentRoom].clickables.map(function (clickable){
-        // in this code clickable is an obj full of css shit
-        let clickArea = $('<div class="clickable">');
-        clickArea.attr({
-          "top": clickable.top,
-          "left": clickable.left,
-          "width": clickable.width,
-          "height": clickable.height
-        });
-        clickArea.html(`<a href="${clickable.link}"></a>`)
-        return clickArea;
-      });
-
-      // this appends the divs to IMGdiv
-      clickAreas.forEach(function (el){
-        console.log(el+" there is no el like an old el");
-        IMGdiv.append(el);
-      });
 
       // this builds an alternative way to interact and also with cdStr updates tracker
       // we have to make this work the same way with clickable divs
-      let OPTS = $('<form class="opts">');
+      let OPTS = $('.options');
       catData.push(currentRoom);
       let cdStr = catData.toString();
       console.log("interactions " + cdStr);
+
       let CATDAT = $('#cat-data');
       CATDAT.val(cdStr);
+
+      OPTS.empty()
       let optionsArr = rooms[currentRoom]["options"];
       optionsArr.forEach(function(option){
         // let BUTT = $(`<button type="submit" class="opt">${option}</button> <br />`);
-        let BUTT = $(`<button type="submit" class="opt">${option}</button>`);
+        let BUTT = $(`<div class="opt">${option}</div>`);
         // englishing this line............
         // we pass args room and option into userChoice function as props of 'e'
         BUTT.click({room: currentRoom, option: option}, userChoice);
@@ -252,19 +138,14 @@ $(document).ready(function() {
       });
 
       let status = `${rooms[currentRoom]["status"]}`;
-      let STAT = $('<div class="status">');
+      let STAT = $('.status');
       STAT.text(status);
 
       //remove all children from DisplayUnit
-      DisplayUnit.empty();
-
-      //DOM is painted
-      DisplayUnit.append(M);
-      DisplayUnit.append(IMGdiv);  // will this actually include the clickable areas?
-      DisplayUnit.append(OPTS);
-      DisplayUnit.append(STAT);
+      // DisplayUnit.empty();
 
     };
+
     //builds the thing to render and adds data to catData
     updateDOM();
 

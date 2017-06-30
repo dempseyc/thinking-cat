@@ -12,9 +12,22 @@
           <div class="main-container">
               <header><h4>Whiskerton,</h4></header>
               <div id="display-unit">
+                <div class="message"></div>
+                <div class="room-image">
+                  <img src="public/images/x-size.png" style="visibility: hidden;" />
+                  <map name="choices">
+                    <area class="id1"
+                      shape="rect"
+                      coords="0,0,530,410"
+                      href="#" alt="alt"
+                      target="_self"
+                      onMouseOver="showChoice('0')"
+                      onMouseOut="showChoice('')"/>
+                  </map>
 
-                <!-- <img src="http://your-image.jpg" style="visibility: hidden;" /> -->
-                <!-- script.js jquery dynamic elements live here -->
+                </div> <!-- room-image -->
+                <div class="status"></div>
+                <div class="options"></div>
 
               </div> <!-- display-unit -->
 
@@ -25,7 +38,7 @@
                   <button><a href="results.html">Results</a></button>
                 </form>
                 <!-- <a href="logout.html">logout</a> -->
-              </div> <!-- result -->
+              </div> <!-- last-link -->
 
           </div> <!-- main container -->
 

@@ -154,7 +154,7 @@ input {
   /*display:inline-block; */
 }
 
-button, a {
+.opt, button, a {
   background: none;
   border: none;
   color: #F3F;
