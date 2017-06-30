@@ -1,80 +1,116 @@
 $(document).ready(function() {
-    // console.log( "haas jquery!!" );
+    // console.log( 'haas jquery!!' );
 
-    let catName = "";
-
+    let catName = '';
     let mouseCount = 0;
-
-    let catStory = "";
-
+    let catStory = '';
     let catData = [];
-
-    let cardSizerUrl = "./public/images/x-size.png";
+    let cardSizerUrl = './public/images/x-size.png';
 
     const rooms = [
       {
-      "id": 0,
-      "name": "welcome!",
-      "image": "./public/images/0-title.png",
-      "options": ["- click to start"],
-      "clickables": [],
-      "status": " " //change script to something considering edge case 0
+      'id': 0,
+      'name': 'welcome!',
+      'image': './public/images/0-title.png',
+      'options': [{
+        'str': '- click to start',
+        'clickable': '<area class="id1" shape="rect" coords="0,0,1160,838" href="logsign.html" alt="alt" />',
+        'linkto': 1
+      }],
+      'status': ' ' //change script to something considering edge case 0
       },
       {
-      "id": 1,
-      "name": "basement",
-      "image": "./public/images/1-basement.png",
-      "options": ["- door -->","- ladder -->"],
-      "clickables": [],
-      "status": "...thinking..."
+      'id': 1,
+      'name': 'basement',
+      'image': './public/images/1-basement.png',
+      'options': [{
+        'str':'- door -->',
+        'clickable': '<area class="id2" shape="rect" coords="0,0,464,838" href="logsign.html" alt="alt" />',
+        'linkto': 2,
+      },{
+        'str': '- ladder -->',
+        'clickable': '<area class="id3" shape="rect" coords="696,0,1160,838" href="logsign.html" alt="alt" />',
+        'linkto': 3
+      }],
+      'status': '...thinking...'
       },
       {
-      "id": 2,
-      "name": "utility",
-      "image": "./public/images/2-boiler.png",
-      "options": ["- back <--"],
-      "clickables": [],
-      "status": "...hunting..."
+      'id': 2,
+      'name': 'utility',
+      'image': './public/images/2-boiler.png',
+      'options': [{
+        'str': '- back <--',
+        'clickable': '<area class="id1" shape="rect" coords="0,0,1160,838" href="logsign.html" alt="alt" />',
+        'linkto': 1
+      }],
+      'status': '...hunting...'
       },
       {
-      "id": 3,
-      "name": "storage",
-      "image": "./public/images/3-storage.png",
-      "options": ["- door -->","- back <--"],
-      "clickables": [],
-      "status": "...hunting..."
+      'id': 3,
+      'name': 'storage',
+      'image': './public/images/3-storage.png',
+      'options': [{
+        'str': '- door -->',
+        'clickable': '<area class="id4" shape="rect" coords="385,0,773,520" href="logsign.html" alt="alt" />',
+        'linkto': 4
+      },{
+        'str': '- back <--',
+        'clickable': '<area class="id1" shape="rect" coords="800,420,1160,838" href="logsign.html" alt="alt" />',
+        'linkto': 1
+      }],
+      'status': '...hunting...'
       },
       {
-      "id": 4,
-      "name": "hallway",
-      "image": "./public/images/4-hallway.png",
-      "options": ["- window -->","- door1 -->","- door2 -->","- back <--"],
-      "clickables": [],
-      "status": "...thinking..."
+      'id': 4,
+      'name': 'hallway',
+      'image': './public/images/4-hallway.png',
+      'options': [{
+        'str': '- window -->',
+        'clickable': '<area class="id6" shape="rect" coords="638,375,812,461" href="logsign.html" alt="alt" />',
+        'linkto': 6
+      },{
+        'str': '- door1 -->',
+        'clickable': '<area class="id7" shape="rect" coords="850,0,930,670" href="logsign.html" alt="alt" />',
+        'linkto': 7
+      },{
+        'str': '- door2 -->',
+        'clickable': '<area class="id5" shape="rect" coords="1044,0,1160,838" href="logsign.html" alt="alt" />',
+        'linkto': 5
+      },{
+        'str': '- back <--',
+        'clickable': '<area class="id3" shape="rect" coords="0,755,1160,838" href="logsign.html" alt="alt" />',
+        'linkto': 3
+      }],
+      'status': '...thinking...'
       },
       {
-      "id": 5,
-      "name": "kitchen",
-      "image": "./public/images/5-kitchen.png",
-      "options": ["- back <--","- door22 -->"],
-      "clickables": [],
-      "status": "...eating..."
+      'id': 5,
+      'name': 'kitchen',
+      'image': './public/images/5-kitchen.png',
+      'options': [{
+        'str': '- door back to hallway <--',
+        'clickable': '<area class="id4" shape="rect" coords="0,0,290,838" href="logsign.html" alt="alt" />',
+        'linkto': 4
+      },{
+        'str': '- door -->',
+        'clickable': '<area class="id7" shape="rect" coords="630,0,870,838" href="logsign.html" alt="alt" />',
+        'linkto': 7
+      }],
+      'status': '...eating...'
       },
       {
-      "id": 6,
-      "name": "outdoors",
-      "image": "./public/images/6-outside.png",
-      "options": [],
-      "clickables": [],
-      "status": "You lose!"
+      'id': 6,
+      'name': 'outdoors',
+      'image': './public/images/6-outside.png',
+      'options': [],
+      'status': 'You lose!'
       },
       {
-      "id": 7,
-      "name": "bedroom",
-      "image": "./public/images/7-bedroom.png",
-      "options": [],
-      "clickables": [],
-      "status": "You win!"
+      'id': 7,
+      'name': 'bedroom',
+      'image': './public/images/7-bedroom.png',
+      'options': [],
+      'status': 'You win!'
       }
     ];
 
@@ -84,134 +120,98 @@ $(document).ready(function() {
     //data
 
     let currentRoom = 0;
+    //caching dom
+    let DisplayUnit = $('#display-unit');
+    let M = $('.message');
+    let IMGdiv = $('.room-image');
+    let STAT = $('.status');
+    let OPTS = $('.options');
+    let CATDAT = $('#cat-data');
+    let areaMAP = $('#map');
 
     let userChoice = function(e) {
       changeState(e.data.room, e.data.option);
     };
 
-    $(".id1").on("click", function(e){
-      e.preventDefault();
-      /*
-         your code here
-      */
-    });
 
-    let DisplayUnit = $('#display-unit');
 
     let updateDOM = function () {
 
-      console.log("updateDOM called currentRoom "+currentRoom);
-
-      let M = $('.message');
-      let IMGdiv = $('.room-image');
+      console.log('updateDOM called currentRoom '+currentRoom);
 
       if (currentRoom == 0) {
-        let message = `${rooms[currentRoom]["name"]}`;
+        let message = `${rooms[currentRoom]['name']}`;
         M.text(message);
       } else {
-        let message = `You are in the ${rooms[currentRoom]["name"]}.`;
+        let message = `You are in the ${rooms[currentRoom]['name']}.`;
         M.text(message);
       }
 
-      let BGimageSource = `${rooms[currentRoom]["image"]}`;
-      IMGdiv.css("background-image", "url("+BGimageSource+")");
+      let BGimageSource = `${rooms[currentRoom]['image']}`;
+      IMGdiv.css('background-image', 'url('+BGimageSource+')');
 
-      // this builds an alternative way to interact and also with cdStr updates tracker
-      // we have to make this work the same way with clickable divs
-      let OPTS = $('.options');
       catData.push(currentRoom);
       let cdStr = catData.toString();
-      console.log("interactions " + cdStr);
+      console.log('interactions ' + cdStr);
 
-      let CATDAT = $('#cat-data');
-      CATDAT.val(cdStr);
+      let status = `${rooms[currentRoom]['status']}`;
 
-      OPTS.empty()
-      let optionsArr = rooms[currentRoom]["options"];
-      optionsArr.forEach(function(option){
-        // let BUTT = $(`<button type="submit" class="opt">${option}</button> <br />`);
-        let BUTT = $(`<div class="opt">${option}</div>`);
-        // englishing this line............
-        // we pass args room and option into userChoice function as props of 'e'
-        BUTT.click({room: currentRoom, option: option}, userChoice);
-        OPTS.append(BUTT);
-      });
-
-      let status = `${rooms[currentRoom]["status"]}`;
-      let STAT = $('.status');
       STAT.text(status);
 
-      //remove all children from DisplayUnit
-      // DisplayUnit.empty();
+      OPTS.empty();
+      areaMAP.empty();
+      let optionsArr = rooms[currentRoom]['options'];
+      optionsArr.forEach(function(option){
+
+        let BUTT = $(`<div class='opt'>${option.str}</div>`);
+        BUTT.click({room: currentRoom, option: option.linkto}, userChoice);
+        OPTS.append(BUTT);
+
+        let AREA = option.clickable;
+        AREA += areaMAP.html();
+        areaMAP.html(AREA);
+
+        // area classes and their click functions... how to DRY this?
+        $('.id1').on('click', function(e){
+          e.preventDefault();
+          changeState(currentRoom,1);
+        });
+        $('.id2').on('click', function(e){
+          e.preventDefault();
+          changeState(currentRoom,2);
+        });
+        $('.id3').on('click', function(e){
+          e.preventDefault();
+          changeState(currentRoom,3);
+        });
+        $('.id4').on('click', function(e){
+          e.preventDefault();
+          changeState(currentRoom,4);
+        });
+        $('.id5').on('click', function(e){
+          e.preventDefault();
+          changeState(currentRoom,5);
+        });
+        $('.id6').on('click', function(e){
+          e.preventDefault();
+          changeState(currentRoom,6);
+        });
+        $('.id7').on('click', function(e){
+          e.preventDefault();
+          changeState(currentRoom,7);
+        });
+
+      });
+
+      CATDAT.val(cdStr);
 
     };
-
-    //builds the thing to render and adds data to catData
     updateDOM();
 
     let changeState = function(room,choice) {
-      console.log("changeState called");
-      switch (room) {
-        case 0: //title
-          console.log("case 0");
-          currentRoom=1;  //added to this  f e version
-          //CLICK!!
-          break;
-        case 1: //basement
-          if (choice=="- door -->"){
-            currentRoom=2;
-          };
-          if (choice=="- ladder -->"){
-            currentRoom=3;
-          };
-          break;
-        case 2: //boiler
-          console.log("case 2");
-          if (choice=="- back <--"){
-            currentRoom=1;
-          };
-          break;
-        case 3: //storage (up ladder)
-          console.log("case 3");
-          if (choice=="- back <--"){
-            currentRoom=1;
-          };
-          if (choice=="- door -->"){
-            currentRoom=4;
-          };
-          break;
-        case 4: //hallway
-          if (choice=="- door1 -->"){
-            currentRoom=5;
-          };
-          if (choice=="- door2 -->"){
-            currentRoom=7;
-          };
-          if (choice=="- window -->"){
-            currentRoom=6;
-          };
-          if (choice=="- back <--"){
-            currentRoom=3;
-          };
-          break;
-        case 5: //kitchen (door1)
-          if (choice=="- door22 -->"){
-            currentRoom=7;
-          };
-          if (choice=="- back <--"){
-            currentRoom=4;
-          };
-          break;
-        case 6: //outside
-          //LOSE!!
-          break;
-        case 7: //bedroom
-          //WIN!!
-          break;
-        default:
-          console.log("ain't working");
-      };
-      console.log("change of state " + room + " " + choice);
+      console.log('changeState called');
+      currentRoom = choice;
+      console.log('change of state ' + room + ' ' + choice);
       updateDOM();
       //updating the display-unit, currentRoom, and mouseCount
     };
