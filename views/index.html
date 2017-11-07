@@ -1,0 +1,58 @@
+<!doctype html>
+<html>
+  <head>
+    <link href="/css/style.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Cedarville+Cursive|Dawning+of+a+New+Day|La+Belle+Aurore" rel="stylesheet">
+    <script src="/js/jquery.js"></script>
+    <title>Thinking Cat</title>
+  </head>
+  <body>
+
+  <!-- two different body elems through moustaching -->
+
+        {{#logged_in}}
+          <div class="main-container">
+              <header><h4>{{catname}},</h4></header>
+              <div id="display-unit">
+
+                <!-- jquery dynamic elements live here -->
+
+              </div> <!-- game-unit -->
+              <!-- user choice should be logged in db as data and a story string of text should be built in the front end -->
+              <div id="result">
+                <form method="POST" action="/results">
+                <input id="cat-data" name="catdata" value="" />
+                <!-- in script.js, always update value of catdata every turn -->
+                  <button type="submit">Results</button>
+                </form>
+                <a href="/logout">logout</a>
+              </div> <!-- result -->
+
+          </div> <!-- main container -->
+        {{/logged_in}}
+
+        <!-- not logged in -->
+        <!-- this is the 'login page' you see -->
+
+        {{^logged_in}}
+          <div class="main-container">
+            <header>
+              <h1>Log-in to play "Thinking Cat."</h1><br />
+            </header>
+            <div id="form-area">
+              <form class="form" action="/login" method="post">
+                <label for="inputEmail" class="emailInput">Email</label>
+                  <input name="email" type="text" class="form-input" id="inputEmail" placeholder="Email" />
+                <label for="inputPassword" class="passInput">Password</label>
+                  <input name="password" type="password" class="form-input" id="inputPassword" placeholder="Password">
+                <button type="submit" class="form-button"><span>Login</span></button>
+              </form>
+              <p>Not a member?<a href="/signup"><span>Sign Up</span></a></p>
+            </div> <!-- form-area -->
+
+          </div> <!-- main container -->
+        {{/logged_in}}
+
+    <script src="/js/script.js"></script>
+  </body>
+</html>

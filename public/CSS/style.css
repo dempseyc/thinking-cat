@@ -15,7 +15,7 @@ table, caption, tbody, tfoot, thead, tr, th, td,
 article, aside, canvas, details, embed,
 figure, figcaption, footer, header, hgroup,
 menu, nav, output, ruby, section, summary,
-time, mark, audio, video, button {
+time, mark, audio, video {
   margin: 0;
   padding: 0;
   border: 0;
@@ -51,9 +51,6 @@ table {
 /*  end reset.css */
 /*  end reset.css */
 /*  end reset.css */
-/*html,body {
-  height:100%;
-}*/
 /*  end reset.css */
 /*  end reset.css */
 /*  end reset.css */
@@ -62,7 +59,7 @@ table {
 body {
   /* font-family: 'Dawning of a New Day', cursive; */
   font-family: 'La Belle Aurore', cursive;
-  font-size: 2em;
+  font-size: 3em;
   background-color: #FFE;
 }
 
@@ -74,21 +71,30 @@ h1 {
 
 .main-container {
   overflow: hidden;
-  display: flex;
+  display: grid;
+  grid-template-columns: 10% 80% 90%;
+  grid-template-rows: 15% 5% 80% 95% 110%;
   width: 70%;
   height: 70%;
-  padding: 0 5% 5% 5%;
+  padding: 5%;
 }
 
-header {
 
+header {
+  grid-row-start: 1;
+  grid-column-start: 2;
+  align-self: start;
   text-align: center;
   letter-spacing: 0.4em;
   text-decoration-style: bold;
-  margin: 5% 5% 2% 5%;
+  margin: 10%;
 }
 
 #form-area {
+  grid-row-start: 3;
+  grid-column-start: 2;
+  align-self: center;
+  justify-self: center;
   font-size: 0.7em;
   line-height: 1.4em;
 }
@@ -103,79 +109,46 @@ form label {
 }
 
 #display-unit {
-  width: 100%;
-}
-
-#results-unit {
-  width: 100%;
-  margin-top: 5%;
+  grid-row-start: 3;
+  grid-column-start: 2;
+  justify-self: center;
+  width: 70%;
 }
 
 #email {
   display: none;
 }
 
-#cat-data {
-  display: none;
-}
-
-.message{
-  margin: 0 0 4% 0;
-}
-
-/*.border-div {
+.border-div {
   position: relative;
+  height: 0;
   border: 12px solid #000;
-  width: 80%;
-  height: 0 auto;
-  padding-top: 65%;
-}*/
+  padding-top: 55%;
+  margin: 5%;
+}
 
-.room-image {
-  display: flex;
-  position: relative;
-  outline: 12px solid #000;
-  width: 80%;
-  height: 0 auto;
-  padding-top: 53%;
+.border-div .room-image {
+  position: absolute;
+  background-position: 3% 3%;
   background-size: cover;
-  overflow: auto
-  margin-bottom: 4%;
+  overflow: auto;
+  width: 100%;
+  height: 0;
+  padding-top: 65%;
+  top: -3px;
+  left: 0;
 }
 
 /* make button look the same as the link */
 
-.clickable {
-  align-items: stretch;
-  position: absolute;
-  border: 2px solid pink;
-  background-color: rgba(155,0,0,0.5);
-}
-
-/*from title to basement*/
-/*from basement to boiler*/
-/*from basement to hall*/
-
-
-.opts {
-  font-size: 0.8em;
+.opt {
   margin: 2% 0 2% 0;
 }
 
-.opt {
-  margin: 1% 0 2% 0;
-  vertical-align: 90%;
-}
-
-.status {
-  padding: 2% 0 2% 0;
-  font-size: 0.7em;
-}
-
 button, a {
-  background: none;
-  border: none;
-  /*padding: 0;*/
+  background:none;
+  border:none;
+  padding: 0;
   font: inherit;
   color: #F3F;
   text-decoration: underline;
