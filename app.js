@@ -30,6 +30,7 @@ let db = pgp('postgres://macbook@localhost:5432/catusers');
 
 app.get('/', function(req, res){
     if(req.session_state.user){
+      console.log('user exists');
     let data = {
       "logged_in": true,
       "email": req.session_state.user.email,
@@ -125,7 +126,7 @@ app.put('/user', function(req, res){
 });
 
 app.get('/logout', function(req, res){
-  req.session.user = false;
+  req.session_state.user = false;
   res.redirect('/');
 });
 

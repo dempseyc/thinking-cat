@@ -1,9 +1,8 @@
 <!doctype html>
 <html>
   <head>
-    <link href="/css/style.css" rel="stylesheet" type="text/css">
+    <link href="/css/style2.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Cedarville+Cursive|Dawning+of+a+New+Day|La+Belle+Aurore" rel="stylesheet">
-    <script src="/js/jquery.js"></script>
     <title>Thinking Cat</title>
   </head>
   <body>
@@ -12,12 +11,21 @@
 
         {{#logged_in}}
           <div class="main-container">
-              <header><h4>{{catname}},</h4></header>
+              <header><h4>{{catname}}, <span class="message"></span></h4></header>
               <div id="display-unit">
+                <div class="room-image">
+                  <img src="/images/x-size.png" usemap= "#map" style="opacity: 0;" />
+                  <map name="map" id="map">
 
-                <!-- jquery dynamic elements live here -->
+                  </map>
+                                        <!-- onMouseOver="showChoice('0')"
+                      onMouseOut="showChoice('')"/> -->
 
-              </div> <!-- game-unit -->
+                </div> <!-- room-image -->
+                <div class="status"></div>
+                <div class="options"></div>
+
+              </div> <!-- display-unit -->
               <!-- user choice should be logged in db as data and a story string of text should be built in the front end -->
               <div id="result">
                 <form method="POST" action="/results">
@@ -52,7 +60,7 @@
 
           </div> <!-- main container -->
         {{/logged_in}}
-
+    <script src="/js/jquery.js"></script>
     <script src="/js/script.js"></script>
   </body>
 </html>

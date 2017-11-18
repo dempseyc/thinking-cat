@@ -1,35 +1,35 @@
 $(document).ready(function() {
-    // console.log( 'haas jquery!!' );
+    console.log( 'haas jquery!!' );
 
     let catName = '';
     let mouseCount = 0;
     let catStory = '';
     let catData = [];
-    let cardSizerUrl = './public/images/x-size.png';
+    let cardSizerUrl = '../images/x-size.png';
 
     const rooms = [
       {
       'id': 0,
       'name': 'welcome!',
-      'image': './public/images/0-title.png',
+      'image': '../images/0-title.png',
       'options': [{
         'str': '- click to start',
-        'clickable': '<area class="id1" shape="rect" coords="0,0,1160,838" href="logsign.html" alt="alt" />',
+        'clickable': '<area class="id1" shape="rect" coords="0,0,800,522" href="logsign.html" alt="alt" />',
         'linkto': 1
       }],
-      'status': ' ' //change script to something considering edge case 0
+      'status': ' '
       },
       {
       'id': 1,
       'name': 'basement',
-      'image': './public/images/1-basement.png',
+      'image': '../images/1-basement.png',
       'options': [{
         'str':'- door -->',
-        'clickable': '<area class="id2" shape="rect" coords="0,0,464,838" href="logsign.html" alt="alt" />',
+        'clickable': '<area class="id2" shape="rect" coords="200,150,350,400" href="logsign.html" alt="alt" />',
         'linkto': 2,
       },{
         'str': '- ladder -->',
-        'clickable': '<area class="id3" shape="rect" coords="696,0,1160,838" href="logsign.html" alt="alt" />',
+        'clickable': '<area class="id3" shape="rect" coords="550,0,800,522" href="logsign.html" alt="alt" />',
         'linkto': 3
       }],
       'status': '...thinking...'
@@ -37,7 +37,7 @@ $(document).ready(function() {
       {
       'id': 2,
       'name': 'utility',
-      'image': './public/images/2-boiler.png',
+      'image': '../images/2-boiler.png',
       'options': [{
         'str': '- back <--',
         'clickable': '<area class="id1" shape="rect" coords="0,0,1160,838" href="logsign.html" alt="alt" />',
@@ -48,14 +48,14 @@ $(document).ready(function() {
       {
       'id': 3,
       'name': 'storage',
-      'image': './public/images/3-storage.png',
+      'image': '../images/3-storage.png',
       'options': [{
         'str': '- door -->',
-        'clickable': '<area class="id4" shape="rect" coords="385,0,773,520" href="logsign.html" alt="alt" />',
+        'clickable': '<area class="id4" shape="rect" coords="320,0,500,320" href="logsign.html" alt="alt" />',
         'linkto': 4
       },{
         'str': '- back <--',
-        'clickable': '<area class="id1" shape="rect" coords="800,420,1160,838" href="logsign.html" alt="alt" />',
+        'clickable': '<area class="id1" shape="rect" coords="600,420,800,522" href="logsign.html" alt="alt" />',
         'linkto': 1
       }],
       'status': '...hunting...'
@@ -63,22 +63,22 @@ $(document).ready(function() {
       {
       'id': 4,
       'name': 'hallway',
-      'image': './public/images/4-hallway.png',
+      'image': '../images/4-hallway.png',
       'options': [{
         'str': '- window -->',
-        'clickable': '<area class="id6" shape="rect" coords="638,375,812,461" href="logsign.html" alt="alt" />',
+        'clickable': '<area class="id6" shape="rect" coords="480,250,570,300"" href="logsign.html" alt="alt" />',
         'linkto': 6
       },{
         'str': '- door1 -->',
-        'clickable': '<area class="id7" shape="rect" coords="850,0,930,670" href="logsign.html" alt="alt" />',
+        'clickable': '<area class="id7" shape="rect" coords="585,100,640,440" href="logsign.html" alt="alt" />',
         'linkto': 7
       },{
         'str': '- door2 -->',
-        'clickable': '<area class="id5" shape="rect" coords="1044,0,1160,838" href="logsign.html" alt="alt" />',
+        'clickable': '<area class="id5" shape="rect" coords="750,0,800,522" href="logsign.html" alt="alt" />',
         'linkto': 5
       },{
         'str': '- back <--',
-        'clickable': '<area class="id3" shape="rect" coords="0,755,1160,838" href="logsign.html" alt="alt" />',
+        'clickable': '<area class="id3" shape="rect" coords="0,490,750,522" href="logsign.html" alt="alt" />',
         'linkto': 3
       }],
       'status': '...thinking...'
@@ -86,14 +86,14 @@ $(document).ready(function() {
       {
       'id': 5,
       'name': 'kitchen',
-      'image': './public/images/5-kitchen.png',
+      'image': '../images/5-kitchen.png',
       'options': [{
         'str': '- door back to hallway <--',
-        'clickable': '<area class="id4" shape="rect" coords="0,0,290,838" href="logsign.html" alt="alt" />',
+        'clickable': '<area class="id4" shape="rect" coords="20,60,200,500" href="logsign.html" alt="alt" />',
         'linkto': 4
       },{
         'str': '- door -->',
-        'clickable': '<area class="id7" shape="rect" coords="630,0,870,838" href="logsign.html" alt="alt" />',
+        'clickable': '<area class="id7" shape="rect" coords="440,180,580,380" href="logsign.html" alt="alt" />',
         'linkto': 7
       }],
       'status': '...eating...'
@@ -101,14 +101,14 @@ $(document).ready(function() {
       {
       'id': 6,
       'name': 'outdoors',
-      'image': './public/images/6-outside.png',
+      'image': '../images/6-outside.png',
       'options': [],
       'status': 'You lose!'
       },
       {
       'id': 7,
       'name': 'bedroom',
-      'image': './public/images/7-bedroom.png',
+      'image': '../images/7-bedroom.png',
       'options': [],
       'status': 'You win!'
       }
@@ -119,7 +119,7 @@ $(document).ready(function() {
     //data
     //data
 
-    let currentRoom = 0;
+    let currentRoom = 1;
     //caching dom
     let DisplayUnit = $('#display-unit');
     let M = $('.message');
@@ -132,8 +132,6 @@ $(document).ready(function() {
     let userChoice = function(e) {
       changeState(e.data.room, e.data.option);
     };
-
-
 
     let updateDOM = function () {
 
