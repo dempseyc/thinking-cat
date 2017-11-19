@@ -1,7 +1,4 @@
-/* http://meyerweb.com/eric/tools/css/reset/
-   v2.0 | 20110126
-   License: none (public domain)
-*/
+/*clldreset.css */
 
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -9,8 +6,8 @@ a, abbr, acronym, address, big, cite, code,
 del, dfn, em, img, ins, kbd, q, s, samp,
 small, strike, strong, sub, sup, tt, var,
 b, u, i, center,
+/*label, legend, form, fieldset*/
 dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
 table, caption, tbody, tfoot, thead, tr, th, td,
 article, aside, canvas, details, embed,
 figure, figcaption, footer, header, hgroup,
@@ -47,19 +44,18 @@ table {
   border-spacing: 0;
 }
 
-/*  end reset.css */
-/*  end reset.css */
-/*  end reset.css */
-/*  end reset.css */
-
 /*html,body {
   height:100%;
 }*/
 
-/*  end reset.css */
-/*  end reset.css */
-/*  end reset.css */
+.block {
+  margin: 5% 0 5% 0;
+  display: block;
+}
 
+/*  end clldreset.css */
+/*  end clldreset.css */
+/*  end clldreset.css */
 
 body {
   /* font-family: 'Dawning of a New Day', cursive; */
@@ -91,39 +87,33 @@ header {
   margin: 2% 5% 2% 5%;
 }
 
-h1 {
-  font-size: 0.6em;
-  line-height: 3em;
-  letter-spacing: 1em;
-}
-
 h4 {
   font-size: 1em;
   line-height: 1.5em;
 }
 
-/*.message{
-  display: block;
-  margin: 0 0 4% 0;
-}*/
-
-#form-unit {
-  font-size: 0.7em;
-  line-height: 1.4em;
+#form-area {
+  line-height: 1em;
 }
 
-#results-unit {
-}
-
-form label {
-  text-align: center;
+label {
+  line-height: 0.6em;
+  margin-top: 10%;
 }
 
 .form-input {
   display: block;
   font-size: 0.8em;
+  background: transparent;
+  outline: none;
+  border: none;
+  border-bottom: 2px dashed #83A4C5;
+  margin-bottom: 10%;
 }
 
+button {
+  margin-bottom: 5%;
+}
 
 .room-image img{
 }
@@ -161,11 +151,7 @@ form label {
   justify-content: left;
 }
 
-input {
-  text-decoration: underline;
-  /*display:inline-block; */
-}
-
+/* make button look the same as the link */
 button, a {
   background: none;
   border: none;
@@ -184,6 +170,7 @@ button, a {
 
 /* make button look the same as the link */
 /*span {
+  font: inherit;
   color: #F3F;
   text-decoration: underline;
   justify-content: left;
@@ -200,8 +187,19 @@ button, a {
   display: none;
 }
 
+
 #poem {
-  margin-top: 15%;
+  margin: 15% 0 15% 0;
+  font-size: 0.8em;
+  line-height: 1.5em;
+  font-family: 'Raleway', sans-serif;
+  font-style: italic;
 }
+
+#poem h1 {
+  font-size: 1.2em;
+  line-height: 3em;
+}
+
 
 
