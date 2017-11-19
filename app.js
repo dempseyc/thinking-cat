@@ -74,18 +74,33 @@ app.get('/signup/error', function(req, res){
 
 app.post('/signup', function(req, res){
   let data = req.body;
-  bcrypt
-    .hash(data.password, 10, function(err, hash){
-    db.none(
-      "INSERT INTO cats (email, password_digest, catname) VALUES ($1, $2, $3)",
-      [data.email, hash, data.catname]
-    ).catch(function(e){
-      console.log('Failed to create user: ' + e);
-      res.render('signup/error');
-    }).then(function(){
-      res.render('index');
+  req.checkBody('email', 'Invalid email').notEmpty();
+  req.checkBody('password', 'Invalid password').notEmpty();
+  req.checkBody('catname', 'Invalid catname').notEmpty();
+  req.sanitizeBody('email').escape();
+  req.sanitizeBody('catname').escape();
+
+  //return array of these objs {param: 'name', msg: 'Invalid name', value: '<received input>'}
+  let validErrors = req.validationErrors();
+
+  if (validErrors) {
+      res.render('signup/index', {errors:validErrors});// Render the form using error information
+  }
+  else {
+    bcrypt
+      .hash(data.password, 10, function(err, hash){
+      db.none(
+        "INSERT INTO cats (email, password_digest, catname) VALUES ($1, $2, $3)",
+        [data.email, hash, data.catname]
+      ).catch(function(e){
+        console.log(`Failed to create user: ${e}`);
+        let error = {msg: `Failed to create user: ${e}`}
+        res.render('signup/error', error);
+      }).then(function(){
+        res.render('index');
+      });
     });
-  });
+  }
 });
 
 app.post('/results', function(req,res){

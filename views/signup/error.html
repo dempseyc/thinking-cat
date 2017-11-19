@@ -19,10 +19,8 @@
               <input name="catname" type="text" class="form-input" id="inputCatName" />
               <button type="submit" class="form-button"><span>Go to Login</span></button><br />
         </form>
-        <div class="valid-errors">
-          {{#errors}}
-            <p>{{ msg }}</p>
-          {{/errors}}
+        <div class="signup-errors">
+            <p>{{ error.msg }}</p>
         </div>
       </div> <!-- form-area -->
 
