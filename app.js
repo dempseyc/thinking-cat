@@ -4,7 +4,7 @@ const app = express();
 const pgp = require('pg-promise')();
 const mustacheExpress = require('mustache-express');
 const bodyParser = require('body-parser');
-const session = require('express-session');
+const expressValidator = require('express-validator');
 const clientSessions = require("client-sessions");
 
 const bcrypt = require('bcrypt');
@@ -17,20 +17,20 @@ app.use("/", express.static(__dirname + '/public'));
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(expressValidator());
 app.use(methodOverride('_method'));
 
 // i don't know what any of these thing mean  express.session methods? passing what obj lit?
 
 app.use(clientSessions({
   secret: 'supersecretsecretstring',
-  duration: 120 * 60 * 1000 //2-minute session
+  duration: 2 * 60 * 60 * 1000 //2-minute session
 }));
 
 let db = pgp('postgres://macbook@localhost:5432/catusers');
 
 app.get('/', function(req, res){
-    if(req.session_state.user){
-      console.log('user exists');
+  if(req.session_state.user){
     let data = {
       "logged_in": true,
       "email": req.session_state.user.email,
@@ -38,8 +38,8 @@ app.get('/', function(req, res){
       "catdata": ""
     };
     res.render('index', data);
-  } else {
-    res.render('index');
+    } else {
+      res.render('index');
   }
 });
 
@@ -68,6 +68,10 @@ app.get('/signup', function(req, res){
   res.render('signup/index');
 });
 
+app.get('/signup/error', function(req, res){
+  res.render('signup/error');
+});
+
 app.post('/signup', function(req, res){
   let data = req.body;
   bcrypt
@@ -76,7 +80,8 @@ app.post('/signup', function(req, res){
       "INSERT INTO cats (email, password_digest, catname) VALUES ($1, $2, $3)",
       [data.email, hash, data.catname]
     ).catch(function(e){
-      res.send('Failed to create user: ' + e);
+      console.log('Failed to create user: ' + e);
+      res.render('signup/error');
     }).then(function(){
       res.render('index');
     });
