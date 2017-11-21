@@ -50,7 +50,8 @@ function constructString () {
 
   sql = "INSERT INTO cats(email,password_digest,catname,story,data) VALUES ('"+email+"','"+hash+"','"+name+"','nostory','"+dataArray+"');"
 
-  console.log(sql);
+  return sql;
+  // console.log(sql);
 
 } // end constructString
 
@@ -146,7 +147,12 @@ function makeBehavior () {
 
 
 ////////  PRINTOUT
-
-for (i=100;i>0;i--) {
-  console.log( constructString() );
+function printMany (num) {
+  for ( let i=0; i<num; ++i ) {
+    let string = constructString();
+    console.log(string);
+  }
 }
+
+printMany(100);
+
