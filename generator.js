@@ -3,16 +3,6 @@
 // INSERT INTO cats(email,password_digest,catname,story,data)
 // VALUES ('test1@nologin.com','$2a$10$PHs62.ErSLxUnp9hoT6PBevG7EYE1anNXBZqpwb3aaMQpw2Z0t1D','cat1','nostory','[1,3,4,5,7]');
 
-
-// rules for dataArray
-// push 1 hold 1 as position
-// if position is one, next push 2 or 3
-// if position is 2, next push 1
-// if position is 3, next push 1 or 4
-// if position is 4, next push  3, 5, 6, or 7
-// if position is 5, next push 4 or 7
-// if position is 7 or 6 return
-
 function constructString () {
 
   // init return value
@@ -58,12 +48,14 @@ function constructString () {
   let email = makeEmail(name,domain,dot);
   let hash = "$2a$10$PHs62.ErSLxUnp9hoT6PBevG7EYE1anNXBZqpwb3aaMQpw2Z0t1D";
 
-
-
   sql = "INSERT INTO cats(email,password_digest,catname,story,data) VALUES ('"+email+"','"+hash+"','"+name+"','nostory','"+dataArray+"');"
 
   console.log(sql);
-}
+
+} // end constructString
+
+
+// define global dependencies
 
 function makeBehavior () {
 
@@ -152,5 +144,9 @@ function makeBehavior () {
 
 }; // end makeBehavior
 
-// console.log(makeBehavior());
-console.log(constructString());
+
+////////  PRINTOUT
+
+for (i=100;i>0;i--) {
+  console.log( constructString() );
+}
