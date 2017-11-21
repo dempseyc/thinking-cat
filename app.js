@@ -76,7 +76,7 @@ app.post('/signup', function(req, res){
   let data = req.body;
   req.checkBody('email', 'Invalid email').notEmpty();
   req.checkBody('password', 'Invalid password').notEmpty();
-  req.checkBody('catname', 'Invalid catname').notEmpty();
+  req.checkBody('catname', 'Invalid catname').notEmpty() ;
   req.sanitizeBody('email').escape();
   req.sanitizeBody('catname').escape();
 
@@ -95,7 +95,7 @@ app.post('/signup', function(req, res){
       ).catch(function(e){
         console.log(`Failed to create user: ${e}`);
         let error = {msg: `Failed to create user: ${e}`}
-        res.render('signup/error', error);
+        res.send(error);
       }).then(function(){
         res.render('index');
       });
