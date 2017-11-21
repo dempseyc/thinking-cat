@@ -18,11 +18,16 @@
 // if position is 5, next push 4 or 7
 // if position is 7 or 6 return
 
-let makeArray = function () {
+let makeBehavior = function () {
+
+  // initialize parameters
 
   let randomCatData = [1];
   let prevPosition = 0;
   let catPosition = 1;
+
+
+  // static data
   let options = [
      [],
      [2,3],
@@ -33,6 +38,9 @@ let makeArray = function () {
      [],
      []
   ];
+
+
+  // define utilities
 
   let randomChoice = function (numOptions) {
     return Math.floor(Math.random()*numOptions);  // return 0-numOptions minus 1
@@ -50,26 +58,14 @@ let makeArray = function () {
     randomCatData.push(choice);
   }
 
-  // let makeChoice = function () {
-  //   let possChoice = choosePossibleCatMove();
-  //   if (possChoice === prevPosition) {
-  //     possChoice = choosePossibleCatMove();
-  //     prevPosition = catPosition;
-  //   }
-  //   return possChoice;
-  // }
 
-  // let makeMoves = function () {
-  //   while (catPosition !== 6 && catPosition !== 7) {
-  //     catPosition = makeChoice();
-  //     randomCatData.push(catPosition);
-  //   }
-  // }
-
+  // main function
 
   let makeThoughtfulChoice = function () {
 
-    let possChoice = choosePossibleCatMove();
+    // initialize return value
+
+    let possChoice;
 
     //define some functions
 
@@ -91,10 +87,12 @@ let makeArray = function () {
       }
     };
 
-    //execute algorithm
-    dontGoBack(possChoice);  // reset pos choice if is going back
+    //execute
+    possChoice = choosePossibleCatMove();
+    dontGoBack(possChoice);  // reset poss choice if cat is going back
     return possChoice;
-  }
+
+  } // end makeThoughtfulChoice
 
 
   let makeThoughtfulMoves = function () {
@@ -103,12 +101,9 @@ let makeArray = function () {
     }
   }
 
-  // makeMoves();
   makeThoughtfulMoves();
   return randomCatData;
 
-};
+}; // end makeBehavior
 
-let array = makeArray();
-
-console.log(array);
+console.log(makeBehavior());
