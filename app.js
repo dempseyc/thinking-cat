@@ -118,38 +118,51 @@ app.post('/results', function(req,res){
       "results": []
     };
     db
-      .none(
-          "UPDATE cats SET data = $1 WHERE email = $2",
-          [result_data.catdata, result_data.email])
+    .none(
+        "UPDATE cats SET data = $1 WHERE email = $2",
+        [result_data.catdata, result_data.email])
+    .catch(function(){
+        res.send('Failed to update cat data.');
+    })
+    .then(function(){
+      let all_cat_array = [];
+      db
+      .many(
+        "SELECT * from cats")
       .catch(function(){
-          res.send('Failed to update cat data.');
+        res.send('did not capture much cat data.');
+      })
+      .then(function(cats){
+        // console.log('db all captured', cats); // works
+        cats.forEach(cat => {
+          let arr = cat.data.split(',');
+          all_cat_array.push(arr);
+        })
+        result_data.results = all_cat_array;
       })
       .then(function(){
-        db
-          .many(
-            "SELECT * from cats")
-          .catch(function(){
-            res.send('did not capture much cat data.');
-          })
-          .then(function(cats){
-            console.log('db all captured', cats);
-            let all_cat_array = [];
-            cats.forEach(cat => {
-              let arr = cat.data.split(',');
-              all_cat_array.push(arr);
-            });
-            result_data.results = all_cat_array.join(',');
-          });
+        console.log('db all cats to show', result_data);
+        res.render('results/index', result_data);
       })
-      // insert fancy stuff
-      .then(function(){
-          res.render('results/index', result_data);
-      });
+    });
 
   } else {
     res.end();
   }
 });
+
+// the right way to do it:
+// function goodCode(someData) {
+//     // someData = your array of objects for inserts;
+//     return db.task(function (t) {
+//         var queries = [];
+//         someData.forEach(function (data) {
+//             // querying against the task protocol:
+//             queries.push(t.none('insert into...', data));
+//         });
+//         return t.batch(queries); // settles all queries;
+//     });
+// }
 
 // don't have ui for this yet, so it might not work
 app.put('/user', function(req,res){
