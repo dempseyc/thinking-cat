@@ -52,10 +52,11 @@ app.post('/login', function(req, res){
       res.send(auth_error);
     })
     .then(function(user){
-      bcrypt.compare(data.password, user.password_digest, function(err, cmp){
+      bcrypt
+      .compare(data.password, user.password_digest, function(err, cmp){
         if(cmp){
           req.session_state.user = user;
-          console.log(req.session_state.user);
+          // console.log(req.session_state.user);
           res.redirect("/");
         } else {
           res.send(auth_error);
@@ -89,14 +90,17 @@ app.post('/signup', function(req, res){
   else {
     bcrypt
       .hash(data.password, 10, function(err, hash){
-      db.none(
+      db
+      .none(
         "INSERT INTO cats (email, password_digest, catname) VALUES ($1, $2, $3)",
         [data.email, hash, data.catname]
-      ).catch(function(e){
+      )
+      .catch(function(e){
         console.log(`Failed to create user: ${e}`);
         let error = {msg: `Failed to create user: ${e}`}
         res.send(error);
-      }).then(function(){
+      })
+      .then(function(){
         res.render('index');
       });
     });
@@ -104,43 +108,60 @@ app.post('/signup', function(req, res){
 });
 
 app.post('/results', function(req,res){
-  console.log("put call to results");
-  console.log(req.session_state.user);
+
   if(req.session_state.user){
-    let data = {
+    let result_data = {
       "logged_in": true,
       "email": req.session_state.user.email,
       "catname": req.session_state.user.catname,
-      "results": req.body.catdata
+      "catdata": req.body.catdata,
+      "results": []
     };
-    db.none(
-        "UPDATE cats SET data = $1 WHERE email = $2",
-        [data.results, data.email]
-      ).catch(function(){
-        res.send('Failed to update cat data.');
-      }).then(function(){
-        // res.send('cat updated');
-        res.render('results/index', data);
+    db
+      .none(
+          "UPDATE cats SET data = $1 WHERE email = $2",
+          [result_data.catdata, result_data.email])
+      .catch(function(){
+          res.send('Failed to update cat data.');
+      })
+      .then(function(){
+        db
+          .many(
+            "SELECT * from cats")
+          .catch(function(){
+            res.send('did not capture much cat data.');
+          })
+          .then(function(cats){
+            console.log('db all captured', cats);
+            let all_cat_array = [];
+            cats.forEach(cat => {
+              let arr = cat.data.split(',');
+              all_cat_array.push(arr);
+            });
+            result_data.results = all_cat_array.join(',');
+          });
+      })
+      // insert fancy stuff
+      .then(function(){
+          res.render('results/index', result_data);
       });
+
   } else {
-    res.send('no req session_state user');
     res.end();
   }
 });
 
-app.get('/results', function(req,res){
-  console.log("get call to results");
-   res.render('results/index');
-   // button hits results route without put and session_state seemingly
-});
-
-app.put('/user', function(req, res){
-  db.none(
+// don't have ui for this yet, so it might not work
+app.put('/user', function(req,res){
+  db
+    .none(
       "UPDATE cats SET email = $1 WHERE email = $2",
       [req.body.email, req.session_state.user.email]
-    ).catch(function(){
+    )
+    .catch(function(){
       res.send('Failed to update user.');
-    }).then(function(){
+    })
+    .then(function(){
       res.send('User updated.');
     });
 });
