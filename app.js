@@ -115,7 +115,7 @@ app.post('/results', function(req,res){
       "email": req.session_state.user.email,
       "catname": req.session_state.user.catname,
       "catdata": req.body.catdata,
-      "results": []
+      "results": {}
     };
     db
     .none(
@@ -130,7 +130,7 @@ app.post('/results', function(req,res){
       .many(
         "SELECT * from cats")
       .catch(function(){
-        res.send('did not capture much cat data.');
+        res.send('did not capture mucho cat data.');
       })
       .then(function(cats){
         // console.log('db all captured', cats); // works
@@ -138,11 +138,19 @@ app.post('/results', function(req,res){
           let arr = cat.data.split(',');
           all_cat_array.push(arr);
         })
-        result_data.results = all_cat_array;
+        // this does not cross any bridges between the server and view
+        result_data.results.all_cat_array = all_cat_array;
       })
       .then(function(){
-        console.log('db all cats to show', result_data);
-        res.render('results/index', result_data);
+        // console.log('db all cats to show', result_data); // works
+        // results shows some bare data
+        // res.render('results', result_data);
+        // results/results does what? want it to interject d3, consume result_data,
+        // and do awesome stuff with the data with d3...like simple stuff.
+
+        // res.redirect('results/results', result_data);
+        // res.render('results/results', result_data);
+        res.render('results', result_data);
       })
     });
 
@@ -151,7 +159,8 @@ app.post('/results', function(req,res){
   }
 });
 
-// the right way to do it:
+// according to docs
+// the right way to do it:  -- whatever this means!!??
 // function goodCode(someData) {
 //     // someData = your array of objects for inserts;
 //     return db.task(function (t) {
@@ -164,7 +173,7 @@ app.post('/results', function(req,res){
 //     });
 // }
 
-// don't have ui for this yet, so it might not work
+// don't have ui for this yet, so it might not work, and i don't care yet!
 app.put('/user', function(req,res){
   db
     .none(
