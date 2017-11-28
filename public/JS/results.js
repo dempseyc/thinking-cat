@@ -9,17 +9,20 @@ d3.json('http://localhost:3000/results/results', function(data) {
   myCatData = $('#cat-data').val();
   myCatData = myCatData.split(',');
   console.log("all cat data", allCatData, "my cat data", myCatData);
-  performAnalysis(allCatData,myCatData);
+  let d3_average = getAverageLength(allCatData,myCatData);
+  // and more
 });
 
 // now i can program!!
 
 // finally!!
-function performAnalysis(allCats,myCat) {
+
+function getAverageLength(allCats,myCat) {
 
   let totalOfAllStories = function (allCats) {
     // high order later
     let acc = 0;
+    // you would want a reduce rather than a forEach ?
     allCats.forEach( cat => {
       acc += cat.length;
     });
@@ -27,7 +30,7 @@ function performAnalysis(allCats,myCat) {
   }
 
   let total = totalOfAllStories(allCats);
-  console.log("total", total); // should be around 800
+  console.log("total", total); // should be around 600
 
   let averageStoryLength  = function (total) {
     let numCats = allCats.length;
@@ -36,9 +39,11 @@ function performAnalysis(allCats,myCat) {
   }
 
   let average = averageStoryLength(total);
-  console.log("average", average); // should be around 7
+  console.log("average", average); // should be around 6
 
 }
+
+
 
 
 
