@@ -1,11 +1,14 @@
-const d3 = require('d3');
+let allCatData;
+let myCatData;
 
-if (d3) {
-  console.log("d3 exists");
-} else {
-  console.log("no d3 existing");
-}
+// works
+d3.json('http://localhost:3000/results/results', function(data) {
+  // console.log(data);
+  allCatData = data[0].all_cat_array;
+  myCatData = $('#cat-data').val();
+  console.log("all cat data", allCatData, "my cat data", myCatData);
+});
 
-// d3.json('http://localhost/RestService/GetTransactionByStatus/' + id, function(data) {
-//     console.log(data.transactionConcil);
-// });
+
+
+

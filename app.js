@@ -110,54 +110,72 @@ app.post('/signup', function(req, res){
 app.post('/results', function(req,res){
 
   if(req.session_state.user){
-    let result_data = {
+    let data = {
       "logged_in": true,
       "email": req.session_state.user.email,
       "catname": req.session_state.user.catname,
       "catdata": req.body.catdata,
-      "results": {}
     };
     db
     .none(
         "UPDATE cats SET data = $1 WHERE email = $2",
-        [result_data.catdata, result_data.email])
+        [data.catdata, data.email])
     .catch(function(){
         res.send('Failed to update cat data.');
     })
     .then(function(){
-      let all_cat_array = [];
-      db
-      .many(
-        "SELECT * from cats")
-      .catch(function(){
-        res.send('did not capture mucho cat data.');
-      })
-      .then(function(cats){
-        // console.log('db all captured', cats); // works
-        cats.forEach(cat => {
-          let arr = cat.data.split(',');
-          all_cat_array.push(arr);
-        })
-        // this does not cross any bridges between the server and view
-        result_data.results.all_cat_array = all_cat_array;
-      })
-      .then(function(){
-        // console.log('db all cats to show', result_data); // works
-        // results shows some bare data
-        // res.render('results', result_data);
-        // results/results does what? want it to interject d3, consume result_data,
-        // and do awesome stuff with the data with d3...like simple stuff.
-
-        // res.redirect('results/results', result_data);
-        // res.render('results/results', result_data);
-        res.render('results', result_data);
-      })
-    });
+        res.render('results', data);
+    })
 
   } else {
     res.end();
   }
 });
+
+app.get('/results/results', function(req,res){
+  if(req.session_state.user){
+    let result_data = [{
+    "logged_in": true,
+    "email": req.session_state.user.email,
+    "catname": req.session_state.user.catname
+    }];
+    let all_cat_array = [];
+    db
+    .many(
+      "SELECT * from cats"
+    )
+    .catch(function(){
+      res.send('did not capture mucho cat data.');
+    })
+    .then(function(cats){
+      // console.log('db all captured', cats); // works
+      cats.forEach(cat => {
+        let arr = cat.data.split(',');
+        all_cat_array.push(arr);
+      })
+      result_data[0].all_cat_array = all_cat_array;
+
+    })
+    .then(function(){
+      // [JSONViewer] Your json was stored into 'window.json', enjoy!
+      // go back and learn what that means
+      res.json(result_data);
+      res.end();
+      // want to interject d3, consume result_data,
+      // and do awesome stuff with the data with d3...like simple stuff.
+    })
+  } else {
+    res.send('no user');
+  }
+});
+
+
+// // works
+// app.get('/test', function(req,res){
+//   let json = [{"key1": [1,2,3,4]}];
+//   res.json(json);
+// })
+
 
 // according to docs
 // the right way to do it:  -- whatever this means!!??
