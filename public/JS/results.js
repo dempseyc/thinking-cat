@@ -9,7 +9,10 @@ d3.json('http://localhost:3000/results/results', function(data) {
   myCatData = $('#cat-data').val();
   myCatData = myCatData.split(',');
   console.log("all cat data", allCatData, "my cat data", myCatData);
-  let d3_average = getAverageLength(allCatData,myCatData);
+  // d3_average is a value i might want to apply to d3
+  let d3_average = averageStoryLength(allCatData,myCatData);
+  // let d3 rooms two and four
+  // let d3 room 6 or 7 as the last room in myCatData
   // and more
 });
 
@@ -17,8 +20,9 @@ d3.json('http://localhost:3000/results/results', function(data) {
 
 // finally!!
 
-function getAverageLength(allCats,myCat) {
+function averageStoryLength(allCats,myCat) {
 
+  //////// works
   let totalOfAllStories = function (allCats) {
     // high order later
     let acc = 0;
@@ -28,6 +32,15 @@ function getAverageLength(allCats,myCat) {
     });
     return acc;
   }
+
+  /////// doesn't work  find out why
+  /////// returns are cray zay
+  // let totalOfAllStories = function (allCats) {
+  //   let totalOfAll = allCats.reduce( (acc,cat) => {
+  //     return acc += Number(cat.length);
+  //   });
+  //   return totalOfAll;
+  // }
 
   let total = totalOfAllStories(allCats);
   console.log("total", total); // should be around 600
