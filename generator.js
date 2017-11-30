@@ -22,9 +22,9 @@ function constructString () {
     let name;
 
     // static data
-    let pre = ['Per','Sus','In','Des','Mer','Di','As','Mo','Nin','Qua','Dre'];
-    let mid = ['sep','clip','dip','on','ov','clod','brof','clef','din','menos','bevos','clev'];
-    let post = ['oclese','inac','ovres','erat','om','enes','omid','idus','tine','oby'];
+    let pre = ['Per','Sus','In','Des','Mer','Di','Az','Mo','Nin','Qua','Dre','Flo','Smer','Bim','Flim','Tur','Chip','Cro','Shu','Ip','Kra','Je','Gin'];
+    let mid = ['sep','clip','dip','on','ov','clod','brof','clef','din','menos','bevos','clev','pap','zip','bup','trap','tip','bep'];
+    let post = ['oclese','inac','ovrese','erat','efraime','inom','erope','iff','om','enese','omid','idus','tine','oby','erone','amede'];
 
     let thePre = pre[random(pre.length)];
     let theMid = mid[random(mid.length)];

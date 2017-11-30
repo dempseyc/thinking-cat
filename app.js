@@ -149,6 +149,7 @@ app.get('/results/results', function(req,res){
     })
     .then(function(cats){
       // console.log('db all captured', cats); // works
+      console.log('cats length', cats.length);
       cats.forEach(cat => {
         let arr = cat.data.split(',');
         all_cat_array.push(arr);
@@ -158,11 +159,8 @@ app.get('/results/results', function(req,res){
     })
     .then(function(){
       // [JSONViewer] Your json was stored into 'window.json', enjoy!
-      // go back and learn what that means
       res.json(result_data);
       res.end();
-      // want to interject d3, consume result_data,
-      // and do awesome stuff with the data with d3...like simple stuff.
     })
   } else {
     res.send('no user');

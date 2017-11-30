@@ -21,7 +21,8 @@ d3.json('http://localhost:3000/results/results', function(data) {
 
   allCatData = data[0].all_cat_array;
 
-  // console.log("all cat data", allCatData, "my cat data", myCatData);
+  console.log("all cat data", allCatData);
+  console.log("my cat data", myCatData);
   averagedStoryLength = averageStoryLength(allCatData);
   sortedByStoryLength = sortByLength(allCatData);
   sortedByNumberOfTwosAndFours = sortByNumberOfTwosAndFours(allCatData);
@@ -38,8 +39,6 @@ d3.json('http://localhost:3000/results/results', function(data) {
   dataContainer.adventurousnessData = sortedByLastOccurance.map(arr => {
     return Number(arr[arr.length-1]);
   });
-
-  console.log(dataContainer);
 });
 
 
@@ -128,7 +127,7 @@ function sortByLastOccurance(arrays) {
 
 // let's do some d3 bullshit
 
-
+console.log(dataContainer);
 
 
 
