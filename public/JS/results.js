@@ -1,24 +1,47 @@
 let allCatData;
-let myCatData;
+let myCatData = $('#cat-data').val().split(',');
+
+let averagedStoryLength;
+let sortedByStoryLength;
+let sortedByNumberOfTwosAndFours;
+let sortedByLastOccurance;
+
+let dataContainer = {
+  myCatCaution: myCatData.length,
+  cautionData: [],
+  myCatAggression: count2sAnd4s(myCatData),
+  aggressionData: [],
+  myCatAdventurousness: myCatData[myCatData.length-1],
+  adventurousnessData: []
+};
 
 // works
 // what is a more environment-specific url?
 d3.json('http://localhost:3000/results/results', function(data) {
-  // console.log(data);
+
   allCatData = data[0].all_cat_array;
-  myCatData = $('#cat-data').val();
-  myCatData = myCatData.split(',');
-  console.log("all cat data", allCatData, "my cat data", myCatData);
-  // d3_average is a value i might want to apply to d3
-  let d3_average = averageStoryLength(allCatData,myCatData);
-  // let d3 rooms two and four
-  // let d3 room 6 or 7 as the last room in myCatData
-  // and more
+
+  // console.log("all cat data", allCatData, "my cat data", myCatData);
+  averagedStoryLength = averageStoryLength(allCatData);
+  sortedByStoryLength = sortByLength(allCatData);
+  sortedByNumberOfTwosAndFours = sortByNumberOfTwosAndFours(allCatData);
+  sortedByLastOccurance = sortByLastOccurance(allCatData);
+
+  dataContainer.cautionData = sortedByStoryLength.map(arr => {
+    return arr.length;
+  });
+
+  dataContainer.aggressionData = sortedByNumberOfTwosAndFours.map(arr => {
+    return count2sAnd4s(arr);
+  });
+
+  dataContainer.adventurousnessData = sortedByLastOccurance.map(arr => {
+    return Number(arr[arr.length-1]);
+  });
+
+  console.log(dataContainer);
 });
 
-// now i can program!!
-
-// finally!!
 
 function averageStoryLength(allCats,myCat) {
 
@@ -33,17 +56,9 @@ function averageStoryLength(allCats,myCat) {
     return acc;
   }
 
-  /////// doesn't work  find out why
-  /////// returns are cray zay
-  // let totalOfAllStories = function (allCats) {
-  //   let totalOfAll = allCats.reduce( (acc,cat) => {
-  //     return acc += Number(cat.length);
-  //   });
-  //   return totalOfAll;
-  // }
-
+  // works
   let total = totalOfAllStories(allCats);
-  console.log("total", total); // should be around 600
+  // console.log("total", total); // should be around 600
 
   let averageStoryLength  = function (total) {
     let numCats = allCats.length;
@@ -51,10 +66,69 @@ function averageStoryLength(allCats,myCat) {
     return avg;
   }
 
-  let average = averageStoryLength(total);
-  console.log("average", average); // should be around 6
+  // works
+  return averageStoryLength(total);
+  // console.log("average", average); // should be around 6
 
 }
+
+function sortByLength(arrays) {
+  //copy arrays
+  let newArrayOfArrays = arrays.slice();
+  newArrayOfArrays.sort( (a,b) => {
+    return a.length - b.length;
+  });
+  return newArrayOfArrays;
+}
+
+function count2sAnd4s(arr) {
+  let count = arr.reduce( (acc,i) => {
+    if (i==2 || i==4) {
+      return acc - 0 + 1;
+    } else {
+      return acc - 0;
+    }
+  });
+  return Number(count);
+}
+
+function sortByNumberOfTwosAndFours(arrays) {
+  //copy arrays
+  let newArrayOfArrays = arrays.slice();
+  newArrayOfArrays.sort( (a,b) => {
+    let numA = count2sAnd4s(a);
+    let numB = count2sAnd4s(b);
+    return numA - numB;
+  });
+  return newArrayOfArrays;
+}
+
+function sortByLastOccurance(arrays) {
+  //copy arrays
+  let newArrayOfArrays = arrays.slice();
+  newArrayOfArrays.sort( (a,b) => {
+    let numA = a.reduce( (acc,i) => {
+      if (i[i.length-1]==6) {
+        return 2;
+      } else {
+        return 0;
+      }
+    });
+    let numB = b.reduce( (acc,i) => {
+      if (i[i.length-1]==7) {
+        return 1;
+      } else {
+        return 0;
+      }
+    });
+    return numA - numB;
+  });
+  return newArrayOfArrays;
+}
+
+// let's do some d3 bullshit
+
+
 
 
 
