@@ -21,8 +21,9 @@ d3.json('http://localhost:3000/results/results', function(data) {
 
   allCatData = data[0].all_cat_array;
 
-  console.log("all cat data", allCatData);
-  console.log("my cat data", myCatData);
+  // console.log("all cat data", allCatData);
+  // console.log("my cat data", myCatData);
+
   averagedStoryLength = averageStoryLength(allCatData);
   sortedByStoryLength = sortByLength(allCatData);
   sortedByNumberOfTwosAndFours = sortByNumberOfTwosAndFours(allCatData);
@@ -39,25 +40,23 @@ d3.json('http://localhost:3000/results/results', function(data) {
   dataContainer.adventurousnessData = sortedByLastOccurance.map(arr => {
     return Number(arr[arr.length-1]);
   });
+
+  createCharts(dataContainer);
+
 });
 
 
 function averageStoryLength(allCats,myCat) {
 
-  //////// works
   let totalOfAllStories = function (allCats) {
-    // high order later
     let acc = 0;
-    // you would want a reduce rather than a forEach ?
     allCats.forEach( cat => {
       acc += cat.length;
     });
     return acc;
   }
 
-  // works
   let total = totalOfAllStories(allCats);
-  // console.log("total", total); // should be around 600
 
   let averageStoryLength  = function (total) {
     let numCats = allCats.length;
@@ -65,14 +64,11 @@ function averageStoryLength(allCats,myCat) {
     return avg;
   }
 
-  // works
   return averageStoryLength(total);
-  // console.log("average", average); // should be around 6
 
 }
 
 function sortByLength(arrays) {
-  //copy arrays
   let newArrayOfArrays = arrays.slice();
   newArrayOfArrays.sort( (a,b) => {
     return a.length - b.length;
@@ -92,7 +88,6 @@ function count2sAnd4s(arr) {
 }
 
 function sortByNumberOfTwosAndFours(arrays) {
-  //copy arrays
   let newArrayOfArrays = arrays.slice();
   newArrayOfArrays.sort( (a,b) => {
     let numA = count2sAnd4s(a);
@@ -103,7 +98,6 @@ function sortByNumberOfTwosAndFours(arrays) {
 }
 
 function sortByLastOccurance(arrays) {
-  //copy arrays
   let newArrayOfArrays = arrays.slice();
   newArrayOfArrays.sort( (a,b) => {
     let numA = a.reduce( (acc,i) => {
@@ -127,7 +121,17 @@ function sortByLastOccurance(arrays) {
 
 // let's do some d3 bullshit
 
-console.log(dataContainer);
+// console.log(dataContainer);
+
+// #charts
+
+function createCharts (data) {
+  // myCatCaution, cautionData, myCatAggression, agressionData, myCatAdventerousness, adventerousnessData
+
+  console.log('create charts', data);
+}
+
+
 
 
 

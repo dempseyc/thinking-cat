@@ -94,7 +94,7 @@ h1 {
 
 h4 {
   font-size: 1em;
-  line-height: 1.5em;
+  line-height: 2.5em;
 }
 
 #form-area {
@@ -154,6 +154,9 @@ button {
   color: #F3F;
   text-decoration: underline;
   justify-content: left;
+  opacity: 0;
+  transition-property: opacity;
+  transition-duration: 2s;
 }
 
 /* make button look the same as the link */

@@ -128,6 +128,11 @@ $(document).ready(function() {
     let OPTS = $('.options');
     let CATDAT = $('#cat-data');
     let areaMAP = $('#map');
+    let Result = $('#result');
+
+    let makeResultLinkVisible = function() {
+      Result.css({'opacity': 1});
+    }
 
     let userChoice = function(e) {
       changeState(e.data.room, e.data.option);
@@ -203,9 +208,12 @@ $(document).ready(function() {
 
       CATDAT.val(cdStr);
 
-
+      if ( currentRoom == 6 || currentRoom == 7 ) {
+        makeResultLinkVisible();
+      }
 
     };
+
     updateDOM();
 
     let changeState = function(room,choice) {
