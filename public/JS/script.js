@@ -128,11 +128,11 @@ $(document).ready(function() {
     let OPTS = $('.options');
     let CATDAT = $('#cat-data');
     let areaMAP = $('#map');
-    let Result = $('#result');
+    // let Result = $('#result');
 
-    let makeResultLinkVisible = function() {
-      Result.css({'opacity': 1});
-    }
+    // let makeResultLinkVisible = function() {
+    //   Result.css({'opacity': 1});
+    // }
 
     let userChoice = function(e) {
       changeState(e.data.room, e.data.option);

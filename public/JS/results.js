@@ -119,19 +119,46 @@ function sortByLastOccurance(arrays) {
   return newArrayOfArrays;
 }
 
-// let's do some d3 bullshit
-
-// console.log(dataContainer);
-
-// #charts
 
 function createCharts (data) {
   // myCatCaution, cautionData, myCatAggression, agressionData, myCatAdventerousness, adventerousnessData
+  let ChartContainer = d3.select('#chart-container');
+  ChartContainer.text("Cautiousness");
+  let Chart1 = ChartContainer.append('div');
+  let chart1Data = data.cautionData;
+  let colors = [
+    "#E7826F",
+    "#EC837A",
+    "#EF8486",
+    "#F08693",
+    "#F0899F",
+    "#ED8DAC",
+    "#E993B8",
+    "#E298C4",
+    "#DA9FCE",
+    "#D0A6D8",
+    "#C5ADE0",
+    "#B7B4E6",
+    "#A9BBEB",
+    "#9AC1ED",
+    "#8BC8EE",
+    "#7CCEED",
+    "#6ED3EA",
+    "#63D8E4",
+    "#5CDDDE",
+    "#59E1D5"
+  ];
 
-  console.log('create charts', data);
+  Chart1
+    .attr('class','chart')
+  Chart1.selectAll('div')
+    .data(chart1Data)
+    .enter().append('div')
+    .style('display', 'inline-block')
+    .style('width', '0.9%')
+    .style('height', '100%')
+    .style('background-color', function (d) { return colors[d]; });
 }
-
-
 
 
 
