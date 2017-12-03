@@ -9,13 +9,32 @@
   <!-- <link href="/css/results.css" rel="stylesheet" type="text/css"> -->
 </head>
 <body>
-  <h1>Results Page</h1>
-
   <!-- works -->
   <form type="hidden" ><input id="cat-data" name="catdata" value={{catdata}} /></form>
 
-  <div class="header">Results for: {{catname}}</div>
-  <div id="chart-container"></div>
+  <div class="header">Results</div>
+  <div id="charts">
+    <div class="chart-container">
+      <header><h4>Number of Moves</h4></header>
+      <h5>{{catname}}'s result: <span class="result1"></span>
+        <div class="color-block color-block1"></div></h5>
+      <h5>compare to all cats:</h5>
+      <div class="chart chart1"></div>
+    </div>
+    <div class="chart-container">
+      <header><h4>Amount of Hunting</h4></header>
+      <h5>{{catname}}'s result: <span class="result2"></span>
+        <div class="color-block color-block2"></div></h5>
+      <h5>compare to all cats:</h5>
+      <div class="chart chart2"></div>
+    </div>
+    <div class="chart-container">
+      <header><h4>Win or Lose</h4></header>
+      <h5>{{catname}}'s result: <span class="result3"></span>
+        <div class="color-block color-block3"></div></h5>
+      <h5>compare to all cats:</h5>
+      <div class="chart chart3"></div>
+  </div>
 
   <script src="/js/d3.js"></script>
   <script src="/js/jquery.js"></script>
