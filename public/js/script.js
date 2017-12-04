@@ -1,5 +1,7 @@
+// catData records the behavior of the player
 let catData = [];
 
+// static data
 const rooms = [
   {
   'id': 0,
@@ -107,22 +109,25 @@ const rooms = [
   }
 ];
 
-//data
-//data
-//data
-//data
+// static data
+// static data
+// static data
+// static data
 
+// init variable
 let currentRoom = 1;
-//caching dom
+
+// cache DOM
 let DisplayUnit = $('#display-unit');
 let M = $('.message');
 let IMGdiv = $('.room-image');
 let STAT = $('.status');
 let OPTS = $('.options');
 let CATDAT = $('#cat-data');
-let areaMAP = $('#map');
+let AreaMAP = $('#map');
 let Result = $('#result');
 
+// my Capitalized vars are jquery elements, ok?  $'s are noisy
 let makeResultLinkVisible = function() {
   Result.css({'opacity': 1});
 }
@@ -132,8 +137,6 @@ let userChoice = function(e) {
 };
 
 let updateDOM = function () {
-
-  // console.log('updateDOM called currentRoom '+currentRoom);
 
   if (currentRoom == 0) {
     let message = `${rooms[currentRoom]['name']}`;
@@ -155,7 +158,7 @@ let updateDOM = function () {
   STAT.text(status);
 
   OPTS.empty();
-  areaMAP.empty();
+  AreaMAP.empty();
   let optionsArr = rooms[currentRoom]['options'];
   optionsArr.forEach(function(option){
 
@@ -164,8 +167,8 @@ let updateDOM = function () {
     OPTS.append(BUTT);
 
     let AREA = option.clickable;
-    AREA += areaMAP.html();
-    areaMAP.html(AREA);
+    AREA += AreaMAP.html();
+    AreaMAP.html(AREA);
 
     // jquery area map classes and their on_click functions
     for (let room=1;room<8;room++) {
@@ -185,10 +188,9 @@ let updateDOM = function () {
 
 };  // end updateDOM
 
-updateDOM();
-
 let changeState = function(room,choice) {
   currentRoom = choice;;
   updateDOM();
 };
 
+updateDOM();

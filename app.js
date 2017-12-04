@@ -20,15 +20,14 @@ app.use(bodyParser.json());
 app.use(expressValidator());
 app.use(methodOverride('_method'));
 
-// i don't know what any of these thing mean  express.session methods? passing what obj lit?
-
 app.use(clientSessions({
   secret: 'supersecretsecretstring',
   duration: 2 * 60 * 60 * 1000 //2-minute session
 }));
 
-// let db = pgp('postgres://macbook@localhost:5432/catusers');
-let db = pgp('postgres://aroypkhgcwvrmc:db7f13095a44fbde72bb974b6b95aa347b5424e6a1ad349791b112a491303e9e@ec2-54-227-252-202.compute-1.amazonaws.com:5432/d2s5q3bo6f8him');
+// need a workflow for this
+let db = pgp('postgres://macbook@localhost:5432/catusers');
+// let db = pgp('postgres://aroypkhgcwvrmc:db7f13095a44fbde72bb974b6b95aa347b5424e6a1ad349791b112a491303e9e@ec2-54-227-252-202.compute-1.amazonaws.com:5432/d2s5q3bo6f8him');
 
 app.get('/', function(req, res){
   if(req.session_state.user){
@@ -86,7 +85,7 @@ app.post('/signup', function(req, res){
   let validErrors = req.validationErrors();
 
   if (validErrors) {
-      res.render('signup/index', {errors:validErrors});// Render the form using error information
+      res.render('signup/index', {errors:validErrors});
   }
   else {
     bcrypt
@@ -97,7 +96,7 @@ app.post('/signup', function(req, res){
         [data.email, hash, data.catname]
       )
       .catch(function(e){
-        console.log(`Failed to create user: ${e}`);
+        // console.log(`Failed to create user: ${e}`);
         let error = {msg: `Failed to create user: ${e}`}
         res.send(error);
       })
@@ -133,6 +132,7 @@ app.post('/results', function(req,res){
   }
 });
 
+// my internal api response is json to front end script
 app.get('/results/results', function(req,res){
   if(req.session_state.user){
     let result_data = [{
@@ -159,7 +159,6 @@ app.get('/results/results', function(req,res){
 
     })
     .then(function(){
-      // [JSONViewer] Your json was stored into 'window.json', enjoy!
       res.json(result_data);
       res.end();
     })
@@ -168,18 +167,10 @@ app.get('/results/results', function(req,res){
   }
 });
 
-
-// // works
-// app.get('/test', function(req,res){
-//   let json = [{"key1": [1,2,3,4]}];
-//   res.json(json);
-// })
-
-
 // according to docs
 // the right way to do it:  -- whatever this means!!??
 // function goodCode(someData) {
-//     // someData = your array of objects for inserts;
+//     someData = your array of objects for inserts;
 //     return db.task(function (t) {
 //         var queries = [];
 //         someData.forEach(function (data) {
@@ -210,6 +201,7 @@ app.get('/logout', function(req, res){
   res.redirect('/');
 });
 
+// ta fucking da!
 app.listen(process.env.PORT || 3000, function(){
   console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
 });
