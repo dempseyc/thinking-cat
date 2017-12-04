@@ -10,8 +10,8 @@ let dataContainer = {
 
 // works
 // what is a more environment-specific url?
-d3.json('http://localhost:3000/results/results', function(data) {
-
+// d3.json('results/results', function(data) {
+$.get('/results/results', function(data) {
 
   let allCatData = data[0].all_cat_array;
 
