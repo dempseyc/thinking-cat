@@ -1,4 +1,3 @@
-let catName = '';
 let catData = [];
 
 const rooms = [
