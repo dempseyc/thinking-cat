@@ -148,15 +148,14 @@ button {
 }
 
 #result {
-  position: absolute;
-  top: 5%;
-  right: 5%;
+  position: relative;
+  top: -10%;
   color: #F3F;
   text-decoration: underline;
-  justify-content: left;
-/*  opacity: 0;
+  justify-content: center;
+  opacity: 0;
   transition-property: opacity;
-  transition-duration: 2s;*/
+  transition-duration: 2s;
 }
 
 /* make button look the same as the link */
