@@ -114,7 +114,6 @@ function sortByLastOccurance(arrays) {
 }
 
 
-
 function createCharts (data) {
   // myCatCaution, cautionData, myCatAggression, agressionData, myCatAdventerousness, adventerousnessData
   let colors = [

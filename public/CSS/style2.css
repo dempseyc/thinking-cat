@@ -175,15 +175,6 @@ button, a {
   cursor: pointer;
 }
 
-/* make button look the same as the link */
-/*span {
-  font: inherit;
-  color: #F3F;
-  text-decoration: underline;
-  justify-content: left;
-}*/
-
-
 #email {
   display: none;
 }
