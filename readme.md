@@ -1,4 +1,24 @@
-The Naming Of Cats
+# Thinking Cat
+### An experimental personality-test game
+
+---
+
+The player creates a profile, giving themselves a cat-name, given a prompt by none-other-than the cat-expert and poet, t.s. Elliot, in his poem "The Naming of Cats."
+
+Each 'cat' navigates a virtual environment until they reach an ending where their 'cat-story' is stored in the database and compared with the stories of other players. They are then shown the results of this comparison.
+
+The design of the game is inspired by my earliest programming experience as a child, when, finding that with Apple's HyperCard application, on an old computer that my mom brought home from her work, I could possibly create a game. I was probably 10 years old or so, and began thinking about how computer programming works. For me today, this project is an exploration of web development, utilizing tools such as JavaScript, Node.js with Express.js, D3.js, and Postgres.
+
+![10 yr old Craig][id]
+
+[id]: /craig_at_10.jpg "Craig"
+
+![My Hypercard Game][id]
+
+[id]: /game_in_1990.jpg "My Hypercard Game"
+
+
+## The Naming Of Cats
 
 The Naming of Cats is a difficult matter,
 It isn't just one of your holiday games;
