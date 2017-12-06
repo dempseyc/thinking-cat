@@ -45,7 +45,7 @@
         {{^logged_in}}
           <div class="main-container">
             <header>
-              <h1>Log-in to play "Thinking Cat."</h1><br />
+              <h1><a href="/signup">Sign Up</a> to play "Thinking Cat."</h1><br />
             </header>
             <div id="form-area">
               <form class="form" action="/login" method="post">
@@ -53,7 +53,7 @@
                   <input name="email" type="text" class="form-input" id="inputEmail" placeholder="Email" />
                 <label for="inputPassword" class="passInput">Password</label>
                   <input name="password" type="password" class="form-input" id="inputPassword" placeholder="Password">
-                <button type="submit" class="form-button"><span>Login</span></button>
+                <button type="submit" class="form-button"><span>Log In</span></button>
               </form>
               <p class="block">No Login?: <a href="/signup"><span>Sign Up</span></a></p>
             </div> <!-- form-area -->
