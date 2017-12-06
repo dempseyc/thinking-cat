@@ -26,8 +26,8 @@ app.use(clientSessions({
 }));
 
 // need a workflow for this
-let db = pgp('postgres://macbook@localhost:5432/catusers');
-// let db = pgp('postgres://aroypkhgcwvrmc:db7f13095a44fbde72bb974b6b95aa347b5424e6a1ad349791b112a491303e9e@ec2-54-227-252-202.compute-1.amazonaws.com:5432/d2s5q3bo6f8him');
+// let db = pgp('postgres://macbook@localhost:5432/catusers');
+let db = pgp('postgres://aroypkhgcwvrmc:db7f13095a44fbde72bb974b6b95aa347b5424e6a1ad349791b112a491303e9e@ec2-54-227-252-202.compute-1.amazonaws.com:5432/d2s5q3bo6f8him');
 
 app.get('/', function(req, res){
   if(req.session_state.user){
