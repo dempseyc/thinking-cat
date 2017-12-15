@@ -21,7 +21,7 @@ $.get('/results/results', function(data) {
   let averagedStoryLength = averageStoryLength(allCatData);
   let sortedByStoryLength = sortByLength(allCatData);
   let sortedByNumberOfTwosAndFours = sortByNumberOfTwosAndFours(allCatData);
-  let sortedByLastOccurance = sortByLastOccurance(allCatData);
+  let sortedByLastOccurance = sortByLastIndex(allCatData);
 
   dataContainer.cautionData = sortedByStoryLength.map(arr => {
     return arr.length;
@@ -91,24 +91,10 @@ function sortByNumberOfTwosAndFours(arrays) {
   return newArrayOfArrays;
 }
 
-function sortByLastOccurance(arrays) {
+function sortByLastIndex(arrays) {
   let newArrayOfArrays = arrays.slice();
   newArrayOfArrays.sort( (a,b) => {
-    let numA = a.reduce( (acc,i) => {
-      if (i[i.length-1]==6) {
-        return 2;
-      } else {
-        return 0;
-      }
-    });
-    let numB = b.reduce( (acc,i) => {
-      if (i[i.length-2]==6) {
-        return 0;
-      } else {
-        return 1;
-      }
-    });
-    return numB - numA;
+    return a[a.length-1] - b[b.length-1];
   });
   return newArrayOfArrays;
 }
