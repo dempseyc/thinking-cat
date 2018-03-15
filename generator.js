@@ -20,8 +20,8 @@ let constructString = function  () {
     let name;
 
     // static data
-    let pre = ['Per','Sus','In','Des','Mer','Di','Az','Mo','Nin','Qua','Dre','Flo','Smer','Bim','Flim','Tur','Chip','Cro','Shu','Ip','Kra','Je','Gin'];
-    let mid = ['sep','clip','dip','on','ov','clod','brof','clef','din','menos','bevos','clev','pap','zip','bup','trap','tip','bep','','','','','','','','','','','',''];
+    let pre = ['Per','Sus','El','Des','Mer','Di','Az','Mo','Nin','Qua','Dre','Flo','Smer','Bim','Flim','Tur','Chip','Cro','Shu','Ip','Kra','Je','Gin', 'Lic', 'In'];
+    let mid = ['sep','clip','dip','on','ov','clod','brof','clef','din','menos','bevos','clev','pap','zip','bup','trap','tip','bep','uor','ner','nu','tuib','mun','map','menc','kip','','','','','','','','','',''];
     let post = ['oclese','inac','ovrese','erat','efraime','inom','erope','iff','om','enese','omid','idus','tine','oby','erone','amede'];
 
     let thePre = pre[randomChoice(pre.length)];
@@ -33,10 +33,10 @@ let constructString = function  () {
 
   };
 
-  let makeEmail = function(name,domain,dot) {
-    let email = name+"@"+domain+dot;
-    return email;
-  };
+  // let makeEmail = function(name,domain,dot) {
+  //   let email = name+"@"+domain+dot;
+  //   return email;
+  // };
 
   let makeBehavior = function () {
 
@@ -123,12 +123,8 @@ let constructString = function  () {
   // execute
   let dataArray = makeBehavior();
   let name = makeName();
-  let domain = 'virtualcats';
-  let dot = '.com';
-  let email = makeEmail(name,domain,dot);
-  let hash = "$2a$10$PHs62.ErSLxUnp9hoT6PBevG7EYE1anNXBZqpwb3aaMQpw2Z0t1D";
 
-  sql = "INSERT INTO cats(email,password_digest,catname,story,data) VALUES ('"+email+"','"+hash+"','"+name+"','nostory','"+dataArray+"');"
+  sql = "INSERT INTO cats(catname,story,data) VALUES ('"+name+"','nostory','"+dataArray+"');"
 
   return sql;
 

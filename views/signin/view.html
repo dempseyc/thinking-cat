@@ -1,0 +1,62 @@
+<!doctype html>
+<html>
+  <head>
+    <link href="https://fonts.googleapis.com/css?family=Cedarville+Cursive|Raleway|La+Belle+Aurore" rel="stylesheet">
+    <link href="/css/style2.css" rel="stylesheet" type="text/css">
+  </head>
+  <body>
+    <div class="main-container">
+      <header>
+        <h1>Give yourself a Cat-Name!</h1>
+      </header>
+      <div id="form-area">
+        <form class="form" action="/signup" method="post">
+            <label for="inputCatName" class="catNameInput">Your Cat-Name</label>
+              <input name="catname" type="text" class="form-input" id="inputCatName" />
+              <button type="submit" class="form-button"><span>Go to Login</span></button><br />
+        </form>
+        <div class="valid-errors">
+          {{#errors}}
+            <p>{{ msg }}</p>
+          {{/errors}}
+        </div>
+      </div> <!-- form-area -->
+
+      <secret id="poem"><poem>
+        <h1>"The Naming Of Cats" - T.S. Elliot</h1>
+        <p>The Naming of Cats is a difficult matter,</p>
+        <p>It isn't just one of your holiday games;</p>
+        <p>You may think at first I'm as mad as a hatter</p>
+        <p>When I tell you, a cat must have THREE DIFFERENT NAMES.</p>
+        <P>First of all, there's the name that the family use daily,</P>
+        <p>Such as Peter, Augustus, Alonzo or James,</p>
+        <p>Such as Victor or Jonathan, George or Bill Bailey—</p>
+        <p>All of them sensible everyday names.</p>
+        <p>There are fancier names if you think they sound sweeter,</p>
+        <p>Some for the gentlemen, some for the dames:</p>
+        <p>Such as Plato, Admetus, Electra, Demeter—</p>
+        <p>But all of them sensible everyday names.</p>
+        <p>But I tell you, a cat needs a name that's particular,</p>
+        <p>A name that's peculiar, and more dignified,</p>
+        <p>Else how can he keep up his tail perpendicular,</p>
+        <p>Or spread out his whiskers, or cherish his pride?</p>
+        <p>Of names of this kind, I can give you a quorum,</p>
+        <p>Such as Munkustrap, Quaxo, or Coricopat,</p>
+        <p>Such as Bombalurina, or else Jellylorum-</p>
+        <p>Names that never belong to more than one cat.</p>
+        <p>But above and beyond there's still one name left over,</p>
+        <p>And that is the name that you never will guess;</p>
+        <p>The name that no human research can discover—</p>
+        <p>But THE CAT HIMSELF KNOWS, and will never confess.</p>
+        <p>When you notice a cat in profound meditation,</p>
+        <p>The reason, I tell you, is always the same:</p>
+        <p>His mind is engaged in a rapt contemplation</p>
+        <p>Of the thought, of the thought, of the thought of his name:</p>
+        <p>His ineffable effable</p>
+        <p>Effanineffable</p>
+        <p>Deep and inscrutable singular Name.</p>
+      </poem></secret>
+
+    </div> <!-- main container -->
+  </body>
+</html>
