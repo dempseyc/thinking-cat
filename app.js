@@ -26,42 +26,24 @@ let db = pgp('postgres://macbook@localhost:5432/catusers3');
 
 app.get('/', function(req, res){
   if(req.session_state.user){
-    let data = {
-      "logged_in": true,
-      "catname": req.session_state.user.catname,
-      "catdata": ""
-    };
     res.render('index', data);
     } else {
-      res.render('index');
+    res.render('register');
   }
 });
 
-app.post('/login', function(req, res){
+app.get('/register', function(req, res){
+  res.render('register/index');
+});
+
+app.get('/register/error', function(req, res){
+  res.render('register/error');
+});
+
+app.post('/register', function(req, res){
+  // this should get body form data
   let data = req.body;
-  let auth_error = "Invalid catname";
-  db
-    .one("SELECT * FROM cats WHERE catname = $1", [data.catname])
-    .catch(function(){
-      res.send(auth_error);
-    })
-    .then(function(user){
-        req.session_state.user = user;
-        // console.log(req.session_state.user);
-        res.redirect("/");
-    });
-});
-
-app.get('/signin', function(req, res){
-  res.render('signin/index');
-});
-
-app.get('/signin/error', function(req, res){
-  res.render('signin/error');
-});
-
-app.post('/signin', function(req, res){
-  let data = req.body;
+  console.log (data);
   req.checkBody('catname', 'Invalid catname').notEmpty() ;
   req.sanitizeBody('catname').escape();
 
@@ -69,8 +51,9 @@ app.post('/signin', function(req, res){
   let validErrors = req.validationErrors();
 
   if (validErrors) {
-      res.render('signin/index', {errors:validErrors});
+      res.render('register/index', {errors:validErrors});
   }
+
   else {
     db
     .none(
@@ -83,7 +66,7 @@ app.post('/signin', function(req, res){
       res.send(error);
     })
     .then(function(){
-      res.render('index');
+      res.render('index', data);
     });
   }
 });
@@ -144,20 +127,6 @@ app.get('/results/results', function(req,res){
   } else {
     res.send('no user');
   }
-});
-
-app.put('/user', function(req,res){
-  db
-    .none(
-      "UPDATE cats SET email = $1 WHERE catname = $2",
-      [req.body.email, req.session_state.user.catname]
-    )
-    .catch(function(){
-      res.send('Failed to update user.');
-    })
-    .then(function(){
-      res.send('User updated.');
-    });
 });
 
 app.get('/logout', function(req, res){
