@@ -43,7 +43,7 @@ app.get('/register/error', function(req, res){
 app.post('/register', function(req, res){
   // this should get body form data
   let data = req.body;
-  console.log (data);
+  // console.log (data);
   req.checkBody('catname', 'Invalid catname').notEmpty() ;
   req.sanitizeBody('catname').escape();
 
@@ -72,27 +72,23 @@ app.post('/register', function(req, res){
 });
 
 app.post('/results', function(req,res){
+  let data = {
+    "logged_in": true,
+    "catname": req.body.catname,
+    "catdata": req.body.catdata
+  };
+  console.log(data, "in results route");
+  db
+  .none(
+      "UPDATE cats SET data = $1 WHERE catname = $2",
+      [data.catdata, data.catname])
+  .catch(function(){
+      res.send('Failed to update cat data.');
+  })
+  .then(function(){
+      res.render('results', data);
+  });
 
-  if(req.session_state.user){
-    let data = {
-      "logged_in": true,
-      "catname": req.session_state.user.catname,
-      "catdata": req.body.catdata,
-    };
-    db
-    .none(
-        "UPDATE cats SET data = $1 WHERE catname = $2",
-        [data.catdata, data.catname])
-    .catch(function(){
-        res.send('Failed to update cat data.');
-    })
-    .then(function(){
-        res.render('results', data);
-    })
-
-  } else {
-    res.end();
-  }
 });
 
 // my internal api response is json to front end script
