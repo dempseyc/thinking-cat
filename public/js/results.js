@@ -44,12 +44,14 @@ function normalizeData(data) {
   // takes data arr of x length, return data arr of 100 length
 
   for(var prop in data) { 
-    if (typeof(data.prop) === "Array") {
-      let arr = data.prop;
+    if (typeof(data[prop]) === "object") {
+      let arr = data[prop];
       console.log(arr.length, prop);
+    } else {
+      console.log(typeof(data[prop]));
     }
   }
-  
+
 }
 
 function averageStoryLength(allCats,myCat) {
@@ -125,7 +127,6 @@ function createCharts (data) {
   block1.css('background-color', colors[data.myCatPlayfulness]);
   let Chart1 = d3.select('.chart1').append('div');
   let chart1Data = data.playfulnessData;
-  console.log(chart1Data.length, 'length');
   let calculateItemWidth = function () {
     let data = chart1Data;
     let str = '';
