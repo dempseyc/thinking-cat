@@ -43,14 +43,36 @@ $.get('/results/results', function(data) {
 function normalizeData(data) {
   // takes data arr of x length, return data arr of 100 length
 
-  for(var prop in data) { 
-    if (typeof(data[prop]) === "object") {
-      let arr = data[prop];
-      console.log(arr.length, prop);
-    } else {
-      console.log(typeof(data[prop]));
-    }
+  let getPercentOfInstances = function (count, arrLength) {
+    return Math.floor(100 * (count/arrLength));
   }
+
+  for(var prop in data) { 
+    let newArr = [];
+    if (typeof(data[prop]) === "object") {
+
+      let arr = data[prop];
+      let prevI = arr[0];
+      let count = 0;
+
+      for(i=0; i<arr.length-1; i++) {
+        let currI = arr[i];
+        if (currI !== prevI) {
+          let percent = getPercentOfInstances(count, arr.length);
+          for(j=percent; j>=0; j--) {
+            newArr.push(arr[j]);
+          }
+          count = 0;
+        } else {
+          count++;
+        }
+      } // on each index
+      
+      // console.log(arr.length, prop);
+    } // on the if 
+    console.log(newArr.length);
+    dataContainer[data[prop]] = newArr;  // i am such a genious
+  } // for each on arrays in data obj
 
 }
 
