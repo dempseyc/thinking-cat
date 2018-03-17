@@ -120,8 +120,10 @@ app.get('/results/results', function(req,res){
     .then(function(cats){
       console.log('cats length', cats.length);
       cats.forEach(cat => {
-        let arr = cat.data.split(',');
-        result_data[0].all_cat_array.push(arr);
+        if (cat.data) {
+          let arr = cat.data.split(',');
+          result_data[0].all_cat_array.push(arr);
+        }
       })
     })
     .then(function(){

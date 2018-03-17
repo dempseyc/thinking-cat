@@ -1,16 +1,13 @@
 let myCatData = $('#cat-data').val().split(',');
 let dataContainer = {
-  myCatCaution: myCatData.length,
-  cautionData: [],
+  myCatPlayfulness: myCatData.length,
+  playfulnessData: [],
   myCatAggression: count2sAnd4s(myCatData),
   aggressionData: [],
-  myCatAdventurousness: myCatData[myCatData.length-1],
-  adventurousnessData: []
+  myCatCuriosity: myCatData[myCatData.length-1],
+  curiosityData: []
 };
 
-// works
-// what is a more environment-specific url?
-// d3.json('results/results', function(data) {
 $.get('/results/results', function(data) {
 
   let allCatData = data[0].all_cat_array;
@@ -21,9 +18,9 @@ $.get('/results/results', function(data) {
   let averagedStoryLength = averageStoryLength(allCatData);
   let sortedByStoryLength = sortByLength(allCatData);
   let sortedByNumberOfTwosAndFours = sortByNumberOfTwosAndFours(allCatData);
-  let sortedByLastOccurance = sortByLastIndex(allCatData);
+  let sortedByLastIndex = sortByLastIndex(allCatData);
 
-  dataContainer.cautionData = sortedByStoryLength.map(arr => {
+  dataContainer.playfulnessData = sortedByStoryLength.map(arr => {
     return arr.length;
   });
 
@@ -31,14 +28,29 @@ $.get('/results/results', function(data) {
     return count2sAnd4s(arr);
   });
 
-  dataContainer.adventurousnessData = sortedByLastOccurance.map(arr => {
+  dataContainer.curiosityData = sortedByLastIndex.map(arr => {
     return Number(arr[arr.length-1]);
   });
+
+  normalizeData(dataContainer);
 
   createCharts(dataContainer);
 
 });
 
+//////////////////////////////////////////////////////////
+
+function normalizeData(data) {
+  // takes data arr of x length, return data arr of 100 length
+
+  for(var prop in data) { 
+    if (typeof(data.prop) === "Array") {
+      let arr = data.prop;
+      console.log(arr.length, prop);
+    }
+  }
+  
+}
 
 function averageStoryLength(allCats,myCat) {
 
@@ -101,17 +113,18 @@ function sortByLastIndex(arrays) {
 
 
 function createCharts (data) {
-  // myCatCaution, cautionData, myCatAggression, agressionData, myCatAdventerousness, adventerousnessData
+
   let colors = [
     "#F18662","#E88D52","#DA9646","#C89E3F","#B5A53F","#9FAC46","#89B153","#72B565","#59B879","#40B98E","#28BAA3","#20B9B6","#35B6C7","#55B2D3","#76ADDA","#96A6DB","#B49ED6","#CE95CC","#E38DBE","#F387AC"
   ];
 
-  // let myCatCaution = $('.result1');
-  // myCatCaution.text(data.myCatCaution);
+  ///////////////////////////////////////////
+  // playfulness
+
   let block1 = $('.color-block1');
-  block1.css('background-color', colors[data.myCatCaution]);
+  block1.css('background-color', colors[data.myCatPlayfulness]);
   let Chart1 = d3.select('.chart1').append('div');
-  let chart1Data = data.cautionData;
+  let chart1Data = data.playfulnessData;
   console.log(chart1Data.length, 'length');
   let calculateItemWidth = function () {
     let data = chart1Data;
@@ -137,9 +150,8 @@ function createCharts (data) {
 
 
 ///////////////////////////////////////////
+// aggression
 
-  // let myCatAggression = $('.result2');
-  // myCatAggression.text(data.myCatAggression);
   let block2 = $('.color-block2');
   block2.css('background-color', colors[(data.myCatAggression*2)]);
   let Chart2 = d3.select('.chart2').append('div');
@@ -161,21 +173,24 @@ function createCharts (data) {
       }
   });
 
-///////////////////////////////////////////
-
+  
+  ///////////////////////////////////////////
+  // curiosity killed the cat
+  
   let findColor = function (d) {
     if (d == 7) {
-        return colors[colors.length-10];
-      } else {
+      return colors[colors.length-10];
+    } else {
       return colors[0];
-      }
+    }
   };
-  // let myCatAdventurousness = $('.result3');
-  // myCatAdventurousness.text(data.myCatAdventurousness);
+
+  ///////////////////////////////////////////
+
   let block3 = $('.color-block3');
-  block3.css('background-color', findColor(data.myCatAdventurousness));
+  block3.css('background-color', findColor(data.myCatCuriosity));
   let Chart3 = d3.select('.chart3').append('div');
-  let chart3Data = data.adventurousnessData;
+  let chart3Data = data.curiosityData;
 
 
   Chart3.selectAll('div')
