@@ -15,8 +15,8 @@ $.get('/results/results', function(data) {
 
   let allCatData = data[0].all_cat_array;
 
-  // console.log("all cat data", allCatData);
-  // console.log("my cat data", myCatData);
+  console.log("all cat data", allCatData);
+  console.log("my cat data", myCatData);
 
   let averagedStoryLength = averageStoryLength(allCatData);
   let sortedByStoryLength = sortByLength(allCatData);

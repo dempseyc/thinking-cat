@@ -16,6 +16,7 @@ app.use(bodyParser.json());
 app.use(expressValidator());
 
 app.use(clientSessions({
+  resave: true,
   secret: 'supersecretsecretstring',
   duration: 2 * 60 * 60 * 1000 //2-minute session
 }));
@@ -25,9 +26,14 @@ let db = pgp('postgres://macbook@localhost:5432/catusers3');
 // let db = pgp('postgres://aroypkhgcwvrmc:db7f13095a44fbde72bb974b6b95aa347b5424e6a1ad349791b112a491303e9e@ec2-54-227-252-202.compute-1.amazonaws.com:5432/d2s5q3bo6f8him');
 
 app.get('/', function(req, res){
+
   if(req.session_state.user){
+    let data = {
+    "catname": req.session_state.user.catname,
+    "catdata": ""
+  };
     res.render('index', data);
-    } else {
+  } else {
     res.render('register');
   }
 });
@@ -66,39 +72,44 @@ app.post('/register', function(req, res){
       res.send(error);
     })
     .then(function(){
+      req.session_state.user = {"catname": data.catname};
       res.render('index', data);
     });
   }
 });
 
 app.post('/results', function(req,res){
-  let data = {
-    "logged_in": true,
-    "catname": req.body.catname,
-    "catdata": req.body.catdata
-  };
-  console.log(data, "in results route");
-  db
-  .none(
-      "UPDATE cats SET data = $1 WHERE catname = $2",
-      [data.catdata, data.catname])
-  .catch(function(){
-      res.send('Failed to update cat data.');
-  })
-  .then(function(){
-      res.render('results', data);
-  });
-
+  if(req.session_state.user){
+      let data = {
+        "catname": req.session_state.user.catname,
+        "catdata": req.body.catdata,
+      };
+    db
+    .none(
+        "UPDATE cats SET data = $1 WHERE catname = $2",
+        [data.catdata, data.catname])
+    .catch(function(){
+        res.send('Failed to update cat data.');
+    })
+    .then(function(){
+        res.render('results/index', data);
+    });
+  } else {
+    console.log("no user");
+    res.end();
+  }
 });
 
-// my internal api response is json to front end script
+// my internal api is json to front end script at js/results.js
+// d3 handles the json response
+
 app.get('/results/results', function(req,res){
   if(req.session_state.user){
     let result_data = [{
-    "logged_in": true,
-    "catname": req.session_state.user.catname
+    "catname": req.session_state.user.catname,
+    "all_cat_array": []
     }];
-    let all_cat_array = [];
+
     db
     .many(
       "SELECT * from cats"
@@ -107,14 +118,11 @@ app.get('/results/results', function(req,res){
       res.send('did not capture mucho cat data.');
     })
     .then(function(cats){
-      // console.log('db all captured', cats); // works
       console.log('cats length', cats.length);
       cats.forEach(cat => {
         let arr = cat.data.split(',');
-        all_cat_array.push(arr);
+        result_data[0].all_cat_array.push(arr);
       })
-      result_data[0].all_cat_array = all_cat_array;
-
     })
     .then(function(){
       res.json(result_data);
