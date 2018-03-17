@@ -13,32 +13,55 @@
 
   <div class="header">Results</div>
   <div id="charts">
+
     <div class="chart-container">
       <header><h4>Number of Moves</h4></header>
       <h5>{{catname}}'s result: <span class="result1"></span>
         <div class="color-block color-block1"></div></h5>
       <h5>compare to all cats:</h5>
       <div class="chart chart1"></div>
-      <h6 class ="leftward">low playfulness</h6>
-      <h6 class ="rightward">high playfulness</h6>
+      <div class="chart-nom">
+        <div class ="leftward">
+          <h6>low playfulness</h6>
+        </div>
+        <div class ="rightward">
+          <h6>high playfulness</h6>
+        </div>
+      </div>
     </div>
+
     <div class="chart-container">
       <header><h4>Amount of Hunting</h4></header>
       <h5>{{catname}}'s result: <span class="result2"></span>
         <div class="color-block color-block2"></div></h5>
       <h5>compare to all cats:</h5>
       <div class="chart chart2"></div>
-      <h6 class ="leftward">low aggression</h6>
-      <h6 class ="rightward">high aggression</h6>
+      <div class="chart-nom">
+        <div class ="leftward">
+          <h6>low agression</h6>
+        </div>
+        <div class ="rightward">
+          <h6>high agression</h6>
+        </div>
+      </div>
     </div>
+
     <div class="chart-container">
       <header><h4>Win or Lose</h4></header>
       <h5>{{catname}}'s result: <span class="result3"></span>
         <div class="color-block color-block3"></div></h5>
       <h5>compare to all cats:</h5>
       <div class="chart chart3"></div>
-      <h6 class ="leftward">high curiosity</h6>
-      <h6 class ="rightward">low curiosity</h6>
+      <div class="chart-nom">
+        <div class ="leftward">
+          <h6>low curiosity</h6>
+        </div>
+        <div class ="rightward">
+          <h6>high curiosity</h6>
+        </div>
+      </div>
+    </div>
+    
   </div>
 
   <script src="/js/d3.js"></script>

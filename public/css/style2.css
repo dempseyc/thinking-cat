@@ -236,20 +236,29 @@ h5 {
   font-style: italic;
 }
 
+.chart-nom {
+  display: flex;
+  flex-direction: row;
+  align-content: space-between;
+  width: 100%;
+}
+
+
+.leftward {
+  /* margin: auto; */
+  flex-basis: 1;
+  /* align-self: flex-start; */
+}
+
+.rightward {
+  /* margin: auto; */
+  flex-basis: 2;
+  /* align-self: flex-end; */
+}
+
 h6 {
   font-size: 0.5em;
   line-height: 0.8em;
   font-family: 'Raleway', sans-serif;
 }
-
-.leftward {
-  display: inline-block;
-  
-}
-
-.rightward {
-  display: inline-block;
-
-}
-
 
