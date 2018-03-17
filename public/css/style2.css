@@ -245,15 +245,11 @@ h5 {
 
 
 .leftward {
-  /* margin: auto; */
-  flex-basis: 1;
-  /* align-self: flex-start; */
+  margin: auto;
 }
 
 .rightward {
-  /* margin: auto; */
-  flex-basis: 2;
-  /* align-self: flex-end; */
+  margin: auto;
 }
 
 h6 {
